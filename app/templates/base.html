@@ -1,0 +1,51 @@
+<!-- templates/base.html -->
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}Nikita Kiryukhin - Backend Mentor{% endblock %}</title>
+    <meta name="description" content="{% block description %}Практический ментор по backend: Python, Django, FastAPI.{% endblock %}">
+
+    <!-- Open Graph / Schema (можно переопределять в дочерних шаблонах) -->
+    <meta property="og:title" content="{% block og_title %}Nikita Kiryukhin - Backend Mentor{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Индивидуальные занятия по backend-разработке.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url_root|default('') }}">
+
+    <!-- Fonts & libs (общие) -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.svg') }}">
+
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_classes %}{% endblock %}">
+
+    <!-- глобальные декоративные слои -->
+    <div id="matrix-bg" class="matrix-bg">{% block matrix %}{% endblock %}</div>
+    <div class="scanlines" style="background: url('{{ url_for('static', filename='img/scanlines.png') }}') repeat;"></div>
+
+    <!-- навигация (включаем из includes или переопределяем) -->
+    {% include 'includes/nav.html' %}
+
+    <!-- основное содержимое -->
+    <main id="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- футер -->
+    {% include 'includes/footer.html' %}
+
+    <!-- общие скрипты -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

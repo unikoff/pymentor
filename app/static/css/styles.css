@@ -1,0 +1,864 @@
+:root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: rgba(24, 24, 24, 0.637);
+            --matrix-green: #00ff41;
+            --electric-blue: #00d4ff;
+            --cyber-purple: #8a2be2;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --error: #ff073a;
+            --success: #39ff14;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .neon-glow {
+            text-shadow: 0 0 5px var(--matrix-green), 0 0 10px var(--matrix-green), 0 0 15px var(--matrix-green), 0 0 20px var(--matrix-green);
+        }
+        
+        .cyber-border {
+            border: 1px solid var(--matrix-green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+        
+        .terminal-window {
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 8px;
+            border: 1px solid #333;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .terminal-content {
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 300px;
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--matrix-green);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.4;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .roadmap-block {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .roadmap-block.active {
+            border-color: var(--matrix-green);
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .roadmap-block.locked {
+            opacity: 0.6;
+            background: rgba(176, 176, 176, 0.1);
+            filter: grayscale(0.7);
+        }
+        
+        .roadmap-block.locked::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .roadmap-block:hover {
+            transform: translateY(-5px);
+            opacity: 1; 
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+        }
+        
+        .pipeline-stage {
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .pipeline-stage.active {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+        
+        .pipeline-connection {
+            height: 2px;
+            background: linear-gradient(90deg, var(--matrix-green), var(--electric-blue));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pipeline-connection::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            animation: data-flow 2s infinite;
+        }
+        
+        @keyframes data-flow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .floating-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--matrix-green);
+            border-radius: 12px;
+            padding: 30px;
+            z-index: 1000;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--matrix-green), var(--electric-blue));
+            transition: width 0.3s ease;
+        }
+        
+        .skill-badge {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .skill-badge:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+        
+        .price-card {
+            background: var(--bg-secondary);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .price-card:hover::before {
+            left: 100%;
+        }
+        
+        .price-card:hover {
+            border-color: var(--matrix-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        .price-card.cyber-border {
+            border: 1px solid var(--matrix-green) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.4) !important;
+            background: rgba(26, 26, 26, 0.9) !important;
+        }
+        
+        .price-card.active-card {
+            border: 1px solid var(--matrix-green) !important;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5), 0 0 15px rgba(0, 255, 65, 0.3) !important;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--matrix-green), var(--electric-blue));
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        @media (max-width: 768px) {
+            .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .terminal-content {
+                font-size: 12px;
+                min-height: 250px;
+            }
+        }
+        
+/* 1. Стили для больших экранов (Default/Desktop) */
+.fade-in {
+    opacity: 0;
+    transform: perspective(900px) rotateX(12deg) translateY(50px) translateZ(-40px);
+    transform-origin: top;
+    filter: blur(5px) brightness(1.1);
+    transition:
+        opacity 0.65s ease-out,
+        transform 0.85s cubic-bezier(.22,1,.36,1),
+        filter 0.7s ease-out,
+        drop-shadow 0.7s ease-out;
+    drop-shadow: 0 0 10px rgba(0, 200, 255, 0.25);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: perspective(900px) rotateX(0deg) translateY(0) translateZ(0);
+    filter: blur(0) brightness(1);
+    drop-shadow: 0 0 14px rgba(0, 200, 255, 0.5);
+}
+
+/* ---------------------------------------------------- */
+
+/* 2. ПЕРЕОПРЕДЕЛЕНИЕ для Мобильных (max-width: 767px) */
+@media (max-width: 767px) {
+    /* Начальное состояние для мобильных: только прозрачность */
+    .fade-in {
+        opacity: 0; 
+        /* Сбрасываем все 3D-трансформации и фильтры, установленные выше */
+        transform: none; 
+        filter: none;
+        drop-shadow: none;
+        /* Переход только для прозрачности */
+        transition: opacity 0.6s ease-out;
+    }
+
+    /* Конечное состояние для мобильных: полная видимость */
+    .fade-in.visible {
+        opacity: 1;
+        /* Убеждаемся, что трансформации остаются сброшенными */
+        transform: none; 
+        filter: none;
+        drop-shadow: none;
+    }
+}
+
+
+        
+        .text-decryption {
+            opacity: 0;
+            display: block;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+            word-spacing: -0.05em;
+        }
+        
+        .text-decryption.visible {
+            opacity: 1;
+        }
+        
+        .text-decryption .char {
+            opacity: 0;
+            animation: decrypt 0.1s ease forwards;
+            display: inline-block;
+            min-width: 0;
+            transform-origin: center;
+        }
+        
+        @keyframes decrypt {
+            0% {
+                opacity: 0;
+                transform: scaleX(0);
+                color: var(--matrix-green);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleX(1);
+                color: var(--text-primary);
+            }
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: var(--matrix-green);
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: var(--electric-blue);
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% { transform: translate(0); }
+            15%, 49% { transform: translate(-2px, 2px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% { transform: translate(0); }
+            21%, 62% { transform: translate(2px, -2px); }
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hero-terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 255, 65, 0.1), transparent);
+            pointer-events: none;
+        }
+        
+        .stats-card {
+            background: rgba(26, 26, 26, 0.8);
+            /* Более заметная тёмно-зелёная начальная рамка (видна на тёмном фоне),
+               но всё ещё слабее активной переменной */
+            border: 1px solid rgba(0, 170, 90, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            /* анимируем только нужные свойства */
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            -webkit-tap-highlight-color: transparent; /* убирает синюю подсветку на мобильных */
+            /* лёгкое начальное свечение, чтобы рамка была заметнее на тёмном фоне */
+            box-shadow: 0 0 8px rgba(0, 170, 90, 0.06);
+        }
+        
+        .stats-card:hover {
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Убираем браузерную синюю рамку при focus/active (а также задаём fallback для доступности при желании) */
+        .stats-card:focus,
+        .stats-card:active {
+            /* Для доступности убираем системный outline, но показываем кастомную индикацию */
+            outline: none;
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 18px rgba(0, 255, 65, 0.12);
+            transform: translateY(-5px);
+        }
+
+        /* Общие правила для интерактивных элементов: мягкая зелёная индикация вместо синей рамки */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 255, 65, 0.06);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--matrix-green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .pipeline-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+        }
+        
+        .pipeline-stage {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid #333;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .pipeline-stage::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: var(--matrix-green);
+            transform: translateY(-50%);
+        }
+        
+        .pipeline-stage:last-child::after {
+            display: none;
+        }
+        
+        .voice-recorder {
+            border: 2px dashed var(--electric-blue);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .voice-recorder:hover {
+            border-color: var(--matrix-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+        
+        .voice-recorder.recording {
+            border-color: var(--error);
+            background: rgba(255, 7, 58, 0.1);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .waveform {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            height: 40px;
+            margin: 10px 0;
+        }
+        
+        .waveform-bar {
+            width: 3px;
+            background: var(--matrix-green);
+            border-radius: 2px;
+            animation: waveform 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes waveform {
+            0% { height: 10px; }
+            100% { height: 30px; }
+        }
+
+
+
+.about-window {
+    background: rgba(10, 10, 10, 0.85);       /* чёрный полупрозрачный фон */
+    border: 1px solid rgba(0, 255, 65, 0.6); /* зелёная граница */
+    border-radius: 16px;
+    padding: 30px 40px;                       /* меньше сверху/снизу, оставляем боковые отступы */
+    margin: 20px auto;                        /* уменьшены внешние отступы */
+    max-width: 1200px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); /* лёгкое свечение */
+    line-height: 1.6;                         /* для удобочитаемости текста */
+}
+
+
+
+
+
+/* Custom CSS for the new Lesson Flow */
+
+.lesson-flow-section {
+    /* Обеспечивает, что SVG растягивается и занимает всю высоту секции */
+    position: relative;
+    min-height: 1200px; /* Минимальная высота, чтобы SVG не сжимался */
+}
+
+/* Переопределение, если есть, чтобы SVG не мешал прокрутке */
+#lesson-flow-path-svg {
+    position: absolute;
+    z-index: 5;
+    /* Убедитесь, что он занимает всю площадь секции */
+    height: 100%;
+    width: 100%;
+}
+
+/* Визуальная настройка ползунка */
+#flow-cursor {
+    transition: fill 0.3s ease; /* Плавное изменение цвета, если захотите */
+}
+
+/* Дополнительные стили для анимации входа (если вы их не использовали ранее) */
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-left.visible,
+.fade-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Дополнительные стили для фиксации SVG-пути при прокрутке */
+.lesson-flow-section .svg-fixed {
+    position: fixed;
+    top: 50%; /* Привязать верхнюю часть SVG к середине экрана */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрировать SVG по обеим осям */
+    height: auto; /* Позволяет SVG масштабироваться по высоте */
+    width: 1000px; /* Фиксированная ширина, как в ViewBox */
+    z-index: 10;
+}
+
+
+
+
+/* --- КРИТИЧЕСКИ ИСПРАВЛЕННЫЙ СТИЛЬ: ТЕХНО-ЗАГОЛОВКИ ДЛЯ ЭТАПОВ --- */
+
+.step-number {
+    /* Основные стили для номера (1., 2., 3., 4.) */
+    font-family: 'JetBrains Mono', monospace; 
+    
+    /* 🚀 НОВЫЙ ОГРОМНЫЙ РАЗМЕР: 4rem (примерно 64px) */
+    font-size: 4rem; 
+    
+    font-weight: 800;
+    margin-right: 1.5rem; 
+    padding: 0.25rem 0.75rem; 
+    
+    /* Используем инлайновую переменную --matrix-green для динамического цвета */
+    background-color: color-mix(in srgb, var(--matrix-green) 20%, transparent); 
+    border: 3px solid var(--matrix-green); 
+    
+    /* Используем var(--matrix-green) для свечения */
+    box-shadow: 0 0 15px 5px var(--matrix-green); 
+    
+    /* Эффект скошенных углов (Cyber-Bevel) */
+    clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%);
+    display: inline-block;
+    color: var(--matrix-green);
+    line-height: 1; 
+}
+
+/* Мобильный стиль: полностью непрозрачный тёмно-серый фон для текста (только для телефонов) */
+@media (max-width: 768px) {
+    /* 1. Стили фона, отступов, радиуса и центрирования перенесены на общий оберточный элемент */
+    .lesson-text-wrapper {
+        background-color: #202020;
+        padding: 12px 16px;
+        border-radius: 12px;
+    }
+
+    /* 2. Для h3 и p нужно только сбросить внутренние отступы/поля, чтобы они не разрывали общий фон */
+    .lesson-step h3,
+    .lesson-step p {
+        margin: 0; /* Убираем стандартные внешние поля, чтобы не было разрывов */
+        padding: 0; /* Убираем внутренние отступы, если они были */
+        background-color: transparent; /* Обязательно убираем старый фон */
+    }
+}
+.step-title-text {
+    /* Стиль для основного текста заголовка */
+    
+    /* Размер будет задан классом text-5xl в HTML, но мы можем его увеличить, если нужно */
+    font-size: 3rem; /* Дополнительно увеличиваем размер для акцента */
+    
+    font-weight: 700;
+    display: inline;
+    line-height: 1.1;
+}
+
+.lesson-flow-section h3 {
+    /* responsive, но явно больше */
+    font-size: clamp(1.875rem, 2.2vw + 1.2rem, 3rem) !important; /* ~30–48px в зависимости от ширины */
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    /* сохраняем текущие визуальные свойства (цветы/иконки) */
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ============================================= */
+/* CAROUSEL STYLES FOR PRICING CARDS (MOBILE) */
+/* ============================================= */
+
+.pricing-carousel-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .pricing-carousel-wrapper {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+}
+
+.pricing-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    width: 100%;
+}
+
+/* На мобильных (max-width: 768px): превращаем в горизонтальный скролл */
+@media (max-width: 768px) {
+    .pricing-carousel {
+        grid-template-columns: repeat(3, minmax(280px, 1fr));
+        gap: 50px;
+        /* Включаем горизонтальный скролл */
+        overflow-x: auto;
+        /* ✅ ИСПРАВЛЕНИЕ: overflow: visible для элементов внутри, чтобы масштабирование не обрезалось */
+        overflow-y: visible;
+        scroll-behavior: smooth;
+        /* Скрываем полосу скролла, но оставляем возможность скроллить */
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 20px 0;
+        margin: 0;
+        /* Добавляем вертикальное пространство для свечения карточек */
+        padding-top: 40px;
+        padding-bottom: 40px;
+        width: 100%;
+        /* Добавляем горизонтальный padding для центровки карточек */
+        padding-left: calc((100vw - 280px) / 2);
+        padding-right: calc((100vw - 280px) / 2);
+    }
+
+    .pricing-carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Добавляем горизонтальный padding для карусели */
+    .pricing-carousel-wrapper {
+        padding: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .pricing-carousel {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Динамичный gap для разных размеров экрана - для лучшей центровки 1 и 3 карточек */
+@media (max-width: 480px) {
+    .pricing-carousel {
+        gap: 45px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 600px) {
+    .pricing-carousel {
+        gap: 50px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+    .pricing-carousel {
+        gap: 55px;
+    }
+}
+
+/* Точки навигации для карусели (мобильные) */
+.carousel-dots {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .carousel-dots {
+        display: flex;
+    }
+
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 255, 65, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+        background: var(--matrix-green);
+        width: 24px;
+        border-radius: 4px;
+    }
+}
+
