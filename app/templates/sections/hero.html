@@ -1,76 +1,129 @@
-<section class="min-h-screen flex items-center pt-20 relative">
-    <div class="container">
-        <div class="text-center mb-12 fade-in">
-            <h1 class="text-4xl md:text-6xl font-mono font-bold mb-6 neon-glow text-decryption">
-                Backend-обучение:<br>Скилы, формирующие будущее
+<section id="hero" class="hero-section section" aria-labelledby="hero-title">
+    <div class="container hero-layout">
+        <div class="hero-copy fade-in">
+            <span class="section-kicker">Персональный backend-менторинг</span>
+            <h1 id="hero-title" class="hero-title">
+                Backend без хаоса: от первых API до уверенной архитектуры
             </h1>
-            <p class="text-xl text-gray-300 mb-8">
-                Python • Flask • Django • FastAPI • PostgreSQL • MongoDB • Testing • DevOps
+            <p class="hero-lead">
+                Индивидуальная программа по Python, Django, FastAPI, базам данных и проектному мышлению.
+                Вместо абстрактной теории — ревью кода, практика и понятный маршрут роста.
             </p>
-            <button class="btn-primary text-lg px-8 py-4" onclick="openContactForm()">
-                Начать обучение
-            </button>
+
+            <div class="hero-actions">
+                <button class="btn-primary btn-large" type="button" onclick="openContactForm()">
+                    Получить план обучения
+                </button>
+                <a class="btn-secondary btn-large" href="#process">Как проходят занятия</a>
+            </div>
+
+            <div class="hero-proof" aria-label="Ключевые преимущества">
+                <div>
+                    <strong>1:1</strong>
+                    <span>формат без группы</span>
+                </div>
+                <div>
+                    <strong>Code review</strong>
+                    <span>на каждом этапе</span>
+                </div>
+                <div>
+                    <strong>Portfolio</strong>
+                    <span>практические проекты</span>
+                </div>
+            </div>
         </div>
 
-        <div class="hero-terminal fade-in">
-            <div class="terminal-header">
-                <div class="terminal-button bg-red-500" aria-hidden="true"></div>
-                <div class="terminal-button bg-yellow-500" aria-hidden="true"></div>
-                <div class="terminal-button bg-green-500" aria-hidden="true"></div>
-                <span class="ml-4 text-sm text-gray-400">pymentor.py</span>
-            </div>
-            <div class="terminal-content">
-                <div id="terminal-output"></div>
-                <span class="typing-cursor"></span>
+        <div class="hero-panel fade-in" aria-label="Пример программы">
+            <div class="mentor-card">
+                <div class="mentor-card__top">
+                    <span class="mentor-card__status">Открыт набор</span>
+                    <span class="mentor-card__tag">Python / Backend</span>
+                </div>
+                <div class="mentor-card__identity">
+                    <img src="{{ url_for('static', filename='img/ava.jpg') }}" alt="Nikita Kiryukhin">
+                    <div>
+                        <span>Ментор</span>
+                        <strong>Nikita Kiryukhin</strong>
+                    </div>
+                </div>
+                <div class="mentor-card__route">
+                    <div>
+                        <span>01</span>
+                        <p>Диагностика уровня и цели</p>
+                    </div>
+                    <div>
+                        <span>02</span>
+                        <p>Персональная дорожная карта</p>
+                    </div>
+                    <div>
+                        <span>03</span>
+                        <p>Практика, ревью и портфолио</p>
+                    </div>
+                </div>
+                <div class="mentor-card__stack" aria-label="Технологии">
+                    <span>Python</span>
+                    <span>FastAPI</span>
+                    <span>Django</span>
+                    <span>PostgreSQL</span>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<div id="form-overlay" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden z-40" onclick="closeContactForm()"></div>
+<div id="form-overlay" class="modal-overlay hidden" onclick="closeContactForm()"></div>
 
-<div id="contact-form" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-6 bg-gray-900 border border-green-500 shadow-neon rounded-xl hidden z-50">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold neon-glow">Начните свой путь в Backend</h2>
-        <button onclick="closeContactForm()" class="text-gray-400 hover:text-white transition-colors text-2xl">&times;</button>
+<div id="contact-form" class="contact-modal hidden" role="dialog" aria-modal="true" aria-labelledby="contact-form-title">
+    <div class="contact-modal__header">
+        <div>
+            <span class="section-kicker">Заявка на консультацию</span>
+            <h2 id="contact-form-title">Начните свой путь в Backend</h2>
+        </div>
+        <button onclick="closeContactForm()" class="contact-modal__close" type="button" aria-label="Закрыть форму">&times;</button>
     </div>
-    
-    <div class="mb-6 h-2 bg-gray-700 rounded-full">
-        <div id="progress-fill" class="h-2 bg-green-500 rounded-full transition-all duration-300" style="width: 0%;"></div>
+
+    <div class="contact-progress" aria-hidden="true">
+        <div id="progress-fill" style="width: 0%;"></div>
     </div>
 
-    <form id="mentorship-form">
-
+    <form id="mentorship-form" class="contact-form">
         <div class="form-step" data-step="1">
-            <h3 class="text-xl mb-4">Шаг 1: Контактные данные</h3>
-            
-            <div class="mb-4">
-                <label for="name" class="block text-gray-300 mb-2">Ваше Имя</label>
-                <input type="text" id="name" name="Имя" required class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-green-500 focus:outline-none">
+            <h3>Шаг 1: Контактные данные</h3>
+
+            <div class="form-field">
+                <label for="name">Ваше Имя</label>
+                <input type="text" id="name" name="name" required autocomplete="name">
             </div>
-            
-            <div class="mb-4">
-                <label for="contact" class="block text-gray-300 mb-2">Удобный контакт (Telegram/Email)</label>
-                <input type="text" id="contact" name="Контакты" required class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-green-500 focus:outline-none">
+
+            <div class="form-field">
+                <label for="contact">Телефон или Telegram (username)</label>
+                <input
+                    type="text"
+                    id="contact"
+                    name="contact"
+                    required
+                    autocomplete="tel"
+                    placeholder="+7... или @username"
+                >
             </div>
         </div>
 
         <div class="form-step hidden" data-step="2">
-            <h3 class="text-xl mb-4">Шаг 2: Уровень и Цель</h3>
-            
-            <div class="mb-4">
-                <label for="level" class="block text-gray-300 mb-2">Ваш текущий уровень <span id="level-emoji" class="ml-2">😊</span></label>
-                <select id="level" name="Уровень" required class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-green-500 focus:outline-none appearance-none">
+            <h3>Шаг 2: Уровень и Цель</h3>
+
+            <div class="form-field">
+                <label for="level">Ваш текущий уровень <span id="level-emoji">😊</span></label>
+                <select id="level" name="level" required>
                     <option value="Новичок (не знаю ничего)">Новичок (не знаю ничего)</option>
                     <option value="Начинающий (знаю только основы)">Начинающий (знаю только основы)</option>
                     <option value="Средний (могу писать простые API)">Средний (могу писать простые API)</option>
                     <option value="Продвинутый (работаю в IT, нужно углубить знания)">Продвинутый (работаю в IT, нужно углубить знания)</option>
                 </select>
             </div>
-            
-            <div class="mb-4">
-                <label for="goal" class="block text-gray-300 mb-2">Основная цель обучения <span id="goal-emoji" class="ml-2">💼</span></label>
-                <select id="goal" name="Цель" required class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-green-500 focus:outline-none appearance-none">
+
+            <div class="form-field">
+                <label for="goal">Основная цель обучения <span id="goal-emoji">💼</span></label>
+                <select id="goal" name="goal" required>
                     <option value="профессия с 0">Изучить Backend с нуля</option>
                     <option value="Сменить профессию на Backend-разработчика">Сменить профессию на Backend-разработчика</option>
                     <option value="Запустить личный проект">Запустить личный проект</option>
@@ -81,46 +134,46 @@
         </div>
 
         <div class="form-step hidden" data-step="3">
-            <h3 class="text-xl mb-4">Шаг 3: Что я должен знать?</h3>
-            
-            <div class="mb-4">
-                <label for="message" class="block text-gray-300 mb-2">Опишите свой запрос (или прикрепите голосовое сообщение)</label>
-                <textarea id="message" name="Сообщение" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-green-500 focus:outline-none"></textarea>
+            <h3>Шаг 3: Что я должен знать?</h3>
+
+            <div class="form-field">
+                <label for="message">Опишите свой запрос (или прикрепите голосовое сообщение)</label>
+                <textarea id="message" name="message" rows="4"></textarea>
             </div>
-            
-            <div class="mb-4">
-                <button type="button" id="voice-recorder" class="btn-secondary w-full py-2">
+
+            <div class="form-field">
+                <button type="button" id="voice-recorder" class="btn-secondary voice-button">
                     <span class="record-text">🎙️ Записать аудио (до 20 сек)</span>
                     <span class="recording-text hidden">🔴 Идет запись...</span>
                 </button>
-                <div id="waveform" class="mt-2 h-4 bg-gray-700 rounded overflow-hidden hidden">
+                <div id="waveform" class="waveform hidden">
                     <div class="waveform-bar"></div>
                     <div class="waveform-bar"></div>
-                    </div>
-                <audio id="voice-recording" controls class="mt-3 w-full hidden"></audio>
+                </div>
+                <audio id="voice-recording" controls class="voice-preview hidden"></audio>
             </div>
         </div>
 
         <div class="form-step hidden" data-step="4">
-            <h3 class="text-xl mb-4 text-center">Шаг 4: Подтвердите отправку</h3>
-            <p class="text-gray-300 mb-6 text-center">
+            <h3>Шаг 4: Подтвердите отправку</h3>
+            <p class="form-note">
                 Проверьте введенные данные. Нажимая "Отправить", вы соглашаетесь с тем, что Никита свяжется с вами для обсуждения деталей.
             </p>
-            <div class="mb-4">
-                <input type="checkbox" id="agree" required class="mr-2 accent-green-500">
-                <label for="agree" class="text-gray-300">Я согласен(а) на обработку данных</label>
-            </div>
-            <button type="submit" class="btn-primary w-full py-3">
-                🚀 Отправить заявку и Начать
+            <label class="form-checkbox" for="agree">
+                <input type="checkbox" id="agree" required>
+                <span>Я согласен(а) на обработку данных</span>
+            </label>
+            <button type="submit" class="btn-primary btn-wide">
+                Отправить заявку
             </button>
         </div>
 
-        <div class="flex justify-between mt-6">
-            <button type="button" id="prev-btn" class="btn-secondary px-4 py-2 hidden">
-                ← Назад
+        <div class="form-actions">
+            <button type="button" id="prev-btn" class="btn-secondary hidden">
+                Назад
             </button>
-            <button type="button" id="next-btn" class="btn-primary px-4 py-2">
-                Далее →
+            <button type="button" id="next-btn" class="btn-primary">
+                Далее
             </button>
         </div>
     </form>

@@ -1,8 +1,8 @@
 import sys
 import os
 
-# ИСПРАВЛЕННЫЙ ПУТЬ: Заменено 'flaskenv' на 'venv'
-INTERP = os.path.expanduser("/var/www/u3343606/data/www/pymentor.ru/venv/bin/python")
+# ИСПРАВЛЕННЫЙ ПУТЬ: используется виртуальное окружение '.venv'
+INTERP = os.path.expanduser("/var/www/u3343606/data/www/pymentor.ru/.venv/bin/python")
 if sys.executable != INTERP:
    os.execl(INTERP, INTERP, *sys.argv)
 

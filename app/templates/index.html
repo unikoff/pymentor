@@ -4,11 +4,6 @@
 {% block title %}Nikita Kiryukhin — Backend Mentor | Python • Django • FastAPI{% endblock %}
 {% block description %}Индивидуальные занятия по backend: Python, Django, FastAPI, PostgreSQL.{% endblock %}
 
-{% block head_extra %}
-    <!-- дополнительные библиотеки только для этой страницы -->
-    <link href="https://unpkg.com/splitting@1.0.6/dist/splitting.css" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     <!-- секции разбиты по файлам в папке sections -->
     {% include 'sections/hero.html' %}
@@ -18,15 +13,4 @@
     {% include 'sections/process.html' %}
     {% include 'sections/pricing.html' %}
     <!-- {% include 'sections/contact.html' %} -->
-{% endblock %}
-
-{% block scripts %}
-    <!-- скрипты специфичные для index -->
-    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // инициализация Splitting или других эффектов
-            if (window.Splitting) Splitting();
-        });
-    </script>
 {% endblock %}

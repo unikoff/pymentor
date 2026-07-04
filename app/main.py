@@ -1,71 +1,97 @@
-from flask import Flask, render_template, jsonify, request
-import requests
-import io
+import logging
+import os
+from pathlib import Path
 
-# КОНФИГУРАЦИЯ TELEGRAM
-TELEGRAM_BOT_TOKEN = "ЗАМЕНИТЕ_НА_ВАШ_ТОКЕН_БОТА"  
-TELEGRAM_CHAT_ID = "ЗАМЕНИТЕ_НА_ВАШ_CHAT_ID"  
+from flask import Flask, jsonify, render_template, request
 
-def send_telegram_message(text):
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID or TELEGRAM_BOT_TOKEN.startswith("ЗАМЕНИТЕ"):
-        print("❌ ОШИБКА: TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не настроены. Отправка пропущена.")
-        return False
+if __package__:
+    from app.lead_delivery import (
+        LeadDeliveryError,
+        deliver_lead,
+        is_lead_delivery_configured,
+    )
+    from app.lead_form import get_missing_required_fields
+else:
+    from lead_delivery import (
+        LeadDeliveryError,
+        deliver_lead,
+        is_lead_delivery_configured,
+    )
+    from lead_form import get_missing_required_fields
 
-    api_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    
-    payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': text,
-        'parse_mode': 'Markdown' 
-    }
 
-    try:
-        response = requests.post(api_url, data=payload)
-        response.raise_for_status() 
-        
-        if response.json().get("ok"):
-            print("✅ Уведомление в Telegram отправлено успешно.")
-            return True
-        else:
-            print(f"❌ Ошибка API Telegram при отправке текста: {response.text}")
-            return False
+LOGGER = logging.getLogger(__name__)
+MAX_FORM_BYTES = 4 * 1024 * 1024
+MAX_AUDIO_BYTES = 3 * 1024 * 1024
+ALLOWED_AUDIO_MIME_TYPES = {
+    "audio/mp4",
+    "audio/mpeg",
+    "audio/ogg",
+    "audio/wav",
+    "audio/webm",
+}
 
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Ошибка отправки запроса в Telegram (текст): {e}")
-        return False
 
-def send_telegram_audio(audio_stream):
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID or TELEGRAM_BOT_TOKEN.startswith("ЗАМЕНИТЕ"):
-        return False
+def load_local_env():
+    project_root = Path(__file__).resolve().parent.parent
+    candidates = (project_root / ".env", Path.cwd() / ".env")
 
-    api_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendAudio"
-    
-    files = {
-        'audio': ('voice_recording.wav', audio_stream, 'audio/wav')
-    }
-    
-    payload = {
-        'chat_id': TELEGRAM_CHAT_ID
-    }
+    for env_path in dict.fromkeys(candidates):
+        if not env_path.exists():
+            continue
 
-    try:
-        response = requests.post(api_url, data=payload, files=files)
-        response.raise_for_status() 
-        
-        if response.json().get("ok"):
-            print("✅ Аудиофайл в Telegram отправлен успешно.")
-            return True
-        else:
-            print(f"❌ Ошибка API Telegram при отправке аудио: {response.text}")
-            return False
+        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
 
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Ошибка отправки запроса в Telegram (аудио): {e}")
-        return False
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip("\"'")
+            if key:
+                os.environ.setdefault(key, value)
 
-# FLASK ПРИЛОЖЕНИЕ
+
+def get_stream_size(file_storage):
+    stream = file_storage.stream
+    current_position = stream.tell()
+    stream.seek(0, os.SEEK_END)
+    size = stream.tell()
+    stream.seek(current_position)
+    return size
+
+
+def validate_audio_file(audio_file):
+    if not audio_file:
+        return None
+
+    if audio_file.mimetype not in ALLOWED_AUDIO_MIME_TYPES:
+        return "Поддерживаются только аудиофайлы."
+
+    if get_stream_size(audio_file) > MAX_AUDIO_BYTES:
+        return "Голосовое сообщение слишком большое."
+
+    return None
+
+
 def create_app():
+    load_local_env()
     app = Flask(__name__, static_folder='static', template_folder='templates')
+    app.config["MAX_CONTENT_LENGTH"] = MAX_FORM_BYTES
+    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+    @app.context_processor
+    def inject_asset_version():
+        def asset_version(filename):
+            asset_path = Path(app.static_folder) / filename
+
+            try:
+                return str(int(asset_path.stat().st_mtime))
+            except OSError:
+                return "1"
+
+        return {"asset_version": asset_version}
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
@@ -74,30 +100,44 @@ def create_app():
 
     @app.route('/api/form', methods=['POST'])
     def form_submit():
-        data = request.form.to_dict() 
-        audio_file = request.files.get('voice_message') 
-        
-        print(f"✅ Получены текстовые данные формы: {data}")
+        if not is_lead_delivery_configured():
+            return jsonify({
+                "ok": False,
+                "message": "Форма временно недоступна: не настроена отправка заявок.",
+            }), 503
 
-        message = "✨*НОВАЯ ЗАЯВКА НА МЕНТОРСТВО*✨\n\n"
-        
-        for key, value in data.items():
-            title = key.replace('_', ' ').title()
-            message += f"*{title}:* `{value}`\n"
-            
-        if audio_file:
-            message += "\n*Голосовое сообщение:* _(файл будет отправлен отдельным сообщением)_"
+        data = request.form.to_dict()
+        audio_file = request.files.get("voice_message")
+        audio_error = validate_audio_file(audio_file)
 
-        telegram_text_sent = send_telegram_message(message)
-        
-        telegram_audio_sent = True
-        if audio_file:
-            telegram_audio_sent = send_telegram_audio(audio_file.stream)
-        
-        if telegram_text_sent and telegram_audio_sent:
-            return jsonify({"ok": True, "message": "Форма успешно принята и отправлена в Telegram"}), 201
-        else:
-            return jsonify({"ok": False, "message": "Форма принята, но произошла ошибка при отправке в Telegram (Проверьте токены или файл!)"}), 500 
+        if audio_error:
+            return jsonify({"ok": False, "message": audio_error}), 400
+
+        missing_fields = get_missing_required_fields(data)
+        if missing_fields:
+            return jsonify({
+                "ok": False,
+                "message": f"Заполните обязательные поля: {', '.join(missing_fields)}.",
+            }), 400
+
+        try:
+            delivered = deliver_lead(data, audio_file)
+        except LeadDeliveryError:
+            LOGGER.exception("Lead delivery failed.")
+            return jsonify({
+                "ok": False,
+                "message": "Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую.",
+            }), 502
+
+        if delivered:
+            LOGGER.info("Mentorship lead delivered.")
+            return jsonify({"ok": True, "message": "Форма успешно отправлена."}), 201
+
+        LOGGER.warning("Lead delivery returned an unsuccessful response.")
+        return jsonify({
+            "ok": False,
+            "message": "Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую.",
+        }), 502
 
     @app.route('/api/data', methods=['GET'])
     def get_data():
@@ -106,4 +146,8 @@ def create_app():
     return app
 
 if __name__ == "__main__":
-    create_app().run(debug=True, host='0.0.0.0', port=8000)
+    load_local_env()
+    debug = os.environ.get("FLASK_DEBUG", "").lower() in {"1", "true", "yes", "on"}
+    host = os.environ.get("HOST", "127.0.0.1")
+    port = int(os.environ.get("PORT", "8000"))
+    create_app().run(debug=debug, host=host, port=port)

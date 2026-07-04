@@ -1,82 +1,73 @@
-<section id="process" class="lesson-flow-section section relative py-20 overflow-hidden" style="background: var(--bg-secondary);">
-    <div class="container">
-        <h2 class="text-4xl font-mono font-bold text-center mb-16 neon-glow">Как проходит одно занятие</h2>
+<section id="process" class="section process-section process-redesign fade-in" aria-labelledby="process-title">
+    <div class="container process-redesign__shell">
+        <div class="process-redesign__intro">
+            <div>
+                <span class="section-kicker">Процесс</span>
+                <h2 id="process-title" class="process-redesign__title">Занятие как рабочий спринт</h2>
+                <p class="process-redesign__lead">
+                    Не лекция и не пересказ документации. Каждый созвон собирается вокруг одной
+                    практической задачи: найти ошибку, разобрать принцип, написать код и выйти
+                    с понятным следующим шагом.
+                </p>
+            </div>
 
-        <svg id="lesson-flow-path-svg" class="absolute w-full h-full left-0 top-0 pointer-events-none" 
-             viewBox="0 0 1000 1200" preserveAspectRatio="xMidYMid slice">
-            
-            <path id="lesson-flow-path" fill="none" stroke="url(#gradient-path)" stroke-width="4" stroke-dasharray="10, 10" stroke-linecap="round" 
-                  d="M 500 100 
-                     C 500 300, 400 400, 500 500 
-                     C 600 600, 400 800, 500 900
-                     C 600 1000, 350 1100, 500 1150" />
-            
-            <circle id="flow-cursor" r="15" fill="#00FF00" filter="url(#glow)" style="transform-origin: center;" />
-            
-            <defs>
-                <linearGradient id="gradient-path" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#00ff41;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
-                </linearGradient>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-        </svg>
-        
-        <div class="relative z-10 space-y-48 md:space-y-64">
-            
-        <!-- ШАГ 1: Текст СЛЕВА (на ПК) -->
-<div id="step-1" class="lesson-step flex flex-col md:flex-row items-center gap-10 md:gap-20 pt-20">
-    <div class="md:w-1/2 order-2 md:order-1 fade-in-left lesson-text-wrapper text-center md:text-left">
-        <h3 class="mb-6 text-green-400 flex items-center">1. Ревью кода и обратная связь</h3>
-        <p class="text-lg text-gray-300">Начинаем с тщательного разбора вашего домашнего задания. Я даю подробный фидбэк по архитектуре, стилю и оптимальности кода. Это критически важный этап, который сразу выявляет и исправляет ошибки мышления.</p>
-    </div>
-    <div class="md:w-1/2 order-1 md:order-2 fade-in-right">
-        <img src="{{ url_for('static', filename='img/1img.png') }}" alt="Скриншот ревью кода" class="rounded-lg shadow-2xl border border-gray-700 transition-all duration-500 hover:scale-[1.02]"/>
-    </div>
-</div>
+            <div class="process-redesign__metrics" aria-label="Формат занятия">
+                <div>
+                    <strong>60-90</strong>
+                    <span>минут фокуса</span>
+                </div>
+                <div>
+                    <strong>1</strong>
+                    <span>главная задача</span>
+                </div>
+                <div>
+                    <strong>24ч</strong>
+                    <span>план после созвона</span>
+                </div>
+            </div>
+        </div>
 
-<!-- ШАГ 2: Текст СПРАВА (на ПК) -->
-<div id="step-2" class="lesson-step flex flex-col md:flex-row-reverse items-center gap-10 md:gap-20">
-    <!-- Классы text-right заменены на text-center md:text-right, добавлен lesson-text-wrapper -->
-    <div class="md:w-1/2 order-2 md:order-1 fade-in-right lesson-text-wrapper text-center md:text-right">
-        <h3 class="mb-6 text-green-400 flex items-center">2. Глубокое погружение в теорию</h3>
-        <p class="text-lg text-gray-300">Теоретический блок фокусируется на том, что действительно нужно в работе. Мы разбираем паттерны проектирования, принципы работы баз данных и особенности фреймворков. Только нужная и актуальная информация.</p>
-    </div>
-    <div class="md:w-1/2 order-1 md:order-2 fade-in-left">
-        <img src="{{ url_for('static', filename='img/2img.png') }}" alt="Изучение теории" class="rounded-lg shadow-2xl border border-gray-700 transition-all duration-500 hover:scale-[1.02]"/>
-    </div>
-</div>
+        <div class="process-redesign__map" aria-label="Структура занятия">
+            <div class="process-redesign__map-head">
+                <span>session loop</span>
+                <span>code → theory → practice → plan</span>
+            </div>
 
-<!-- ШАГ 3: Текст СЛЕВА (на ПК) -->
-<div id="step-3" class="lesson-step flex flex-col md:flex-row items-center gap-10 md:gap-20">
-    <!-- Добавлены lesson-text-wrapper и классы выравнивания -->
-    <div class="md:w-1/2 order-2 md:order-1 fade-in-left lesson-text-wrapper text-center md:text-left">
-        <h3 class="mb-6 text-green-400 flex items-center">3. Практическая сессия</h3>
-        <p class="text-lg text-gray-300">Сразу после теории — практика. Вы пишете код под моим наблюдением, а я тут же направляю вас, помогая избежать типичных ошибок. Это самый быстрый способ закрепить материал.</p>
-    </div>
-    <div class="md:w-1/2 order-1 md:order-2 fade-in-right">
-        <img src="{{ url_for('static', filename='img/3img.png') }}" alt="Практика и лайв-кодинг" class="rounded-lg shadow-2xl border border-gray-700 transition-all duration-500 hover:scale-[1.02]"/>
-    </div>
-</div>
+            <article class="process-stage">
+                <span class="process-stage__number">01</span>
+                <div class="process-stage__content">
+                    <h3>Разбираем код</h3>
+                    <p>Смотрим домашнее задание, архитектуру, читаемость и ошибки мышления.</p>
+                </div>
+                <span class="process-stage__result">список правок</span>
+            </article>
 
-<!-- ШАГ 4: Текст СПРАВА (на ПК) -->
-<div id="step-4" class="lesson-step flex flex-col md:flex-row-reverse items-center gap-10 md:gap-20 pb-20">
-    <!-- Классы text-right заменены на text-center md:text-right, добавлен lesson-text-wrapper -->
-    <div class="md:w-1/2 order-2 md:order-1 fade-in-right lesson-text-wrapper text-center md:text-right">
-        <h3 class="mb-6 text-green-400 flex items-center">4. Обсуждение итогов и подготовка плана</h3>
-        <p class="text-lg text-gray-300">Завершаем занятие подведением итогов: что усвоено, что требует доработки. Вы получаете четкий план действий и домашнее задание до следующей встречи. Вы всегда знаете, куда двигаться дальше.</p>
-    </div>
-    <div class="md:w-1/2 order-1 md:order-2 fade-in-left">
-        <img src="{{ url_for('static', filename='img/4img.png') }}" alt="Обсуждение и подведение итогов" class="rounded-lg shadow-2xl border border-gray-700 transition-all duration-500 hover:scale-[1.02]"/>
-    </div>
-</div>
+            <article class="process-stage">
+                <span class="process-stage__number">02</span>
+                <div class="process-stage__content">
+                    <h3>Закрываем теорию</h3>
+                    <p>Берём только то, что нужно для текущей задачи: БД, API, паттерны, фреймворки.</p>
+                </div>
+                <span class="process-stage__result">ясная модель</span>
+            </article>
 
+            <article class="process-stage">
+                <span class="process-stage__number">03</span>
+                <div class="process-stage__content">
+                    <h3>Пишем решение</h3>
+                    <p>Кодим вместе, сразу исправляем ошибки и закрепляем подход на мини-задаче.</p>
+                </div>
+                <span class="process-stage__result">рабочий навык</span>
+            </article>
+
+            <article class="process-stage">
+                <span class="process-stage__number">04</span>
+                <div class="process-stage__content">
+                    <h3>Фиксируем маршрут</h3>
+                    <p>Оставляем выводы, доработки и домашнее задание до следующего созвона.</p>
+                </div>
+                <span class="process-stage__result">следующий шаг</span>
+            </article>
         </div>
     </div>
 </section>

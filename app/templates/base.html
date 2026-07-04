@@ -4,6 +4,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0f1210">
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const startedAt = Date.now();
+            const minVisibleMs = 650;
+
+            root.classList.add('is-loading');
+
+            const finish = function () {
+                const remaining = Math.max(0, minVisibleMs - (Date.now() - startedAt));
+
+                setTimeout(function () {
+                    root.classList.remove('is-loading');
+                    root.classList.add('is-loaded');
+                }, remaining);
+            };
+
+            if (document.readyState === 'complete') {
+                finish();
+            } else {
+                window.addEventListener('load', finish, { once: true });
+            }
+
+            setTimeout(function () {
+                root.classList.remove('is-loading');
+                root.classList.add('is-loaded');
+            }, 10000);
+        })();
+    </script>
     <title>{% block title %}Nikita Kiryukhin - Backend Mentor{% endblock %}</title>
     <meta name="description" content="{% block description %}Практический ментор по backend: Python, Django, FastAPI.{% endblock %}">
 
@@ -14,20 +44,39 @@
     <meta property="og:url" content="{{ request.url_root|default('') }}">
 
     <!-- Fonts & libs (общие) -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v=asset_version('css/styles.css')) }}">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.svg') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg', v=asset_version('img/favicon.svg')) }}" type="image/svg+xml" sizes="any">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.svg', v=asset_version('img/favicon.svg')) }}">
 
     {% block head_extra %}{% endblock %}
 </head>
 <body class="{% block body_classes %}{% endblock %}">
+    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="Идёт загрузка страницы">
+        <div class="page-loader__card">
+            <div class="page-loader__eyebrow">Backend Mentor</div>
+            <h1 class="page-loader__title">Готовим пространство к запуску</h1>
+            <p class="page-loader__subtitle">Подключаем стили, анимации и форму заявки, чтобы первый экран выглядел цельно.</p>
+
+            <div class="page-loader__stage">
+                <div class="page-loader__orb" aria-hidden="true"></div>
+                <div class="page-loader__tracks" aria-hidden="true">
+                    <div class="page-loader__bar"><span></span></div>
+                    <div class="page-loader__hint-row">
+                        <span>Стили</span>
+                        <span>Анимации</span>
+                        <span>Контент</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- глобальные декоративные слои -->
     <div id="matrix-bg" class="matrix-bg">{% block matrix %}{% endblock %}</div>
-    <div class="scanlines" style="background: url('{{ url_for('static', filename='img/scanlines.png') }}') repeat;"></div>
+    <div class="scanlines"></div>
 
     <!-- навигация (включаем из includes или переопределяем) -->
     {% include 'includes/nav.html' %}
@@ -41,10 +90,7 @@
     {% include 'includes/footer.html' %}
 
     <!-- общие скрипты -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js', v=asset_version('js/main.js')) }}"></script>
 
     {% block scripts %}{% endblock %}
 </body>

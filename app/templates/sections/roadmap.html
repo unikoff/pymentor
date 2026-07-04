@@ -1,66 +1,83 @@
-<section id="roadmap" class="section fade-in">
+<section id="roadmap" class="section roadmap-section fade-in" aria-labelledby="roadmap-title">
     <div class="container">
-        <h2 class="text-4xl font-mono font-bold text-center mb-12 neon-glow">Roadmap обучения</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Block 1: Python Introduction (Active) -->
-            <div class="roadmap-block active p-6 rounded-lg">
-                <div class="text-green-400 text-2xl mb-4">📚</div>
-                <h3 class="text-xl font-bold mb-3">Заполнить форму и пройти бесплатную консультацию</h3>
-                <p class="text-gray-300 text-sm mb-4">60 минут</p>
-                <ul class="text-sm text-gray-400 space-y-2">
-                    <li>• Обсудить ваши карьерные цели</li>
-                    <li>• Создать ваш личный план</li>
-                    <li>• Договориться о расписании</li>
-                    <li>• Посмотреть как будет проходить занятие</li>
-                </ul>
-                <div class="mt-4 text-green-400 text-sm">✓ Доступно</div>
+        <div class="section-heading section-heading--split">
+            <div>
+                <span class="section-kicker">Программа</span>
+                <h2 id="roadmap-title">Дорожная карта, которую можно адаптировать под вашу цель</h2>
             </div>
-
-            <!-- Block 2: Основы Python (Locked) -->
-            <div class="roadmap-block locked p-6 rounded-lg cursor-pointer" onclick="showLockedModal('Основы Python')">
-                <div class="text-gray-300 text-2xl mb-4">🔒</div>
-                <h3 class="text-xl font-bold mb-3 glitch" data-text="Основы Python">Основы Python</h3>
-                <p class="text-gray-300 text-sm mb-4">20-25 занятий</p>
-                <ul class="text-sm text-gray-300 space-y-2">
-                    <li>• Классы и объекты</li>
-                    <li>• Наследование</li>
-                    <li>• Полиморфизм</li>
-                    <li>• Инкапсуляция</li>
-                </ul>
-                <div class="mt-4 text-gray-500 text-sm">Доступно после покупки</div>
-            </div>
-
-            <!-- Block 3: Databases (Locked) -->
-            <div class="roadmap-block locked p-6 rounded-lg cursor-pointer" onclick="showLockedModal('Базы данных и фреймворки')">
-                <div class="text-gray-300 text-2xl mb-4">🔒</div>
-                <h3 class="text-xl font-bold mb-3 glitch" data-text="Базы данных и фреймворки">Базы данных и фреймворки</h3>
-                <p class="text-gray-300 text-sm mb-4">30-40 занятий</p>
-                <ul class="text-sm text-gray-300 space-y-2">
-                    <li>• PostgreSQL, MongoDB</li>
-                    <li>• ORM/SQLAlchemy, Миграции</li>
-                    <li>• Flask, FastAPI</li>
-                    <li>• API, websocket, сетевые протоколы</li>
-                </ul>
-                <div class="mt-4 text-gray-500 text-sm">Доступно после покупки</div>
-            </div>
-
-            <!-- Block 4: Frameworks (Locked) -->
-            <div class="roadmap-block locked p-6 rounded-lg cursor-pointer" onclick="showLockedModal('Подготовка к собеседованиям')">
-                <div class="text-gray-300 text-2xl mb-4">🔒</div>
-                <h3 class="text-xl font-bold mb-3 glitch" data-text="Подготовка к собеседованиям">Подготовка к собеседованиям</h3>
-                <p class="text-gray-300 text-sm mb-4">10 занятий</p>
-                <ul class="text-sm text-gray-300 space-y-2">
-                    <li>• Собираем все пет-проекты</li>
-                    <li>• Учимся разговаривать с Hr</li>
-                    <li>• Находим свои сильные стороны</li>
-                    <li>• Получаем оффер</li>
-                </ul>
-                <div class="mt-4 text-gray-500 text-sm">Доступно после покупки</div>
+            <div class="roadmap-intro">
+                <p>
+                    Сначала диагностика, затем фундамент, backend-проекты и отдельная подготовка
+                    к реальным собеседованиям.
+                </p>
+                <div class="roadmap-intro__meta" aria-label="Как адаптируется программа">
+                    <span>цель → темы</span>
+                    <span>уровень → темп</span>
+                    <span>проект → практика</span>
+                </div>
             </div>
         </div>
 
-        <div class="text-center mt-8">
-            <button class="btn-primary px-6 py-3" onclick="openContactForm()">Заполнить форму</button>
+        <div class="roadmap-grid">
+            <article class="roadmap-block active roadmap-card">
+                <span class="roadmap-card__step">01</span>
+                <h3>Диагностика и личный план</h3>
+                <p class="roadmap-card__meta">60 минут</p>
+                <ul>
+                    <li>Обсуждаем карьерную цель</li>
+                    <li>Проверяем текущий уровень</li>
+                    <li>Формируем маршрут обучения</li>
+                    <li>Согласуем формат занятий</li>
+                </ul>
+                <p class="roadmap-card__outcome">Результат: понятный план первых шагов.</p>
+                <span class="roadmap-card__status">Доступно сейчас</span>
+            </article>
+
+            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Основы Python')">
+                <span class="roadmap-card__step">02</span>
+                <h3>Фундамент Python</h3>
+                <p class="roadmap-card__meta">20-25 занятий</p>
+                <ul>
+                    <li>ООП и структура проекта</li>
+                    <li>Типичные ошибки новичков</li>
+                    <li>Работа с файлами и API</li>
+                    <li>Тестирование базовой логики</li>
+                </ul>
+                <p class="roadmap-card__outcome">Результат: код без хаотичных решений.</p>
+                <span class="roadmap-card__status">После старта</span>
+            </article>
+
+            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Базы данных и фреймворки')">
+                <span class="roadmap-card__step">03</span>
+                <h3>Базы данных и фреймворки</h3>
+                <p class="roadmap-card__meta">30-40 занятий</p>
+                <ul>
+                    <li>PostgreSQL, MongoDB</li>
+                    <li>ORM, миграции, схемы</li>
+                    <li>Flask, Django, FastAPI</li>
+                    <li>REST API и websocket</li>
+                </ul>
+                <p class="roadmap-card__outcome">Результат: рабочий backend-проект.</p>
+                <span class="roadmap-card__status">После фундамента</span>
+            </article>
+
+            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Подготовка к собеседованиям')">
+                <span class="roadmap-card__step">04</span>
+                <h3>Портфолио и собеседования</h3>
+                <p class="roadmap-card__meta">10 занятий</p>
+                <ul>
+                    <li>Упаковываем pet-проекты</li>
+                    <li>Разбираем вопросы HR</li>
+                    <li>Тренируем технические ответы</li>
+                    <li>Готовим план поиска работы</li>
+                </ul>
+                <p class="roadmap-card__outcome">Результат: портфолио и стратегия выхода.</p>
+                <span class="roadmap-card__status">Финальный этап</span>
+            </article>
+        </div>
+
+        <div class="section-cta">
+            <button class="btn-primary btn-large" type="button" onclick="openContactForm()">Собрать мой roadmap</button>
         </div>
     </div>
 </section>

@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.venv/
+ppymentor.ru/
+__pycache__/
+*.py[cod]
+app/tempCodeRunnerFile.py
+server.*.log

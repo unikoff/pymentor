@@ -72,6 +72,63 @@ const terminalMessages = [
     }
 ];
 
+let viewportSyncRafId = 0;
+
+function syncViewportContext() {
+    const root = document.documentElement;
+    const width = window.innerWidth || 0;
+    const height = window.innerHeight || 0;
+
+    let viewportMode = 'desktop';
+    if (width <= 768) {
+        viewportMode = 'mobile';
+    } else if (width <= 1180) {
+        viewportMode = 'tablet';
+    } else if (width >= 1600) {
+        viewportMode = 'wide';
+    }
+
+    root.dataset.viewport = viewportMode;
+    root.style.setProperty('--viewport-width', `${width}px`);
+    root.style.setProperty('--viewport-height', `${height}px`);
+}
+
+function scheduleViewportContextSync() {
+    if (viewportSyncRafId) {
+        cancelAnimationFrame(viewportSyncRafId);
+    }
+
+    viewportSyncRafId = requestAnimationFrame(() => {
+        viewportSyncRafId = 0;
+        syncViewportContext();
+    });
+}
+
+function getHashTarget(hash = window.location.hash) {
+    if (!hash || hash.length < 2) return null;
+
+    try {
+        const id = decodeURIComponent(hash.slice(1));
+        return document.getElementById(id) || document.querySelector(hash);
+    } catch (error) {
+        return null;
+    }
+}
+
+function alignCurrentHashTarget() {
+    const target = getHashTarget();
+    if (!target) return;
+
+    requestAnimationFrame(() => {
+        if (typeof window.scrollToSectionTarget === 'function') {
+            window.scrollToSectionTarget(target, { behavior: 'auto' });
+            return;
+        }
+
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+}
+
 function initTerminalAnimation() {
     const terminalOutput = document.getElementById('terminal-output');
     if (!terminalOutput) return; // Safety check
@@ -112,6 +169,10 @@ function initTerminalAnimation() {
 function initMatrixBackground() {
     const matrixContainer = document.getElementById('matrix-bg');
     if (!matrixContainer) return;
+
+    // The current design uses a static atmospheric background. Running the
+    // old canvas animation every frame creates visible jank on this page.
+    if (!matrixContainer.hasAttribute('data-animate')) return;
 
     const matrixCanvas = document.createElement('canvas');
     const matrixCtx = matrixCanvas.getContext('2d');
@@ -158,8 +219,14 @@ function initMatrixBackground() {
     
     resizeMatrixCanvas();
     
-    function animateMatrix() {
-        drawMatrix();
+    let lastMatrixFrame = 0;
+
+    function animateMatrix(timestamp) {
+        if (timestamp - lastMatrixFrame > 90) {
+            drawMatrix();
+            lastMatrixFrame = timestamp;
+        }
+
         requestAnimationFrame(animateMatrix);
     }
     
@@ -300,6 +367,16 @@ let isRecording = false;
 let mediaRecorder = null;
 let audioChunks = [];
 let audioBlob = null;
+function syncPageInteractionState() {
+    const contactForm = document.getElementById('contact-form');
+    const lockedModal = document.querySelector('.locked-roadmap-modal');
+    const hasOpenOverlay = Boolean(
+        (contactForm && !contactForm.classList.contains('hidden')) || lockedModal
+    );
+
+    document.body.classList.toggle('is-modal-open', hasOpenOverlay);
+    document.body.style.overflow = hasOpenOverlay ? 'hidden' : '';
+}
 
 // ИСПРАВЛЕННАЯ ФУНКЦИЯ openContactForm
 function openContactForm() {
@@ -309,7 +386,7 @@ function openContactForm() {
     if (overlay && form) {
         overlay.classList.remove('hidden');
         form.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        syncPageInteractionState();
         updateFormStep();
     } else {
         // Вывод ошибки в консоль, если элементы не найдены, но без остановки скрипта.
@@ -324,8 +401,8 @@ function closeContactForm() {
     if (overlay && form) {
         overlay.classList.add('hidden');
         form.classList.add('hidden');
-        document.body.style.overflow = 'auto';
         currentStep = 1;
+        syncPageInteractionState();
     }
 }
 
@@ -367,21 +444,24 @@ function updateFormStep() {
     }
 }
 
+function animateCurrentStep(direction = 1) {
+    const currentStepEl = document.querySelector('.form-step:not(.hidden)');
+    if (!currentStepEl) return;
+
+    currentStepEl.animate(
+        [
+            { opacity: 0, transform: `translateX(${direction * 18}px)` },
+            { opacity: 1, transform: 'translateX(0)' },
+        ],
+        { duration: 220, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    );
+}
+
 function nextStep() {
     if (currentStep < totalSteps) {
         currentStep++;
         updateFormStep();
-        
-        // Animate step transition using Anime.js
-        if (typeof anime !== 'undefined') {
-            anime({
-                targets: '.form-step:not(.hidden)',
-                opacity: [0, 1],
-                translateX: [50, 0],
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
-        }
+        animateCurrentStep(1);
     }
 }
 
@@ -389,38 +469,30 @@ function prevStep() {
     if (currentStep > 1) {
         currentStep--;
         updateFormStep();
-        
-        // Animate step transition
-        if (typeof anime !== 'undefined') {
-            anime({
-                targets: '.form-step:not(.hidden)',
-                opacity: [0, 1],
-                translateX: [-50, 0],
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
-        }
+        animateCurrentStep(-1);
     }
 }
 
 // Emoji reactions for form selects
 function initFormReactions() {
-    const levelSelect = document.querySelector('select[name="level"]');
-    const goalSelect = document.querySelector('select[name="goal"]');
+    const levelSelect = document.getElementById('level');
+    const goalSelect = document.getElementById('goal');
     const levelEmoji = document.getElementById('level-emoji');
     const goalEmoji = document.getElementById('goal-emoji');
     
     const levelEmojis = {
-        'beginner': '😊',
-        'intermediate': '😎',
-        'advanced': '🚀'
+        'Новичок (не знаю ничего)': '😊',
+        'Начинающий (знаю только основы)': '🧭',
+        'Средний (могу писать простые API)': '😎',
+        'Продвинутый (работаю в IT, нужно углубить знания)': '🚀'
     };
     
     const goalEmojis = {
-        'Карьера': '💼',
-        'Проект': '💻',
-        'Проблема': '🧩',
-        'Повышение': '📈'
+        'профессия с 0': '🌱',
+        'Сменить профессию на Backend-разработчика': '💼',
+        'Запустить личный проект': '💻',
+        'Системное повышение квалификации': '📈',
+        'Решить конкретную техническую проблему': '🧩'
     };
     
     if (levelSelect && levelEmoji) {
@@ -443,6 +515,8 @@ function initVoiceRecording() {
     const audioElement = document.getElementById('voice-recording');
     
     if (!voiceRecorder) return;
+    if (voiceRecorder.dataset.bound === 'true') return;
+    voiceRecorder.dataset.bound = 'true';
     
     voiceRecorder.addEventListener('click', async () => {
         if (isRecording) {
@@ -457,7 +531,8 @@ function initVoiceRecording() {
             // Start recording
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
+                const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+                mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
                 audioChunks = [];
                 
                 mediaRecorder.ondataavailable = (event) => {
@@ -465,8 +540,8 @@ function initVoiceRecording() {
                 };
                 
                 mediaRecorder.onstop = () => {
-                    // Cохраняем Blob в глобальной переменной audioBlob
-                    audioBlob = new Blob(audioChunks, { type: 'audio/wav' }); // 👈 Ключевая строка
+                    const recordedType = mediaRecorder.mimeType || 'audio/webm';
+                    audioBlob = new Blob(audioChunks, { type: recordedType });
                     const audioUrl = URL.createObjectURL(audioBlob);
                     if(audioElement) {
                         audioElement.src = audioUrl;
@@ -492,12 +567,24 @@ function initVoiceRecording() {
                 
             } catch (error) {
                 console.error('Error accessing microphone:', error);
-                alert('Не удалось получить доступ к микрофону');
+                showFormMessage('Не удалось получить доступ к микрофону.', 'error');
             }
         }
     });
 }
 
+function showFormMessage(message, type = 'error') {
+    const contactFormEl = document.getElementById('contact-form');
+    if (!contactFormEl) return;
+
+    const oldMessage = contactFormEl.querySelector('.form-inline-message');
+    if (oldMessage) oldMessage.remove();
+
+    const messageEl = document.createElement('p');
+    messageEl.className = `form-inline-message form-inline-message--${type}`;
+    messageEl.textContent = message;
+    contactFormEl.querySelector('.contact-form')?.prepend(messageEl);
+}
 
 // Form submission
 function submitForm() {
@@ -512,9 +599,8 @@ function submitForm() {
     // 1. Сбор аудиоданных, если есть запись
     // Используем глобальную переменную audioBlob
     if (audioBlob) {
-        // Добавляем Blob в FormData с ключом 'voice_message'.
-        // Этот ключ ('voice_message') мы будем искать в main.py (request.files.get('voice_message')).
-        formData.append('voice_message', audioBlob, 'voice_recording.wav'); 
+        const extension = audioBlob.type.includes('webm') ? 'webm' : 'wav';
+        formData.append('voice_message', audioBlob, `voice_recording.${extension}`);
     }
     
     // 2. Отправка данных на Flask-роутер
@@ -524,14 +610,14 @@ function submitForm() {
         // Браузер сам установит его как 'multipart/form-data' с правильным boundary.
         body: formData // 👈 ОТПРАВЛЯЕМ FormData НАПРЯМУЮ
     })
-    .then(response => {
+    .then(async response => {
+        const result = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error('Ошибка сети или сервера');
+            throw new Error(result.message || 'Ошибка сети или сервера');
         }
-        return response.json();
+        return result;
     })
     .then(result => {
-        console.log('Server response:', result);
         showSuccessAnimation(contactFormEl, form);
     })
     .catch(error => {
@@ -541,170 +627,433 @@ function submitForm() {
 
 }
 
-// ❗ НОВАЯ ФУНКЦИЯ: Вынос логики анимации успеха
 function showSuccessAnimation(contactFormEl, form) {
-    // 1. Сохраняем оригинальное содержимое формы для восстановления
     const originalFormContent = contactFormEl.innerHTML;
-    
-    if (typeof anime !== 'undefined') {
-        anime({
-            targets: contactFormEl,
-            translateX: ['-50%', '-50%'], 
-            translateY: ['-50%', '-50%'], 
-            scale: [1, 1.05, 1],
-            duration: 600,
-            easing: 'easeInOutQuad',
-            
-            complete: () => {
-                contactFormEl.style.transform = ''; 
-                createMatrixConfetti();
-                contactFormEl.innerHTML = `
-                    <div class="text-center py-10">
-                        <h3 class="text-3xl font-bold neon-glow text-green-200 mb-4">✅ Заявка принята!</h3>
-                        <p class="text-xl text-gray-300">Я свяжусь с вами в ближайшее время в Telegram/Email.</p>
-                        <p class="text-sm text-gray-500 mt-4">(Окно закроется автоматически)</p>
-                    </div>
-                `;
 
-                setTimeout(() => {
-                    contactFormEl.innerHTML = originalFormContent; 
-                    closeContactForm();
-                    form.reset();
-                    // ❗ Важно: После восстановления содержимого нужно 
-                    // снова привязать все слушатели событий!
-                    rebindFormListeners(); 
-                }, 5000); 
-            }
-        });
-    } else {
+    contactFormEl.animate(
+        [
+            { transform: 'translate(-50%, -50%) scale(1)' },
+            { transform: 'translate(-50%, -50%) scale(1.035)' },
+            { transform: 'translate(-50%, -50%) scale(1)' },
+        ],
+        { duration: 420, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    );
+
+    createMatrixConfetti();
+    contactFormEl.innerHTML = `
+        <div class="form-result form-result--success">
+            <h3>Заявка принята</h3>
+            <p>Я свяжусь с вами в ближайшее время в Telegram или по указанному контакту.</p>
+            <small>Окно закроется автоматически</small>
+        </div>
+    `;
+
+    setTimeout(() => {
+        contactFormEl.innerHTML = originalFormContent;
         closeContactForm();
         form.reset();
+        bindFormListeners();
+    }, 5000);
+}
+
+function bindFormListeners() {
+    initFormReactions();
+    initVoiceRecording();
+
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const form = document.getElementById('mentorship-form');
+
+    if (nextBtn && nextBtn.dataset.bound !== 'true') {
+        nextBtn.dataset.bound = 'true';
+        nextBtn.addEventListener('click', nextStep);
+    }
+
+    if (prevBtn && prevBtn.dataset.bound !== 'true') {
+        prevBtn.dataset.bound = 'true';
+        prevBtn.addEventListener('click', prevStep);
+    }
+
+    if (form && form.dataset.bound !== 'true') {
+        form.dataset.bound = 'true';
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitForm();
+        });
     }
 }
 
-// ❗ НОВАЯ ФУНКЦИЯ: Для повторной привязки слушателей
 function rebindFormListeners() {
-    // Вызовите функции инициализации для элементов формы, которые были заменены
-    initFormReactions();
-    initVoiceRecording();
-    
-    // Перепривязка кнопок
-    document.getElementById('next-btn')?.addEventListener('click', nextStep);
-    document.getElementById('prev-btn')?.addEventListener('click', prevStep);
-    document.getElementById('mentorship-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        submitForm();
-    });
+    bindFormListeners();
 }
 
-// ❗ НОВАЯ ФУНКЦИЯ: Для обработки ошибок
 function showFailureAnimation(contactFormEl, form, errorMessage) {
     const originalFormContent = contactFormEl.innerHTML;
     
-    // Простое сообщение об ошибке
     contactFormEl.innerHTML = `
-        <div class="text-center py-10">
-            <h3 class="text-3xl font-bold neon-glow text-red-400 mb-4">❌ Ошибка отправки!</h3>
-            <p class="text-xl text-gray-300">Не удалось отправить форму. ${errorMessage}</p>
-            <p class="text-sm text-gray-500 mt-4">(Окно закроется автоматически)</p>
+        <div class="form-result form-result--error">
+            <h3>Ошибка отправки</h3>
+            <p>${errorMessage}</p>
+            <small>Окно закроется автоматически</small>
         </div>
     `;
 
     setTimeout(() => {
         contactFormEl.innerHTML = originalFormContent; 
         closeContactForm();
-        rebindFormListeners(); 
+        bindFormListeners();
     }, 5000); 
 }
 
 // Matrix Confetti Effect
 function createMatrixConfetti() {
-    const colors = ['#00ff41', '#00d4ff', '#8a2be2'];
-    const confettiCount = 50;
-    
-    if (typeof anime === 'undefined') return;
+    const colors = ['#b7ff5a', '#fffaf0', '#9ed8ff'];
+    const confettiCount = 28;
 
     for (let i = 0; i < confettiCount; i++) {
         const confetti = document.createElement('div');
-        confetti.className = 'matrix-confetti'; // Добавили класс для потенциального CSS
-        confetti.style.position = 'fixed';
-        confetti.style.width = '10px';
-        confetti.style.height = '10px';
+        confetti.className = 'matrix-confetti';
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.top = '-10px';
-        confetti.style.zIndex = '9999';
-        confetti.style.pointerEvents = 'none';
+        confetti.style.setProperty('--fall-x', `${(Math.random() - 0.5) * 220}px`);
+        confetti.style.setProperty('--fall-rotation', `${Math.random() * 360}deg`);
+        confetti.style.animationDuration = `${Math.random() * 700 + 950}ms`;
         
         document.body.appendChild(confetti);
-        
-        anime({
-            targets: confetti,
-            translateY: window.innerHeight + 100,
-            translateX: (Math.random() - 0.5) * 200,
-            rotate: Math.random() * 360,
-            
-            // 💡 ВАЖНОЕ ИСПРАВЛЕНИЕ: Мы выставляем длительность анимации 
-            // так, чтобы она закончилась задолго до таймаута в submitForm.
-            // Максимальная длительность падения — 1800 мс, что меньше 2000 мс в таймауте.
-            duration: Math.random() * 800 + 1000, 
-            easing: 'easeInQuad',
-            
-            complete: () => {
-                // Конфетти удаляется из DOM, как только падение завершено.
-                // Это устраняет проблему "непропавшего" конфетти.
-                if(document.body.contains(confetti)) {
-                    document.body.removeChild(confetti);
-                }
-            }
-        });
+        confetti.addEventListener('animationend', () => confetti.remove(), { once: true });
     }
 }
 
 // Locked roadmap modal with glitch effect
 function showLockedModal(moduleName) {
+    if (document.querySelector('.locked-roadmap-modal')) {
+        return;
+    }
+
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50';
+    modal.className = 'locked-roadmap-modal';
     modal.innerHTML = `
-        <div class="bg-gray-900 border border-green-400 rounded-lg p-8 max-w-md mx-4 glitch-container">
-            <h3 class="text-2xl font-bold mb-4 neon-glow glitch" data-text="${moduleName}">${moduleName}</h3>
-            <p class="text-gray-300 mb-6">Запишитесь на бесплатную консультацию и я расскажу вам подробнее об обучении.</p>
-            <div class="flex gap-4">
-                <button onclick="closeLockedModal()" class="px-4 py-2 border border-gray-600 rounded hover:border-green-400 transition-colors">Закрыть</button>
-                <button onclick="openContactForm(); closeLockedModal();" class="btn-primary px-4 py-2">Заполнить форму</button>
+        <div class="glitch-container">
+            <span class="section-kicker">Следующий модуль</span>
+            <h3 class="glitch" data-text="${moduleName}">${moduleName}</h3>
+            <p>Запишитесь на консультацию, и я расскажу, как этот блок встроится в ваш личный roadmap.</p>
+            <div class="flex">
+                <button onclick="closeLockedModal()" class="btn-secondary">Закрыть</button>
+                <button onclick="openContactForm(); closeLockedModal();" class="btn-primary">Заполнить форму</button>
             </div>
         </div>
     `;
     
     document.body.appendChild(modal);
-    
-    // Animate modal appearance
-    if (typeof anime !== 'undefined') {
-        anime({
-            targets: modal.querySelector('.glitch-container'),
-            scale: [0.8, 1],
-            opacity: [0, 1],
-            duration: 300,
-            easing: 'easeOutQuad'
-        });
-    }
+    syncPageInteractionState();
+    modal.querySelector('.glitch-container')?.animate(
+        [
+            { opacity: 0, transform: 'scale(.96)' },
+            { opacity: 1, transform: 'scale(1)' },
+        ],
+        { duration: 180, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    );
     
     window.closeLockedModal = function() {
-        if (typeof anime !== 'undefined') {
-            anime({
-                targets: modal.querySelector('.glitch-container'),
-                scale: [1, 0.8],
-                opacity: [1, 0],
-                duration: 200,
-                easing: 'easeInQuad',
-                complete: () => {
-                    if(document.body.contains(modal)) document.body.removeChild(modal);
-                }
-            });
+        const modalPanel = modal.querySelector('.glitch-container');
+        const animation = modalPanel?.animate(
+            [
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(.96)' },
+            ],
+            { duration: 140, easing: 'ease-out' }
+        );
+
+        const removeModal = () => {
+            modal.remove();
+            syncPageInteractionState();
+        };
+
+        if (animation) {
+            animation.addEventListener('finish', removeModal, { once: true });
         } else {
-             if(document.body.contains(modal)) document.body.removeChild(modal);
+            removeModal();
         }
     };
+}
+
+function initSectionScrollSnap() {
+    const shouldUseNativeScroll = window.matchMedia(
+        '(prefers-reduced-motion: reduce), (max-width: 768px), (pointer: coarse)'
+    ).matches;
+
+    if (shouldUseNativeScroll) {
+        window.scrollToSectionTarget = (target, options = {}) => {
+            const element = target instanceof HTMLElement ? target : getHashTarget(String(target || ''));
+            if (!element) return false;
+
+            element.scrollIntoView({
+                behavior: options.behavior || 'smooth',
+                block: 'start',
+            });
+
+            return true;
+        };
+        return;
+    }
+
+    const snapTargets = Array.from(
+        document.querySelectorAll('main > section, main > .section, body > footer.site-footer')
+    ).filter((node) => node instanceof HTMLElement);
+
+    if (snapTargets.length === 0) return;
+
+    let isSnapping = false;
+    let snappingStartedAt = 0;
+    let snapLockedUntil = 0;
+    let snapTimeoutId = null;
+    let fallbackSnapTimeoutId = null;
+    let fallbackStartY = window.scrollY;
+    let fallbackStartIndex = 0;
+    let lastScrollY = window.scrollY;
+
+    function isBelowSnapDeck() {
+        const lastTarget = snapTargets[snapTargets.length - 1];
+        if (!lastTarget) return false;
+
+        const lastTop = getTargetTop(lastTarget);
+        const lastHeight = Math.min(lastTarget.offsetHeight || window.innerHeight, window.innerHeight);
+        return window.scrollY > lastTop + lastHeight * 0.62;
+    }
+
+    function isAtLastSnapTarget() {
+        const lastTarget = snapTargets[snapTargets.length - 1];
+        if (!lastTarget) return false;
+
+        return window.scrollY >= getTargetTop(lastTarget) - 2;
+    }
+
+    function getActiveIndex(direction = 0) {
+        const lastTarget = snapTargets[snapTargets.length - 1];
+        const isAtDocumentBottom = window.scrollY >= getMaxScrollTop() - 2;
+
+        if (direction < 0 && isAtDocumentBottom && isFooterTarget(lastTarget)) {
+            return snapTargets.length - 1;
+        }
+
+        if (direction < 0 && isBelowSnapDeck()) {
+            return snapTargets.length;
+        }
+
+        const anchorRatio = direction < 0 ? 0.72 : direction > 0 ? 0.3 : 0.48;
+        const anchor = window.scrollY + window.innerHeight * anchorRatio;
+        let activeIndex = 0;
+
+        snapTargets.forEach((target, index) => {
+            const top = target.getBoundingClientRect().top + window.scrollY;
+            if (anchor >= top - 1) {
+                activeIndex = index;
+            }
+        });
+
+        return activeIndex;
+    }
+
+    function getScrollableAncestor(element) {
+        let current = element instanceof Element ? element : null;
+
+        while (current && current !== document.body) {
+            const style = window.getComputedStyle(current);
+            const canScrollY = /(auto|scroll)/.test(style.overflowY) && current.scrollHeight > current.clientHeight + 2;
+
+            if (canScrollY) {
+                return current;
+            }
+
+            current = current.parentElement;
+        }
+
+        return null;
+    }
+
+    function allowWheelOnScrollableContainer(target, deltaY) {
+        if (!target) return false;
+
+        const scrollableAncestor = getScrollableAncestor(target);
+        if (!scrollableAncestor) return false;
+
+        const atTop = scrollableAncestor.scrollTop <= 0;
+        const atBottom = scrollableAncestor.scrollTop + scrollableAncestor.clientHeight >= scrollableAncestor.scrollHeight - 1;
+
+        if (deltaY < 0 && !atTop) return true;
+        if (deltaY > 0 && !atBottom) return true;
+
+        return false;
+    }
+
+    function jumpToScrollTop(top) {
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo(0, top);
+        root.style.scrollBehavior = previousScrollBehavior;
+    }
+
+    function getMaxScrollTop() {
+        return Math.max(
+            0,
+            document.documentElement.scrollHeight - window.innerHeight
+        );
+    }
+
+    function isFooterTarget(target) {
+        return target instanceof HTMLElement && target.matches('body > footer.site-footer');
+    }
+
+    function getTargetTop(target) {
+        const rawTop = target.getBoundingClientRect().top + window.scrollY;
+
+        return Math.min(getMaxScrollTop(), Math.max(0, rawTop));
+    }
+
+    function scrollToTargetElement(target, behavior = 'smooth') {
+        const targetTop = getTargetTop(target);
+        const distance = Math.abs(targetTop - window.scrollY);
+        const lockDuration = behavior === 'auto' ? 80 : Math.min(950, Math.max(720, distance * 0.45));
+
+        clearTimeout(fallbackSnapTimeoutId);
+        fallbackSnapTimeoutId = null;
+        isSnapping = true;
+        snappingStartedAt = Date.now();
+        snapLockedUntil = snappingStartedAt + lockDuration;
+
+        if (behavior === 'auto') {
+            jumpToScrollTop(targetTop);
+            requestAnimationFrame(() => {
+                isSnapping = false;
+                fallbackStartY = window.scrollY;
+                lastScrollY = window.scrollY;
+            });
+        } else {
+            window.scrollTo({
+                top: targetTop,
+                behavior,
+            });
+        }
+
+        clearTimeout(snapTimeoutId);
+        snapTimeoutId = window.setTimeout(() => {
+            isSnapping = false;
+            fallbackStartY = window.scrollY;
+            lastScrollY = window.scrollY;
+        }, lockDuration);
+    }
+
+    function snapToIndex(index, behavior = 'smooth') {
+        const targetIndex = Math.max(0, Math.min(snapTargets.length - 1, index));
+        const target = snapTargets[targetIndex];
+
+        scrollToTargetElement(target, behavior);
+    }
+
+    window.scrollToSectionTarget = (target, options = {}) => {
+        const element = target instanceof HTMLElement ? target : getHashTarget(String(target || ''));
+        if (!element) return false;
+
+        scrollToTargetElement(element, options.behavior || 'smooth');
+        return true;
+    };
+
+    function isSnapLocked() {
+        if (!isSnapping) return false;
+
+        if (Date.now() > snapLockedUntil) {
+            isSnapping = false;
+            return false;
+        }
+
+        return true;
+    }
+
+    window.addEventListener('wheel', (event) => {
+        if (document.body.classList.contains('is-modal-open')) {
+            event.preventDefault();
+            return;
+        }
+
+        if (event.ctrlKey) {
+            return;
+        }
+
+        const target = event.target instanceof Element ? event.target : null;
+
+        if (target && target.closest('input, textarea, select, option, button, [contenteditable="true"]')) {
+            return;
+        }
+
+        if (allowWheelOnScrollableContainer(target, event.deltaY)) {
+            return;
+        }
+
+        const direction = Math.sign(event.deltaY);
+        if (!direction) return;
+
+        if (isSnapLocked()) {
+            event.preventDefault();
+            return;
+        }
+
+        const currentIndex = getActiveIndex(direction);
+        const nextIndex = Math.max(0, Math.min(snapTargets.length - 1, currentIndex + direction));
+
+        if (nextIndex === currentIndex) return;
+
+        event.preventDefault();
+        snapToIndex(nextIndex);
+    }, { passive: false });
+
+    window.addEventListener('scroll', () => {
+        if (document.body.classList.contains('is-modal-open') || isSnapLocked()) {
+            lastScrollY = window.scrollY;
+            return;
+        }
+
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+
+        if (Math.abs(delta) < 2) return;
+
+        if (delta > 0 && (isAtLastSnapTarget() || isBelowSnapDeck())) {
+            clearTimeout(fallbackSnapTimeoutId);
+            fallbackSnapTimeoutId = null;
+            lastScrollY = currentY;
+            return;
+        }
+
+        if (!fallbackSnapTimeoutId) {
+            fallbackStartY = lastScrollY;
+            fallbackStartIndex = getActiveIndex(delta);
+        }
+
+        clearTimeout(fallbackSnapTimeoutId);
+        fallbackSnapTimeoutId = window.setTimeout(() => {
+            if (isSnapLocked()) {
+                fallbackSnapTimeoutId = null;
+                lastScrollY = window.scrollY;
+                return;
+            }
+
+            const totalDelta = window.scrollY - fallbackStartY;
+            const direction = Math.sign(totalDelta);
+
+            fallbackSnapTimeoutId = null;
+
+            if (!direction || Math.abs(totalDelta) < 42) {
+                lastScrollY = window.scrollY;
+                return;
+            }
+
+            snapToIndex(fallbackStartIndex + direction);
+        }, 130);
+
+        lastScrollY = currentY;
+    }, { passive: true });
 }
 
 // Enhanced scroll animations
@@ -718,35 +1067,7 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                
-                // Special animations for different sections
-                if (typeof anime !== 'undefined') {
-                    if (entry.target.classList.contains('roadmap-block')) {
-                        const blocks = entry.target.parentElement.querySelectorAll('.roadmap-block');
-                        blocks.forEach((block, index) => {
-                            setTimeout(() => {
-                                anime({
-                                    targets: block,
-                                    translateY: [50, 0],
-                                    opacity: [0, 1],
-                                    scale: [0.9, 1],
-                                    duration: 600,
-                                    easing: 'easeOutBack'
-                                });
-                            }, index * 200);
-                        });
-                    }
-                    
-                    if (entry.target.classList.contains('stats-card')) {
-                        anime({
-                            targets: entry.target,
-                            rotateY: [90, 0],
-                            opacity: [0, 1],
-                            duration: 800,
-                            easing: 'easeOutQuad'
-                        });
-                    }
-                }
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -763,14 +1084,26 @@ function initMobileMenu() {
     
     if (!mobileMenuBtn || !mobileMenu) return;
 
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
+    const setMenuOpen = (isOpen) => {
+        mobileMenu.classList.toggle('active', isOpen);
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    mobileMenuBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setMenuOpen(!mobileMenu.classList.contains('active'));
+    });
+
+    mobileMenu.addEventListener('click', (event) => {
+        if (event.target instanceof Element && event.target.closest('a, button')) {
+            setMenuOpen(false);
+        }
     });
     
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            mobileMenu.classList.remove('active');
+            setMenuOpen(false);
         }
     });
 }
@@ -780,116 +1113,189 @@ function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const hash = this.getAttribute('href');
+            const target = getHashTarget(hash);
+
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                if (typeof window.scrollToSectionTarget === 'function') {
+                    window.scrollToSectionTarget(target);
+                } else {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
+                if (window.history && hash !== window.location.hash) {
+                    window.history.pushState(null, '', hash);
+                }
                 
                 // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (mobileMenu && mobileMenu.classList.contains('active')) {
                     mobileMenu.classList.remove('active');
+                    mobileMenu.setAttribute('aria-hidden', 'true');
+                    document.getElementById('mobile-menu-btn')?.setAttribute('aria-expanded', 'false');
                 }
             }
         });
     });
+}
+
+function initActiveNavigation() {
+    const links = Array.from(
+        document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu__inner a[href^="#"]')
+    );
+
+    if (links.length === 0) return;
+
+    const linkById = new Map();
+
+    links.forEach((link) => {
+        const hash = link.getAttribute('href') || '';
+        if (hash.length <= 1) return;
+        linkById.set(hash.slice(1), linkById.get(hash.slice(1)) || []);
+        linkById.get(hash.slice(1)).push(link);
+    });
+
+    const sections = Array.from(
+        document.querySelectorAll('main > section[id], body > footer')
+    ).filter((section) => section instanceof HTMLElement);
+
+    if (sections.length === 0) return;
+
+    let activeId = null;
+    let frameId = null;
+
+    function setActive(nextId) {
+        if (nextId === activeId) return;
+        activeId = nextId;
+
+        links.forEach((link) => {
+            const isActive = linkById.has(nextId) && (linkById.get(nextId) || []).includes(link);
+            link.classList.toggle('is-active', isActive);
+
+            if (isActive) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    }
+
+    function getCurrentSectionId() {
+        const viewportAnchor = window.innerHeight * 0.42;
+        let currentSection = null;
+        let currentScore = Number.POSITIVE_INFINITY;
+
+        sections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const visibleScore = visibleHeight > 0 ? -visibleHeight * 0.08 : window.innerHeight;
+            const sectionLine = rect.top + Math.min(rect.height, window.innerHeight) * 0.32;
+            const score = Math.abs(sectionLine - viewportAnchor) + visibleScore;
+
+            if (score < currentScore) {
+                currentScore = score;
+                currentSection = section;
+            }
+        });
+
+        return currentSection ? currentSection.id : null;
+    }
+
+    function updateActiveLink() {
+        frameId = null;
+        const sectionId = getCurrentSectionId();
+        setActive(linkById.has(sectionId) ? sectionId : null);
+    }
+
+    function scheduleActiveLinkUpdate() {
+        if (frameId) return;
+        frameId = window.requestAnimationFrame(updateActiveLink);
+    }
+
+    window.addEventListener('scroll', scheduleActiveLinkUpdate, { passive: true });
+    window.addEventListener('resize', scheduleActiveLinkUpdate, { passive: true });
+    window.addEventListener('hashchange', scheduleActiveLinkUpdate);
+
+    scheduleActiveLinkUpdate();
+}
+
+function initBrandTypewriter() {
+    const brandText = document.querySelector('.nav-brand__text');
+    if (!brandText) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if (!(brandText.textContent || '').trim()) return;
+
+    const cycleMs = 10000;
+    const eraseMs = 800;
+    const typeMs = 1200;
+    const holdMs = Math.max(0, cycleMs - eraseMs - typeMs);
+    let cycleTimerId = null;
+    let phaseTimerId = null;
+    let stopped = false;
+
+    function clearTimers() {
+        if (cycleTimerId) {
+            clearTimeout(cycleTimerId);
+            cycleTimerId = null;
+        }
+
+        if (phaseTimerId) {
+            clearTimeout(phaseTimerId);
+            phaseTimerId = null;
+        }
+    }
+
+    function setState(state) {
+        brandText.classList.remove('is-erasing', 'is-typing');
+
+        if (state) {
+            brandText.classList.add(state);
+        }
+    }
+
+    function queueNextCycle(delayMs) {
+        clearTimers();
+        cycleTimerId = window.setTimeout(() => {
+            if (stopped) return;
+
+            setState('is-erasing');
+
+            phaseTimerId = window.setTimeout(() => {
+                if (stopped) return;
+
+                setState('is-typing');
+
+                phaseTimerId = window.setTimeout(() => {
+                    if (stopped) return;
+
+                    setState(null);
+                    queueNextCycle(holdMs);
+                }, typeMs);
+            }, eraseMs);
+        }, delayMs);
+    }
+
+    queueNextCycle(cycleMs);
 }
 
 
 // Skill badges animation
 function initSkillBadges() {
     const badges = document.querySelectorAll('.skill-badge');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const badge = entry.target;
-                
-                // Убедимся, что анимация запускается только один раз
-                if (!badge.hasAttribute('data-animated')) { 
-                    
-                    if (typeof anime !== 'undefined') {
-                        anime({
-                            targets: badge,
-                            // ❗ Оставили только прозрачность: от 0 (невидимый) до 1 (видимый)
-                            opacity: [0, 1], 
-                            
-                            // Устанавливаем более мягкую длительность
-                            duration: 800, 
-                            
-                            // Используем более плавную функцию
-                            easing: 'easeOutQuad', 
-                            
-                            // Задержка сохранена для эффекта "появления по очереди"
-                            delay: Math.random() * 300 
-                        });
-                    }
-                    
-                    // Помечаем элемент как анимированный
-                    badge.setAttribute('data-animated', 'true');
-                    
-                    // Отключаем наблюдение после анимации
-                    observer.unobserve(badge);
-                }
-            }
-        });
-    }, { threshold: 0.5 }); // Элемент должен быть виден на 50%
-    
-    badges.forEach(badge => observer.observe(badge));
+
+    badges.forEach((badge) => {
+        badge.setAttribute('data-animated', 'true');
+    });
 }
 
 // Price cards hover effect
 function initPriceCards() {
-    const cards = document.querySelectorAll('.price-card');
-    
-    if (typeof anime === 'undefined') {
-        console.warn('anime.js not loaded, price card animations disabled');
-        return;
-    }
-
-    if (cards.length === 0) {
-        console.warn('No price cards found');
-        return;
-    }
-
-    console.log(`Found ${cards.length} price cards:`, cards);
-
-    // Функция добавления слушателей к карточке
-    function addCardListeners(card, index) {
-        console.log(`Adding listeners to card ${index}:`, card);
-        
-        card.addEventListener('mouseenter', function() {
-            console.log(`Mouse enter on card ${index}`);
-            const isMobile = window.innerWidth <= 768;
-            const scale = isMobile ? 1.02 : 1.05;
-            
-            anime({
-                targets: this,
-                scale: scale,
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            console.log(`Mouse leave on card ${index}`);
-            anime({
-                targets: this,
-                scale: 1,
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
-        });
-    }
-
-    // Добавляем слушатели ко всем карточкам, включая первую
-    cards.forEach((card, index) => {
-        addCardListeners(card, index);
-    });
-
-    console.log(`✅ Initialized ${cards.length} price cards with hover animations`);
+    // Hover states are handled in CSS. Avoid per-card JS listeners.
 }
 
 // Pricing Carousel for Mobile
@@ -899,6 +1305,11 @@ function initPricingCarousel() {
     
     if (!carousel || !dotsContainer) return;
 
+    if (window.innerWidth > 768 || carousel.scrollWidth <= carousel.clientWidth + 8) {
+        dotsContainer.innerHTML = '';
+        return;
+    }
+
     const cards = carousel.querySelectorAll('.price-card');
     const cardCount = cards.length;
     
@@ -907,7 +1318,6 @@ function initPricingCarousel() {
     let currentIndex = 1; // По умолчанию вторая карточка (индекс 1)
     let lastAnimatedCard = null;
     let isSnapping = false; // Флаг, чтобы не срабатывал scroll слушатель во время snap
-    let currentAnimationId = null; // ID текущей анимации для отмены
 
     // Добавляем CSS свойство scroll-snap для плавного скролла
     carousel.style.scrollSnapType = 'x mandatory';
@@ -948,8 +1358,6 @@ function initPricingCarousel() {
         // Позиция для центрирования карточки
         const centerPosition = cardLeft - (carouselWidth - cardWidth) / 2;
 
-        console.log(`📍 Snapping to card ${index} at position ${centerPosition}`);
-
         isSnapping = true;
         carousel.scrollLeft = centerPosition;
         
@@ -968,61 +1376,25 @@ function initPricingCarousel() {
     // Функция воспроизведения анимации карточки
     function playCardAnimation(index) {
         const card = cards[index];
-        if (!card || typeof anime === 'undefined') return;
+        if (!card || !document.body.contains(card)) return;
 
-        console.log(`🎬 Playing animation on card ${index}:`, card);
-
-        // Останавливаем анимацию на предыдущей карточке и убираем свечение и обводку
         if (lastAnimatedCard && lastAnimatedCard !== card) {
-            console.log(`⏹️ Stopping animation on previous card`);
-            anime.set(lastAnimatedCard, { scale: 1 });
-            lastAnimatedCard.style.transform = '';
-            lastAnimatedCard.style.boxShadow = ''; // УБИРАЕМ свечение со старой карточки
-            lastAnimatedCard.style.border = '1px solid #333'; // Возвращаем темную обводку
             lastAnimatedCard.classList.remove('active-card');
+            lastAnimatedCard.style.transform = '';
         }
 
-        // Убедимся что элемент существует в DOM
-        if (!document.body.contains(card)) {
-            console.warn(`⚠️ Card ${index} not in DOM!`);
-            return;
-        }
-
-        // Полный сброс текущей карточки перед анимацией
         card.style.transform = '';
-        card.style.boxShadow = '';
-        card.style.border = '1px solid #333';
-        card.classList.remove('active-card');
-        anime.set(card, { scale: 1 });
-        
-        // Минимальная задержка для гарантии
-        setTimeout(() => {
-            console.log(`▶️ Starting animation on card ${index}`);
-            
-            // Анимируем масштаб И свечение одновременно
-            currentAnimationId = anime({
-                targets: card,
-                scale: [1, 1.03, 1],
-                duration: 300,
-                easing: 'easeOutQuad',
-                begin: (anim) => {
-                    console.log(`✨ Glow started on card ${index}`);
-                    // Добавляем свечение И зелёную обводку в начале
-                    card.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.5), 0 0 15px rgba(0, 255, 65, 0.3)';
-                    card.style.border = '1px solid var(--matrix-green)';
-                    card.classList.add('active-card');
-                },
-                complete: () => {
-                    console.log(`✅ Animation complete on card ${index}`);
-                    // После анимации СБРАСЫВАЕМ ТОЛЬКО масштаб, но ОСТАВЛЯЕМ свечение!
-                    anime.set(card, { scale: 1 });
-                    card.style.transform = '';
-                    // ❌ НЕ УБИРАЕМ свечение: card.style.boxShadow = '';
-                }
-            });
+        card.classList.add('active-card');
+        card.animate(
+            [
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.025)' },
+                { transform: 'scale(1)' },
+            ],
+            { duration: 240, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+        );
 
-            lastAnimatedCard = card;
-        }, 30);
+        lastAnimatedCard = card;
     }
 
     // Функция обновления активной точки
@@ -1039,8 +1411,8 @@ function initPricingCarousel() {
 
         // Мгновенно убираем свечение со всех карточек при начале свайпа
         cards.forEach((card) => {
-            card.style.boxShadow = '';
-            card.style.border = '1px solid #333';
+            card.classList.remove('active-card');
+            card.style.transform = '';
         });
 
         clearTimeout(scrollTimeout);
@@ -1057,15 +1429,11 @@ function initPricingCarousel() {
                 const carouselCenter = carouselRect.left + carouselRect.width / 2;
                 const distance = Math.abs(cardCenter - carouselCenter);
 
-                console.log(`Card ${index}: distance=${distance.toFixed(0)}px`);
-
                 if (distance < closestDistance) {
                     closestDistance = distance;
                     closestIndex = index;
                 }
             });
-
-            console.log(`🎯 Closest card is ${closestIndex}`);
 
             // Если карточка изменилась, запускаем анимацию
             if (currentIndex !== closestIndex) {
@@ -1095,11 +1463,14 @@ function initPricingCarousel() {
         lastAnimatedCard = card1;
     }
 
-    console.log('✅ Pricing carousel initialized with snap-to-center');
 }
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    syncViewportContext();
+    window.addEventListener('resize', scheduleViewportContextSync, { passive: true });
+    window.addEventListener('orientationchange', scheduleViewportContextSync, { passive: true });
+
     initTerminalAnimation();
     initMatrixBackground();
     initCounterAnimation();
@@ -1108,9 +1479,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initMobileMenu();
     initSmoothScrolling();
+    initSectionScrollSnap();
+    alignCurrentHashTarget();
+    initActiveNavigation();
+    initBrandTypewriter();
     initSkillBadges();
-    initFormReactions();
-    initVoiceRecording();
+    bindFormListeners();
     
     // Инициализируем карусель и карточки с небольшой задержкой,
     // чтобы гарантировать что все элементы в DOM
@@ -1118,17 +1492,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initPricingCarousel();
         initPriceCards();
     }, 100);
-    
-    // Form event listeners (используем ?. для безопасности, как в предыдущем ответе)
-    document.getElementById('next-btn')?.addEventListener('click', nextStep);
-    
-    // ИСПРАВЛЕННЫЙ слушатель для prev-btn
-    document.getElementById('prev-btn')?.addEventListener('click', prevStep);
-    
-    document.getElementById('mentorship-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        submitForm();
-    });
     
     // Close modal on overlay click
     document.getElementById('form-overlay')?.addEventListener('click', closeContactForm);
