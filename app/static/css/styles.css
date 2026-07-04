@@ -6061,3 +6061,131 @@ html[data-viewport="tablet"] #why .value-card {
     padding: clamp(1.15rem, 2.4vmin, 2.35rem) !important;
 }
 
+/* Pricing fit pass: keep the whole tariff slide inside one viewport. */
+#pricing .price-card__price {
+    white-space: nowrap;
+}
+
+#pricing .price-card__benefit {
+    align-self: flex-start;
+    display: inline-flex;
+    margin: -0.2rem 0 clamp(0.55rem, 1vmin, 0.85rem);
+    padding: 0.42rem 0.68rem;
+    border: 1px solid rgba(183, 255, 90, 0.28);
+    border-radius: 999px;
+    background: rgba(183, 255, 90, 0.08);
+    color: var(--brand);
+    font-family: var(--font-mono);
+    font-size: clamp(0.68rem, 0.76vmin, 0.82rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+#pricing .price-card__benefit--strong {
+    background: var(--brand);
+    color: var(--ink);
+}
+
+html[data-viewport="desktop"] #pricing.section,
+html[data-viewport="wide"] #pricing.section,
+html[data-viewport="tablet"] #pricing.section {
+    padding-top: calc(var(--nav-height) + clamp(0.7rem, 1.35vh, 1.2rem)) !important;
+    padding-bottom: clamp(0.5rem, 1.1vh, 1rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing > .container,
+html[data-viewport="wide"] #pricing > .container,
+html[data-viewport="tablet"] #pricing > .container {
+    gap: clamp(0.6rem, 1.45vh, 1.25rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .section-heading h2,
+html[data-viewport="wide"] #pricing .section-heading h2,
+html[data-viewport="tablet"] #pricing .section-heading h2 {
+    font-size: clamp(1.85rem, 3.35vmin, 3.25rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .section-heading p,
+html[data-viewport="wide"] #pricing .section-heading p,
+html[data-viewport="tablet"] #pricing .section-heading p {
+    max-width: 940px;
+    font-size: clamp(0.82rem, 1.05vmin, 1rem) !important;
+    line-height: 1.36 !important;
+}
+
+html[data-viewport="desktop"] #pricing .pricing-carousel,
+html[data-viewport="wide"] #pricing .pricing-carousel,
+html[data-viewport="tablet"] #pricing .pricing-carousel {
+    gap: clamp(0.85rem, 1.75vmin, 1.8rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card,
+html[data-viewport="wide"] #pricing .price-card,
+html[data-viewport="tablet"] #pricing .price-card {
+    padding: clamp(1rem, 1.9vmin, 1.9rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card--featured,
+html[data-viewport="wide"] #pricing .price-card--featured,
+html[data-viewport="tablet"] #pricing .price-card--featured {
+    transform: translateY(-0.65rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card h3,
+html[data-viewport="wide"] #pricing .price-card h3,
+html[data-viewport="tablet"] #pricing .price-card h3 {
+    margin-bottom: clamp(0.55rem, 0.85vmin, 0.8rem) !important;
+    font-size: clamp(1.55rem, 2.7vmin, 2.7rem) !important;
+    line-height: 1 !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card__price,
+html[data-viewport="wide"] #pricing .price-card__price,
+html[data-viewport="tablet"] #pricing .price-card__price {
+    margin-bottom: clamp(0.45rem, 0.85vmin, 0.7rem) !important;
+    font-size: clamp(2.9rem, 5.25vmin, 4rem) !important;
+    letter-spacing: -0.06em !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card__hint,
+html[data-viewport="wide"] #pricing .price-card__hint,
+html[data-viewport="tablet"] #pricing .price-card__hint {
+    min-height: 0 !important;
+    margin-bottom: clamp(0.8rem, 1.35vmin, 1.15rem) !important;
+    font-size: clamp(0.78rem, 0.98vmin, 0.98rem) !important;
+    line-height: 1.45 !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card ul,
+html[data-viewport="wide"] #pricing .price-card ul,
+html[data-viewport="tablet"] #pricing .price-card ul {
+    margin-bottom: clamp(0.9rem, 1.35vmin, 1.25rem) !important;
+    gap: clamp(0.45rem, 0.75vmin, 0.65rem) !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card li,
+html[data-viewport="wide"] #pricing .price-card li,
+html[data-viewport="tablet"] #pricing .price-card li {
+    font-size: clamp(0.78rem, 0.95vmin, 0.96rem) !important;
+    line-height: 1.32 !important;
+}
+
+html[data-viewport="desktop"] #pricing .price-card .btn-primary,
+html[data-viewport="desktop"] #pricing .price-card .btn-secondary,
+html[data-viewport="wide"] #pricing .price-card .btn-primary,
+html[data-viewport="wide"] #pricing .price-card .btn-secondary,
+html[data-viewport="tablet"] #pricing .price-card .btn-primary,
+html[data-viewport="tablet"] #pricing .price-card .btn-secondary {
+    min-height: 3.1rem !important;
+    padding-block: 0.75rem !important;
+}
+
+html[data-viewport="desktop"] #pricing .pricing-note,
+html[data-viewport="wide"] #pricing .pricing-note,
+html[data-viewport="tablet"] #pricing .pricing-note {
+    max-width: 760px !important;
+    font-size: clamp(0.78rem, 0.9vmin, 0.92rem) !important;
+    line-height: 1.35 !important;
+}
+
