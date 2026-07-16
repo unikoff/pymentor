@@ -2,7 +2,7 @@ import logging
 import os
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request
 
 if __package__:
     from app.lead_delivery import (
@@ -92,6 +92,10 @@ def create_app():
                 return "1"
 
         return {"asset_version": asset_version}
+
+    @app.route('/platform')
+    def platform():
+        return redirect('http://127.0.0.1:5173/')
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')

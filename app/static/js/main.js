@@ -807,6 +807,7 @@ function initSectionScrollSnap() {
     let snappingStartedAt = 0;
     let snapLockedUntil = 0;
     let snapTimeoutId = null;
+    let scrollEndHandler = null;
     let fallbackSnapTimeoutId = null;
     let fallbackStartY = window.scrollY;
     let fallbackStartIndex = 0;
@@ -914,35 +915,57 @@ function initSectionScrollSnap() {
 
     function scrollToTargetElement(target, behavior = 'smooth') {
         const targetTop = getTargetTop(target);
-        const distance = Math.abs(targetTop - window.scrollY);
-        const lockDuration = behavior === 'auto' ? 80 : Math.min(950, Math.max(720, distance * 0.45));
 
         clearTimeout(fallbackSnapTimeoutId);
         fallbackSnapTimeoutId = null;
+        clearTimeout(snapTimeoutId);
+
+        if (scrollEndHandler) {
+            window.removeEventListener('scrollend', scrollEndHandler);
+            scrollEndHandler = null;
+        }
+
         isSnapping = true;
         snappingStartedAt = Date.now();
-        snapLockedUntil = snappingStartedAt + lockDuration;
+
+        const finishSnap = () => {
+            clearTimeout(snapTimeoutId);
+
+            if (scrollEndHandler) {
+                window.removeEventListener('scrollend', scrollEndHandler);
+                scrollEndHandler = null;
+            }
+
+            const finalTargetTop = getTargetTop(target);
+            if (Math.abs(window.scrollY - finalTargetTop) > 0.5) {
+                jumpToScrollTop(finalTargetTop);
+            }
+
+            isSnapping = false;
+            snapLockedUntil = 0;
+            fallbackStartY = window.scrollY;
+            lastScrollY = window.scrollY;
+        };
 
         if (behavior === 'auto') {
+            snapLockedUntil = snappingStartedAt + 100;
             jumpToScrollTop(targetTop);
-            requestAnimationFrame(() => {
-                isSnapping = false;
-                fallbackStartY = window.scrollY;
-                lastScrollY = window.scrollY;
-            });
+            requestAnimationFrame(finishSnap);
         } else {
+            snapLockedUntil = Number.POSITIVE_INFINITY;
+
+            if ('onscrollend' in window) {
+                scrollEndHandler = finishSnap;
+                window.addEventListener('scrollend', scrollEndHandler, { once: true });
+            }
+
             window.scrollTo({
                 top: targetTop,
                 behavior,
             });
-        }
 
-        clearTimeout(snapTimeoutId);
-        snapTimeoutId = window.setTimeout(() => {
-            isSnapping = false;
-            fallbackStartY = window.scrollY;
-            lastScrollY = window.scrollY;
-        }, lockDuration);
+            snapTimeoutId = window.setTimeout(finishSnap, 1800);
+        }
     }
 
     function snapToIndex(index, behavior = 'smooth') {
@@ -1298,6 +1321,105 @@ function initPriceCards() {
     // Hover states are handled in CSS. Avoid per-card JS listeners.
 }
 
+function initProgramAccordion() {
+    const modules = Array.from(document.querySelectorAll('.program-module'));
+    const detail = document.querySelector('.program-detail');
+    const isDesktopLayout = () => window.matchMedia('(min-width: 900px)').matches;
+
+    if (modules.length === 0) return;
+
+    const getModuleData = (module) => {
+        const body = module.querySelector('.program-module__body');
+        const paragraphs = body ? Array.from(body.querySelectorAll('p')) : [];
+        const resultEl = paragraphs.find((p) => p.classList.contains('program-module__result'));
+        const textEl = paragraphs.find((p) => !p.classList.contains('program-module__result'));
+
+        return {
+            number: module.querySelector('.program-module__number')?.textContent.trim() || '',
+            title: module.querySelector('.program-module__title')?.textContent.trim() || '',
+            subtitle: module.querySelector('.program-module__subtitle')?.textContent.trim() || '',
+            volume: module.querySelector('.program-module__volume')?.textContent.trim() || '',
+            tags: Array.from(module.querySelectorAll('.program-module__tags span')).map((t) => t.textContent.trim()),
+            text: textEl ? textEl.textContent.trim() : '',
+            resultHtml: resultEl ? resultEl.innerHTML : '',
+        };
+    };
+
+    const fillDetail = (module) => {
+        if (!detail) return;
+        const data = getModuleData(module);
+
+        detail.querySelector('.program-detail__number').textContent = data.number;
+        detail.querySelector('.program-detail__volume').textContent = data.volume;
+        detail.querySelector('.program-detail__title').textContent = data.title;
+        detail.querySelector('.program-detail__subtitle').textContent = data.subtitle;
+        detail.querySelector('.program-detail__text').textContent = data.text;
+        detail.querySelector('.program-detail__result').innerHTML = data.resultHtml;
+
+        const tagsBox = detail.querySelector('.program-detail__tags');
+        tagsBox.innerHTML = '';
+        data.tags.forEach((tag) => {
+            const chip = document.createElement('span');
+            chip.textContent = tag;
+            tagsBox.appendChild(chip);
+        });
+    };
+
+    const closeModule = (module) => {
+        const button = module.querySelector('.program-module__head');
+        const panelId = button?.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+        const toggle = module.querySelector('.program-module__toggle');
+
+        button?.setAttribute('aria-expanded', 'false');
+        if (panel) panel.hidden = true;
+        module.classList.remove('is-open', 'program-module--active', 'is-selected');
+        if (toggle) toggle.textContent = 'Подробнее';
+    };
+
+    const selectModule = (module, { openBody = false } = {}) => {
+        modules.forEach((other) => {
+            if (other !== module) closeModule(other);
+        });
+
+        module.classList.add('is-selected');
+        fillDetail(module);
+
+        const button = module.querySelector('.program-module__head');
+        const panelId = button?.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+        const toggle = module.querySelector('.program-module__toggle');
+
+        if (openBody && panel) {
+            button?.setAttribute('aria-expanded', 'true');
+            panel.hidden = false;
+            module.classList.add('is-open', 'program-module--active');
+            if (toggle) toggle.textContent = 'Свернуть';
+        }
+    };
+
+    modules.forEach((module) => {
+        const button = module.querySelector('.program-module__head');
+        if (!button) return;
+
+        button.addEventListener('click', () => {
+            if (isDesktopLayout()) {
+                // Десктоп: список слева — панель деталей справа.
+                selectModule(module);
+                return;
+            }
+
+            // Мобайл/планшет: обычный аккордеон.
+            const willOpen = button.getAttribute('aria-expanded') !== 'true';
+            modules.forEach((other) => closeModule(other));
+            if (willOpen) selectModule(module, { openBody: true });
+        });
+    });
+
+    // По умолчанию показываем первый модуль в панели деталей.
+    selectModule(modules[0]);
+}
+
 // Pricing Carousel for Mobile
 function initPricingCarousel() {
     const carousel = document.querySelector('.pricing-carousel');
@@ -1475,7 +1597,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMatrixBackground();
     initCounterAnimation();
     initTextDecryption();
-    initLessonFlowAnimation()
     initScrollAnimations();
     initMobileMenu();
     initSmoothScrolling();
@@ -1484,6 +1605,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initActiveNavigation();
     initBrandTypewriter();
     initSkillBadges();
+    initProgramAccordion();
     bindFormListeners();
     
     // Инициализируем карусель и карточки с небольшой задержкой,
@@ -1504,100 +1626,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-
-
-
-
-
-
-// Функция для анимации ползунка по кривой SVG на основе времени
-function initLessonFlowAnimation() {
-    const section = document.querySelector('.lesson-flow-section');
-    const path = document.getElementById('lesson-flow-path');
-    const cursor = document.getElementById('flow-cursor');
-    const steps = document.querySelectorAll('.lesson-step');
-
-    // 💡 Настройки времени и скорости
-    const animationDuration = 15000; // 15 секунд (в миллисекундах) для полного прохождения
-    let startTime = null;
-    let animationFrameId = null;
-
-    // Безопасная проверка элементов
-    if (!section || !path || !cursor || steps.length === 0) return;
-
-    const pathLength = path.getTotalLength();
-
-    // 1. Основной анимационный цикл
-    function animateFlowCursor(timestamp) {
-        if (!startTime) {
-            startTime = timestamp;
-        }
-
-        const elapsedTime = timestamp - startTime;
-        
-        // ❌ УДАЛЕНИЕ ЗАЦИКЛИВАНИЯ И ОГРАНИЧЕНИЕ ПРОГРЕССА:
-        // Вычисляем прогресс (от 0 до 1), используя Math.min, чтобы не превысить 1.
-        const rawProgress = elapsedTime / animationDuration;
-        const progressRatio = Math.min(rawProgress, 1); 
-
-        // Вычисляем текущее расстояние по пути
-        const currentDistance = pathLength * progressRatio;
-
-        // Получаем координаты точки на SVG-пути
-        const point = path.getPointAtLength(currentDistance);
-        
-        // Обновляем позицию ползунка
-        cursor.setAttribute('cx', point.x);
-        cursor.setAttribute('cy', point.y);
-        
-        // 2. УСЛОВИЕ ОСТАНОВКИ:
-        // Если прогресс достиг 100% (progressRatio === 1), останавливаем цикл.
-        if (progressRatio < 1) {
-            // Продолжаем цикл анимации, только если не достигли конца
-            animationFrameId = requestAnimationFrame(animateFlowCursor);
-        } else {
-            // Анимация завершена. Очищаем ID, чтобы ее можно было запустить снова.
-            animationFrameId = null;
-        }
-        
-        // 3. Логика для активации шагов (по прокрутке)
-        steps.forEach(step => {
-            const rect = step.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25) {
-                step.querySelector('.fade-in-left')?.classList.add('visible');
-                step.querySelector('.fade-in-right')?.classList.add('visible');
-            } else {
-                 step.querySelector('.fade-in-left')?.classList.remove('visible');
-                 step.querySelector('.fade-in-right')?.classList.remove('visible');
-            }
-        });
-    }
-    
-    // 4. Запуск/остановка по видимости
-    function checkVisibilityAndStart() {
-        const rect = section.getBoundingClientRect();
-        const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
-
-        // Запускаем, только если секция видна И анимация не запущена
-        if (isVisible && !animationFrameId) {
-            startTime = null; // Сброс времени, чтобы анимация началась сначала
-            animationFrameId = requestAnimationFrame(animateFlowCursor);
-        } 
-        // Если секция не видна, останавливаем цикл.
-        else if (!isVisible && animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        }
-    }
-
-    // Привязка слушателей
-    window.addEventListener('resize', checkVisibilityAndStart);
-    window.addEventListener('scroll', checkVisibilityAndStart);
-
-    // Начальный запуск
-    checkVisibilityAndStart();
-}
 
 
 

@@ -1,83 +1,162 @@
-<section id="roadmap" class="section roadmap-section fade-in" aria-labelledby="roadmap-title">
+<section id="roadmap" class="section roadmap-section program-section fade-in" aria-labelledby="roadmap-title">
     <div class="container">
-        <div class="section-heading section-heading--split">
-            <div>
-                <span class="section-kicker">Программа</span>
-                <h2 id="roadmap-title">Дорожная карта, которую можно адаптировать под вашу цель</h2>
-            </div>
-            <div class="roadmap-intro">
-                <p>
-                    Сначала диагностика, затем фундамент, backend-проекты и отдельная подготовка
-                    к реальным собеседованиям.
-                </p>
-                <div class="roadmap-intro__meta" aria-label="Как адаптируется программа">
-                    <span>цель → темы</span>
-                    <span>уровень → темп</span>
-                    <span>проект → практика</span>
+        <div class="program-heading">
+            <span class="section-kicker">Программа</span>
+            <h2 id="roadmap-title">Инженерный путь в Python Backend</h2>
+            <p>От диагностики и фундаментального Python до API, данных, безопасности, production-практик и собеседований.</p>
+        </div>
+
+        <div class="program-layout">
+        <ul class="program-modules" aria-label="Модули программы">
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-01">
+                    <span class="program-module__number">01</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Бесплатная консультация</span>
+                        <span class="program-module__subtitle">Фиксируем точку старта, целевую роль и критерии прогресса</span>
+                        <span class="program-module__tags" aria-label="Темы модуля">
+                            <span>assessment</span><span>skill map</span><span>roadmap</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">60 минут · бесплатно</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-01" role="region" aria-label="Подробнее о диагностике" hidden>
+                    <p>Проводим технический аудит: проверяем Python, алгоритмическое мышление, Git, HTTP, базы данных и умение объяснять собственный код. Формулируем целевую позицию, ограничения по времени и измеримые контрольные точки. На основе результатов строим индивидуальную последовательность тем без дублирования уже освоенного материала.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> персональная карта компетенций, приоритеты обучения и понятные критерии перехода между этапами.</p>
                 </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-02">
+                    <span class="program-module__number">02</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Python и инженерная база</span>
+                        <span class="program-module__subtitle">От синтаксиса к модульному, тестируемому коду</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>Python</span><span>ООП</span><span>typing</span><span>SOLID</span><span>pytest</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">35–45 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-02" role="region" aria-label="Подробнее о фундаменте Python" hidden>
+                    <p>Последовательно разбираем модель выполнения Python, коллекции, функции и область видимости, исключения, модули и пакеты, файловое хранение, сериализацию, объектную модель, композицию и наследование. Учимся определять контракт функции, разделять ответственности, управлять зависимостями, применять type hints и фиксировать поведение автоматическими тестами на pytest.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> вы декомпозируете задачи, пишете поддерживаемый Python-код, тестируете ключевые сценарии и аргументированно объясняете принятые решения.</p>
+                </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-03">
+                    <span class="program-module__number">03</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">FastAPI и HTTP API в целом</span>
+                        <span class="program-module__subtitle">Строим явные контракты и предсказуемое поведение сервиса</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>FastAPI</span><span>HTTP</span><span>REST</span><span>Pydantic</span><span>OpenAPI</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">20–25 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-03" role="region" aria-label="Подробнее о FastAPI и API" hidden>
+                    <p>Разбираем семантику HTTP-методов и статус-кодов, идемпотентность, структуру request и response, валидацию и сериализацию через Pydantic. Проектируем CRUD-контракты, разделяем входные и выходные схемы, организуем маршруты через APIRouter, применяем dependency injection, middleware, CORS, exception handlers, OpenAPI и интеграционные тесты через TestClient.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> рабочий версионируемый API с прозрачным контрактом, документацией, единым форматом ошибок и автоматическими тестами.</p>
+                </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-04">
+                    <span class="program-module__number">04</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Слой данных и базы данных</span>
+                        <span class="program-module__subtitle">ORM, транзакции, миграции и осмысленные запросы</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>SQLAlchemy</span><span>SQLite</span><span>Alembic</span><span>SQL</span><span>PostgreSQL</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">25–30 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-04" role="region" aria-label="Подробнее о слое данных" hidden>
+                    <p>Начинаем с SQLite и синхронного SQLAlchemy: engine, lifecycle Session, ORM-модели, identity map, unit of work, транзакционные границы и rollback. Реализуем выборки, фильтрацию, сортировку, пагинацию, связи one-to-many, eager loading и диагностику N+1. Управляем схемой через Alembic, затем изучаем SQL, нормализацию, JOIN, агрегаты, индексы, EXPLAIN и перенос проекта на PostgreSQL. Redis и MongoDB рассматриваем как отдельные модели хранения под конкретные сценарии, а не как взаимозаменяемые базы.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> вы проектируете схему данных, контролируете транзакции, читаете ORM-запросы и можете обосновать выбор технологии хранения.</p>
+                </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-05">
+                    <span class="program-module__number">05</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Аутентификация и контроль доступа</span>
+                        <span class="program-module__subtitle">Идентичность пользователя, сессии, токены и права</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>AuthN</span><span>AuthZ</span><span>cookies</span><span>JWT</span><span>RBAC</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">20–25 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-05" role="region" aria-label="Подробнее об аутентификации и безопасности" hidden>
+                    <p>Разделяем идентификацию, аутентификацию и авторизацию. Реализуем безопасное хеширование паролей, server-side sessions в HttpOnly-cookie, access и refresh tokens, ротацию и отзыв токенов, OAuth2 password flow в FastAPI, dependency current_user, ownership-проверки и ролевую модель доступа. Отдельно разбираем API keys, HTTP Basic, различие между ответами 401 и 403 и базовую threat model приложения.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> персонализированный API, в котором пользователь видит только свои данные, а механизмы входа и проверки прав покрыты тестами.</p>
+                </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-06">
+                    <span class="program-module__number">06</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Асинхронность и архитектура сервиса</span>
+                        <span class="program-module__subtitle">Конкурентное I/O, границы модулей и управляемая сложность</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>asyncio</span><span>event loop</span><span>AsyncSession</span><span>concurrency</span><span>architecture</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">20–25 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-06" role="region" aria-label="Подробнее об асинхронности и архитектуре" hidden>
+                    <p>Разбираем event loop, coroutine, task, cancellation, timeout и различие между I/O-bound и CPU-bound нагрузкой. Учимся находить блокирующие вызовы, корректно использовать async/await, AsyncSession и конкурентное выполнение без потери контроля над ошибками. На уровне архитектуры развиваем модульный монолит: выделяем bounded responsibilities, сервисные границы, конфигурацию, логирование и наблюдаемость без преждевременного перехода к микросервисам.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> вы понимаете, когда асинхронность действительно повышает пропускную способность, и умеете развивать приложение без хаотичного роста связей.</p>
+                </div>
+            </li>
+
+            <li class="program-module">
+                <button class="program-module__head" type="button" aria-expanded="false" aria-controls="program-module-07">
+                    <span class="program-module__number">07</span>
+                    <span class="program-module__summary">
+                        <span class="program-module__title">Production, доставка и собеседования</span>
+                        <span class="program-module__subtitle">Контейнеризация, автоматические проверки и защита проекта</span>
+                        <span class="program-module__tags" aria-label="Технологии и темы">
+                            <span>Docker</span><span>Compose</span><span>CI/CD</span><span>GitHub Actions</span><span>System Design</span>
+                        </span>
+                    </span>
+                    <span class="program-module__volume">25–30 занятий</span>
+                    <span class="program-module__toggle" aria-hidden="true">Подробнее</span>
+                </button>
+                <div class="program-module__body" id="program-module-07" role="region" aria-label="Подробнее о production и собеседованиях" hidden>
+                    <p>Собираем воспроизводимое окружение через Dockerfile и Docker Compose, разделяем build-time и runtime configuration, подключаем health checks, миграции, structured logging и управление секретами. Настраиваем CI-пайплайн: линтер, тесты, сборка образа и контролируемый deploy. Затем проводим code review, разбираем типовые вопросы по Python, HTTP, SQL, FastAPI и архитектуре, решаем практические задачи, оформляем README и готовим техническую защиту проекта.</p>
+                    <p class="program-module__result"><strong>Результат:</strong> развёртываемый портфельный сервис, прозрачная история разработки и готовность аргументированно проходить техническое интервью.</p>
+                </div>
+            </li>
+        </ul>
+
+        <aside class="program-detail" aria-live="polite" aria-label="Детали выбранного модуля">
+            <div class="program-detail__top">
+                <span class="program-detail__number">01</span>
+                <span class="program-detail__volume">60 минут · бесплатно</span>
             </div>
+            <h3 class="program-detail__title">Диагностика и индивидуальная траектория</h3>
+            <p class="program-detail__subtitle">Фиксируем точку старта, целевую роль и критерии прогресса</p>
+            <div class="program-detail__tags" aria-label="Темы модуля"></div>
+            <p class="program-detail__text"></p>
+            <p class="program-detail__result"></p>
+        </aside>
         </div>
 
-        <div class="roadmap-grid">
-            <article class="roadmap-block active roadmap-card">
-                <span class="roadmap-card__step">01</span>
-                <h3>Диагностика и личный план</h3>
-                <p class="roadmap-card__meta">60 минут</p>
-                <ul>
-                    <li>Обсуждаем карьерную цель</li>
-                    <li>Проверяем текущий уровень</li>
-                    <li>Формируем маршрут обучения</li>
-                    <li>Согласуем формат занятий</li>
-                </ul>
-                <p class="roadmap-card__outcome">Результат: понятный план первых шагов.</p>
-                <span class="roadmap-card__status">Доступно сейчас</span>
-            </article>
-
-            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Основы Python')">
-                <span class="roadmap-card__step">02</span>
-                <h3>Фундамент Python</h3>
-                <p class="roadmap-card__meta">20-25 занятий</p>
-                <ul>
-                    <li>ООП и структура проекта</li>
-                    <li>Типичные ошибки новичков</li>
-                    <li>Работа с файлами и API</li>
-                    <li>Тестирование базовой логики</li>
-                </ul>
-                <p class="roadmap-card__outcome">Результат: код без хаотичных решений.</p>
-                <span class="roadmap-card__status">После старта</span>
-            </article>
-
-            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Базы данных и фреймворки')">
-                <span class="roadmap-card__step">03</span>
-                <h3>Базы данных и фреймворки</h3>
-                <p class="roadmap-card__meta">30-40 занятий</p>
-                <ul>
-                    <li>PostgreSQL, MongoDB</li>
-                    <li>ORM, миграции, схемы</li>
-                    <li>Flask, Django, FastAPI</li>
-                    <li>REST API и websocket</li>
-                </ul>
-                <p class="roadmap-card__outcome">Результат: рабочий backend-проект.</p>
-                <span class="roadmap-card__status">После фундамента</span>
-            </article>
-
-            <article class="roadmap-block locked roadmap-card" onclick="showLockedModal('Подготовка к собеседованиям')">
-                <span class="roadmap-card__step">04</span>
-                <h3>Портфолио и собеседования</h3>
-                <p class="roadmap-card__meta">10 занятий</p>
-                <ul>
-                    <li>Упаковываем pet-проекты</li>
-                    <li>Разбираем вопросы HR</li>
-                    <li>Тренируем технические ответы</li>
-                    <li>Готовим план поиска работы</li>
-                </ul>
-                <p class="roadmap-card__outcome">Результат: портфолио и стратегия выхода.</p>
-                <span class="roadmap-card__status">Финальный этап</span>
-            </article>
-        </div>
-
-        <div class="section-cta">
-            <button class="btn-primary btn-large" type="button" onclick="openContactForm()">Собрать мой roadmap</button>
+        <div class="section-cta program-section__cta">
+            <button class="btn-primary btn-large" type="button" onclick="openContactForm()">Собрать индивидуальный roadmap</button>
         </div>
     </div>
 </section>

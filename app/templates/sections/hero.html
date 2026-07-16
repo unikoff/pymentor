@@ -3,70 +3,73 @@
         <div class="hero-copy fade-in">
             <span class="section-kicker">Персональный backend-менторинг</span>
             <h1 id="hero-title" class="hero-title">
-                Backend без хаоса: от первых API до уверенной архитектуры
+                Менторинг, который доводит <span class="hero-title__accent">до&nbsp;оффера</span>
             </h1>
             <p class="hero-lead">
-                Индивидуальная программа по Python, Django, FastAPI, базам данных и проектному мышлению.
-                Вместо абстрактной теории — ревью кода, практика и понятный маршрут роста.
+                Персональный менторинг по Python, Django, FastAPI и базам данных: ревью кода,
+                реальные проекты и подготовка к собеседованиям. Начните без риска — бесплатная
+                консультация и день полного доступа к платформе. Сначала посмотрите систему
+                изнутри, потом решайте.
             </p>
 
             <div class="hero-actions">
                 <button class="btn-primary btn-large" type="button" onclick="openContactForm()">
-                    Получить план обучения
+                    Записаться на бесплатную консультацию
                 </button>
-                <a class="btn-secondary btn-large" href="#process">Как проходят занятия</a>
+                <a class="hero-actions__link" href="#roadmap">
+                    Посмотреть программу <span aria-hidden="true">↓</span>
+                </a>
             </div>
+            <p class="hero-note">
+                Бесплатно и ни к чему не обязывает · После консультации — день полного доступа к платформе в подарок
+            </p>
 
             <div class="hero-proof" aria-label="Ключевые преимущества">
+                <div>
+                    <strong>0 ₽</strong>
+                    <span>первая консультация</span>
+                </div>
+                <div>
+                    <strong>1 день</strong>
+                    <span>полного доступа к платформе</span>
+                </div>
                 <div>
                     <strong>1:1</strong>
                     <span>формат без группы</span>
                 </div>
-                <div>
-                    <strong>Code review</strong>
-                    <span>на каждом этапе</span>
-                </div>
-                <div>
-                    <strong>Portfolio</strong>
-                    <span>практические проекты</span>
-                </div>
             </div>
         </div>
 
-        <div class="hero-panel fade-in" aria-label="Пример программы">
-            <div class="mentor-card">
-                <div class="mentor-card__top">
-                    <span class="mentor-card__status">Открыт набор</span>
-                    <span class="mentor-card__tag">Python / Backend</span>
+        <div class="hero-panel fade-in" aria-label="Как выглядит персональный менторинг">
+            <article class="hero-mentor-window">
+                <div class="hero-mentor-window__topline">
+                    <span>Персональный backend-менторинг</span>
+                    <span class="hero-mentor-window__status"><i></i>Открыт набор</span>
                 </div>
-                <div class="mentor-card__identity">
-                    <img src="{{ url_for('static', filename='img/ava.jpg') }}" alt="Nikita Kiryukhin">
+
+                <div class="hero-mentor-window__identity">
+                    <img src="{{ url_for('static', filename='img/ava.jpg') }}" alt="Nikita Kiryukhin, ваш backend-ментор">
                     <div>
-                        <span>Ментор</span>
+                        <span>Ваш ментор</span>
                         <strong>Nikita Kiryukhin</strong>
                     </div>
                 </div>
-                <div class="mentor-card__route">
-                    <div>
-                        <span>01</span>
-                        <p>Диагностика уровня и цели</p>
-                    </div>
-                    <div>
-                        <span>02</span>
-                        <p>Персональная дорожная карта</p>
-                    </div>
-                    <div>
-                        <span>03</span>
-                        <p>Практика, ревью и портфолио</p>
-                    </div>
+
+                <div class="hero-mentor-window__message">
+                    <span>Как работаем</span>
+                    <h2>Разбираю ваш код, логику и следующие шаги.</h2>
                 </div>
-                <div class="mentor-card__stack" aria-label="Технологии">
-                    <span>Python</span>
-                    <span>FastAPI</span>
-                    <span>Django</span>
-                    <span>PostgreSQL</span>
+
+                <div class="hero-mentor-window__review" aria-label="Пример комментария из код-ревью">
+                    <div class="hero-mentor-window__review-top">
+                        <span class="hero-mentor-window__review-file">api/views.py</span>
+                        <span class="hero-mentor-window__review-tag">пример ревью</span>
+                    </div>
+                    <p>«Вынеси валидацию в сервисный слой — эндпоинт станет проще тестировать»</p>
                 </div>
-            </div>
+
+                <p class="hero-mentor-window__note">Python · Backend · Code review</p>
+            </article>
         </div>
     </div>
 </section>
@@ -76,8 +79,8 @@
 <div id="contact-form" class="contact-modal hidden" role="dialog" aria-modal="true" aria-labelledby="contact-form-title">
     <div class="contact-modal__header">
         <div>
-            <span class="section-kicker">Заявка на консультацию</span>
-            <h2 id="contact-form-title">Начните свой путь в Backend</h2>
+            <span class="section-kicker">Бесплатная консультация</span>
+            <h2 id="contact-form-title">Запишитесь на бесплатную консультацию</h2>
         </div>
         <button onclick="closeContactForm()" class="contact-modal__close" type="button" aria-label="Закрыть форму">&times;</button>
     </div>

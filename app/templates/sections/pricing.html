@@ -3,67 +3,78 @@
         <div class="section-heading">
             <span class="section-kicker">Тарифы</span>
             <h2 id="pricing-title">Выберите формат обучения</h2>
-            <p>
-                Главный продукт — интенсив на месяц: 12 часов индивидуальной работы, практика,
-                домашние задания, ревью и движение по roadmap без пауз. Остальные форматы — для
-                точечных задач и спокойного темпа.
-            </p>
         </div>
 
         <div class="pricing-carousel-wrapper">
             <div class="pricing-carousel">
                 <article class="price-card">
-                    <span class="price-card__label">Разовый час</span>
+                    <div class="price-card__topline">
+                        <span class="price-card__label">Разовый час</span>
+                        <span class="price-card__duration">1 час</span>
+                    </div>
                     <h3>Занятие 1:1</h3>
-                    <div class="price-card__price">3000 ₽</div>
-                    <div class="price-card__benefit">База: 3000 ₽ / час</div>
-                    <p class="price-card__hint">Для точечного разбора темы, ошибки или проекта.</p>
+                    <div class="price-card__price">3 000 ₽</div>
+                    <p class="price-card__meta">за занятие</p>
                     <ul>
-                        <li>1 час индивидуально</li>
                         <li>Разбор конкретной задачи</li>
                         <li>Теория сразу в практику</li>
                         <li>Домашнее задание по итогам</li>
-                        <li>Рекомендации по материалам</li>
+                        <li class="price-card__li-access">Доступ к платформе — 3 дня</li>
                     </ul>
                     <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Записаться</button>
                 </article>
 
                 <article class="price-card price-card--featured">
-                    <span class="price-card__label">Лучшее предложение</span>
+                    <div class="price-card__topline">
+                        <span class="price-card__label">-45%</span>
+                        <span class="price-card__duration">12 ч / месяц</span>
+                    </div>
                     <h3>Интенсив: полный курс</h3>
-                    <div class="price-card__price">20000 ₽</div>
-                    <div class="price-card__benefit price-card__benefit--strong">Выгода 44% к почасовой оплате</div>
-                    <p class="price-card__hint">12 часов за месяц: максимум практики, ревью и движения по roadmap.</p>
+                    <div class="price-card__price">20 000 ₽</div>
+                    <p class="price-card__meta">1 600 ₽ за час вместо 3 000 ₽</p>
                     <ul>
-                        <li>12 часов занятий в месяц</li>
-                        <li>Персональный roadmap и темп</li>
-                        <li>Домашние задания после встреч</li>
+                        <li>Фокус на ключевых пробелах</li>
                         <li>Код-ревью и разбор архитектуры</li>
-                        <li>Поддержка между занятиями</li>
+                        <li>План самостоятельной практики</li>
+                        <li class="price-card__li-access">Доступ к платформе — месяц</li>
+                        <li class="price-card__li-access">Поддержка между занятиями</li>
+                        <li class="price-card__li-access">Персональный roadmap и темп</li>
+                        <li class="price-card__li-access">Приоритет в расписании</li>
                     </ul>
                     <button class="btn-primary btn-wide" type="button" onclick="openContactForm()">Выбрать интенсив</button>
                 </article>
 
                 <article class="price-card">
-                    <span class="price-card__label">Облегчённый формат</span>
+                    <div class="price-card__topline">
+                        <span class="price-card__label">Облегчённый формат</span>
+                        <span class="price-card__duration">6 ч / месяц</span>
+                    </div>
                     <h3>Месячное сопровождение</h3>
-                    <div class="price-card__price">15000 ₽</div>
-                    <div class="price-card__benefit">Выгода 17% к почасовой оплате</div>
-                    <p class="price-card__hint">Спокойный темп: меньше созвонов, больше самостоятельной практики.</p>
+                    <div class="price-card__price">15 000 ₽</div>
+                    <p class="price-card__meta">2 500 ₽ за час занятий</p>
                     <ul>
-                        <li>6 часов занятий в месяц</li>
                         <li>Фокус на ключевых пробелах</li>
-                        <li>Домашние задания с приоритетами</li>
                         <li>Ревью важных решений</li>
                         <li>План самостоятельной практики</li>
+                        <li class="price-card__li-access">Доступ к платформе — месяц</li>
                     </ul>
                     <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Выбрать формат</button>
                 </article>
             </div>
             <div class="carousel-dots" id="pricing-dots" aria-label="Навигация по тарифам"></div>
         </div>
-        <p class="pricing-note">
-            Интенсив экономит 44% относительно разовой оплаты и даёт самый плотный прогресс за месяц.
-        </p>
+
+        <aside class="pricing-deal" aria-labelledby="pricing-deal-title">
+            <div class="pricing-deal__info">
+                <span class="pricing-deal__label">Индивидуальная программа</span>
+                <h3 id="pricing-deal-title">Полный курс до оффера</h3>
+                <p class="pricing-deal__line">9 месяцев менторства&ensp;·&ensp;платформа на весь срок&ensp;·&ensp;цена зафиксирована&ensp;·&ensp;договор с ИП</p>
+            </div>
+            <div class="pricing-deal__cta">
+                <div class="pricing-deal__price"><strong>150 000 ₽</strong></div>
+                <span class="pricing-deal__note">выгода 30 000 ₽ к помесячной оплате</span>
+                <button class="btn-primary" type="button" onclick="openContactForm()">Обсудить программу</button>
+            </div>
+        </aside>
     </div>
 </section>

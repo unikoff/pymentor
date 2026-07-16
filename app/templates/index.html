@@ -1,16 +1,18 @@
 <!-- templates/index.html -->
 {% extends "base.html" %}
 
-{% block title %}Nikita Kiryukhin — Backend Mentor | Python • Django • FastAPI{% endblock %}
-{% block description %}Индивидуальные занятия по backend: Python, Django, FastAPI, PostgreSQL.{% endblock %}
+{% block title %}Backend-менторинг с нуля до оффера — Python, Django, FastAPI | PyMentor{% endblock %}
+{% block description %}Персональный менторинг по backend: Python, Django, FastAPI, базы данных. Бесплатная консультация и день доступа к платформе. Ревью кода, практика, подготовка к собесам.{% endblock %}
+{% block og_title %}Backend-менторинг с нуля до оффера — Python, Django, FastAPI | PyMentor{% endblock %}
+{% block og_description %}Персональный менторинг по backend: Python, Django, FastAPI, базы данных. Бесплатная консультация и день доступа к платформе.{% endblock %}
 
 {% block content %}
     <!-- секции разбиты по файлам в папке sections -->
     {% include 'sections/hero.html' %}
-    {% include 'sections/why.html' %}
+    {% include 'sections/start.html' %}
     {% include 'sections/about.html' %}
     {% include 'sections/roadmap.html' %}
     {% include 'sections/process.html' %}
+    {% include 'sections/platform.html' %}
     {% include 'sections/pricing.html' %}
-    <!-- {% include 'sections/contact.html' %} -->
 {% endblock %}
