@@ -1,80 +1,70 @@
-<section id="pricing" class="section pricing-section fade-in" aria-labelledby="pricing-title">
+<section id="pricing" class="section pricing-section pricing-section--plans fade-in" aria-labelledby="pricing-title">
     <div class="container">
-        <div class="section-heading">
+        <header class="pricing-showcase__heading">
             <span class="section-kicker">Тарифы</span>
-            <h2 id="pricing-title">Выберите формат обучения</h2>
-        </div>
+            <h2 id="pricing-title">Выбери формат под текущую цель</h2>
+            <p>Разовый разбор, системный трек или поддержка в своём темпе.</p>
+        </header>
 
-        <div class="pricing-carousel-wrapper">
-            <div class="pricing-carousel">
-                <article class="price-card">
-                    <div class="price-card__topline">
-                        <span class="price-card__label">Разовый час</span>
-                        <span class="price-card__duration">1 час</span>
+        <div class="pricing-carousel-wrapper pricing-showcase__stage">
+            <div class="pricing-carousel pricing-showcase__grid">
+                <article class="price-card price-option price-option--single">
+                    <div class="price-option__topline">
+                        <span>Точечная помощь</span>
+                        <span>01</span>
                     </div>
-                    <h3>Занятие 1:1</h3>
+                    <div class="price-option__format"><span>Формат</span><strong>1 час · 1:1</strong></div>
+                    <h3>Разовая сессия</h3>
                     <div class="price-card__price">3 000 ₽</div>
-                    <p class="price-card__meta">за занятие</p>
+
+                    <p class="price-option__summary">Когда нужно разобрать одну задачу, ошибку или решение по проекту.</p>
                     <ul>
-                        <li>Разбор конкретной задачи</li>
-                        <li>Теория сразу в практику</li>
-                        <li>Домашнее задание по итогам</li>
-                        <li class="price-card__li-access">Доступ к платформе — 3 дня</li>
+                        <li>Диагностика запроса</li>
+                        <li>Разбор решения и ошибок</li>
+                        <li>План следующего шага</li>
                     </ul>
-                    <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Записаться</button>
+                    <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Выбери разбор</button>
                 </article>
 
-                <article class="price-card price-card--featured">
-                    <div class="price-card__topline">
-                        <span class="price-card__label">-45%</span>
-                        <span class="price-card__duration">12 ч / месяц</span>
+                <article class="price-card price-option price-card--featured price-option--intensive">
+                    <div class="price-option__topline">
+                        <span>Главный формат</span>
+                        <span>02</span>
                     </div>
-                    <h3>Интенсив: полный курс</h3>
+                    <div class="price-option__format"><span>Формат</span><strong>12 часов в месяц</strong></div>
+                    <h3>Интенсив: полный трек</h3>
                     <div class="price-card__price">20 000 ₽</div>
-                    <p class="price-card__meta">1 600 ₽ за час вместо 3 000 ₽</p>
+                    <p class="price-option__benefit">1 600 ₽ за час вместо 3 000 ₽ · выгода 45%</p>
+                    <p class="price-option__summary">Плотный месяц работы: закрываем пробелы, строим систему и закрепляем её практикой.</p>
                     <ul>
-                        <li>Фокус на ключевых пробелах</li>
-                        <li>Код-ревью и разбор архитектуры</li>
-                        <li>План самостоятельной практики</li>
-                        <li class="price-card__li-access">Доступ к платформе — месяц</li>
-                        <li class="price-card__li-access">Поддержка между занятиями</li>
-                        <li class="price-card__li-access">Персональный roadmap и темп</li>
-                        <li class="price-card__li-access">Приоритет в расписании</li>
+                        <li>Персональный roadmap и темп</li>
+                        <li>Code review и разбор архитектуры</li>
+                        <li>Поддержка между занятиями</li>
+                        <li>Доступ к платформе на месяц</li>
                     </ul>
-                    <button class="btn-primary btn-wide" type="button" onclick="openContactForm()">Выбрать интенсив</button>
+                    <button class="btn-primary btn-wide" type="button" onclick="openContactForm()">Выбери интенсив</button>
                 </article>
 
-                <article class="price-card">
-                    <div class="price-card__topline">
-                        <span class="price-card__label">Облегчённый формат</span>
-                        <span class="price-card__duration">6 ч / месяц</span>
+                <article class="price-card price-option price-option--support">
+                    <div class="price-option__topline">
+                        <span>Стабильный ритм</span>
+                        <span>03</span>
                     </div>
+                    <div class="price-option__format"><span>Формат</span><strong>6 часов в месяц</strong></div>
                     <h3>Месячное сопровождение</h3>
                     <div class="price-card__price">15 000 ₽</div>
-                    <p class="price-card__meta">2 500 ₽ за час занятий</p>
+                    <p class="price-option__benefit">2 500 ₽ за час · выгода 17%</p>
+                    <p class="price-option__summary">Для регулярного движения без перегруза и потери обратной связи.</p>
                     <ul>
                         <li>Фокус на ключевых пробелах</li>
                         <li>Ревью важных решений</li>
                         <li>План самостоятельной практики</li>
-                        <li class="price-card__li-access">Доступ к платформе — месяц</li>
+                        <li>Доступ к платформе на месяц</li>
                     </ul>
-                    <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Выбрать формат</button>
+                    <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Выбери сопровождение</button>
                 </article>
             </div>
             <div class="carousel-dots" id="pricing-dots" aria-label="Навигация по тарифам"></div>
         </div>
-
-        <aside class="pricing-deal" aria-labelledby="pricing-deal-title">
-            <div class="pricing-deal__info">
-                <span class="pricing-deal__label">Индивидуальная программа</span>
-                <h3 id="pricing-deal-title">Полный курс до оффера</h3>
-                <p class="pricing-deal__line">9 месяцев менторства&ensp;·&ensp;платформа на весь срок&ensp;·&ensp;цена зафиксирована&ensp;·&ensp;договор с ИП</p>
-            </div>
-            <div class="pricing-deal__cta">
-                <div class="pricing-deal__price"><strong>150 000 ₽</strong></div>
-                <span class="pricing-deal__note">выгода 30 000 ₽ к помесячной оплате</span>
-                <button class="btn-primary" type="button" onclick="openContactForm()">Обсудить программу</button>
-            </div>
-        </aside>
     </div>
 </section>

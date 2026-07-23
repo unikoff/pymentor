@@ -473,40 +473,6 @@ function prevStep() {
     }
 }
 
-// Emoji reactions for form selects
-function initFormReactions() {
-    const levelSelect = document.getElementById('level');
-    const goalSelect = document.getElementById('goal');
-    const levelEmoji = document.getElementById('level-emoji');
-    const goalEmoji = document.getElementById('goal-emoji');
-    
-    const levelEmojis = {
-        'Новичок (не знаю ничего)': '😊',
-        'Начинающий (знаю только основы)': '🧭',
-        'Средний (могу писать простые API)': '😎',
-        'Продвинутый (работаю в IT, нужно углубить знания)': '🚀'
-    };
-    
-    const goalEmojis = {
-        'профессия с 0': '🌱',
-        'Сменить профессию на Backend-разработчика': '💼',
-        'Запустить личный проект': '💻',
-        'Системное повышение квалификации': '📈',
-        'Решить конкретную техническую проблему': '🧩'
-    };
-    
-    if (levelSelect && levelEmoji) {
-        levelSelect.addEventListener('change', (e) => {
-            levelEmoji.textContent = levelEmojis[e.target.value] || '🤔';
-        });
-    }
-    
-    if (goalSelect && goalEmoji) {
-        goalSelect.addEventListener('change', (e) => {
-            goalEmoji.textContent = goalEmojis[e.target.value] || '🎯';
-        });
-    }
-}
 
 // Voice Recording
 function initVoiceRecording() {
@@ -587,44 +553,61 @@ function showFormMessage(message, type = 'error') {
 }
 
 // Form submission
-function submitForm() {
+async function submitForm() {
     const form = document.getElementById('mentorship-form');
     const contactFormEl = document.getElementById('contact-form');
-    
-    if (!form || !contactFormEl) return;
-    
+
+    if (!form || !contactFormEl || form.dataset.submitting === 'true') return;
+
+    form.dataset.submitting = 'true';
+    form.setAttribute('aria-busy', 'true');
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const submitButtonLabel = submitButton?.textContent;
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = '\u041e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u0435\u043c \u0437\u0430\u044f\u0432\u043a\u0443...';
+    }
+
     const formData = new FormData(form);
-    // const data = {}; // 👈 УДАЛЕНО. Сбор текстовых данных уже происходит в formData
-    
-    // 1. Сбор аудиоданных, если есть запись
-    // Используем глобальную переменную audioBlob
     if (audioBlob) {
         const extension = audioBlob.type.includes('webm') ? 'webm' : 'wav';
         formData.append('voice_message', audioBlob, `voice_recording.${extension}`);
     }
-    
-    // 2. Отправка данных на Flask-роутер
-    fetch('/api/form', {
-        method: 'POST',
-        // ❗ НЕ УСТАНАВЛИВАЕМ ЗАГОЛОВОК 'Content-Type'. 
-        // Браузер сам установит его как 'multipart/form-data' с правильным boundary.
-        body: formData // 👈 ОТПРАВЛЯЕМ FormData НАПРЯМУЮ
-    })
-    .then(async response => {
+
+    const submissionId = form.dataset.submissionId
+        || window.crypto?.randomUUID?.()
+        || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    form.dataset.submissionId = submissionId;
+
+    const restoreSubmitState = () => {
+        form.dataset.submitting = 'false';
+        form.removeAttribute('aria-busy');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = submitButtonLabel;
+        }
+    };
+
+    try {
+        const response = await fetch('/api/form', {
+            method: 'POST',
+            headers: { 'X-Idempotency-Key': submissionId },
+            body: formData,
+        });
         const result = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error(result.message || 'Ошибка сети или сервера');
+            throw new Error(result.message || '\u041e\u0448\u0438\u0431\u043a\u0430 \u0441\u0435\u0442\u0438 \u0438\u043b\u0438 \u0441\u0435\u0440\u0432\u0435\u0440\u0430');
         }
-        return result;
-    })
-    .then(result => {
+
+        restoreSubmitState();
+        delete form.dataset.submissionId;
         showSuccessAnimation(contactFormEl, form);
-    })
-    .catch(error => {
+    } catch (error) {
+        restoreSubmitState();
         console.error('Submission error:', error);
         showFailureAnimation(contactFormEl, form, error.message);
-    });
-
+    }
 }
 
 function showSuccessAnimation(contactFormEl, form) {
@@ -650,14 +633,19 @@ function showSuccessAnimation(contactFormEl, form) {
 
     setTimeout(() => {
         contactFormEl.innerHTML = originalFormContent;
+        const restoredForm = contactFormEl.querySelector("#mentorship-form");
+        if (restoredForm) {
+            delete restoredForm.dataset.bound;
+            delete restoredForm.dataset.submitting;
+            delete restoredForm.dataset.submissionId;
+            restoredForm.reset();
+        }
         closeContactForm();
-        form.reset();
         bindFormListeners();
     }, 5000);
 }
 
 function bindFormListeners() {
-    initFormReactions();
     initVoiceRecording();
 
     const nextBtn = document.getElementById('next-btn');
@@ -676,6 +664,9 @@ function bindFormListeners() {
 
     if (form && form.dataset.bound !== 'true') {
         form.dataset.bound = 'true';
+        form.addEventListener('input', () => {
+            delete form.dataset.submissionId;
+        });
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             submitForm();
@@ -700,6 +691,11 @@ function showFailureAnimation(contactFormEl, form, errorMessage) {
 
     setTimeout(() => {
         contactFormEl.innerHTML = originalFormContent; 
+        const restoredForm = contactFormEl.querySelector("#mentorship-form");
+        if (restoredForm) {
+            delete restoredForm.dataset.bound;
+            delete restoredForm.dataset.submitting;
+        }
         closeContactForm();
         bindFormListeners();
     }, 5000); 
@@ -736,7 +732,7 @@ function showLockedModal(moduleName) {
         <div class="glitch-container">
             <span class="section-kicker">Следующий модуль</span>
             <h3 class="glitch" data-text="${moduleName}">${moduleName}</h3>
-            <p>Запишитесь на консультацию, и я расскажу, как этот блок встроится в ваш личный roadmap.</p>
+            <p>Запишись на консультацию, и я расскажу, как этот блок встроится в твой личный roadmap.</p>
             <div class="flex">
                 <button onclick="closeLockedModal()" class="btn-secondary">Закрыть</button>
                 <button onclick="openContactForm(); closeLockedModal();" class="btn-primary">Заполнить форму</button>
@@ -1318,9 +1314,111 @@ function initSkillBadges() {
 
 // Price cards hover effect
 function initPriceCards() {
-    // Hover states are handled in CSS. Avoid per-card JS listeners.
+    const cards = Array.from(document.querySelectorAll('#pricing .price-option'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (cards.length === 0 || prefersReducedMotion) return;
+
+    const clearActiveCard = () => {
+        cards.forEach((card) => card.classList.remove('is-pricing-focus'));
+    };
+
+    const setActiveCard = (card) => {
+        clearActiveCard();
+        card.classList.add('is-pricing-focus');
+    };
+
+    cards.forEach((card) => {
+        card.addEventListener('pointerenter', (event) => {
+            if (event.pointerType === 'mouse') setActiveCard(card);
+        });
+
+        card.addEventListener('pointermove', (event) => {
+            if (event.pointerType !== 'mouse') return;
+
+            const bounds = card.getBoundingClientRect();
+            const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+            const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+
+            card.style.setProperty('--price-pointer-x', `${x}%`);
+            card.style.setProperty('--price-pointer-y', `${y}%`);
+        });
+
+        card.addEventListener('pointerleave', (event) => {
+            if (event.pointerType === 'mouse') clearActiveCard();
+        });
+
+        card.addEventListener('focusin', () => setActiveCard(card));
+        card.addEventListener('focusout', (event) => {
+            if (!card.contains(event.relatedTarget)) clearActiveCard();
+        });
+    });
 }
 
+function initCareerPlanSelector() {
+    const section = document.querySelector('#career');
+    const controls = Array.from(document.querySelectorAll('[data-career-plan]'));
+    const offers = Array.from(document.querySelectorAll('[data-career-offer]'));
+
+    if (!section || controls.length === 0 || offers.length === 0 || section.dataset.careerSelectorInitialized === 'true') return;
+    section.dataset.careerSelectorInitialized = 'true';
+
+    const selectPlan = (plan) => {
+        section.dataset.careerPlan = plan;
+
+        controls.forEach((control) => {
+            const isActive = control.dataset.careerPlan === plan;
+            control.classList.toggle('is-active', isActive);
+            control.setAttribute('aria-pressed', String(isActive));
+        });
+
+        offers.forEach((offer) => {
+            offer.classList.toggle('is-career-selected', offer.dataset.careerOffer === plan);
+        });
+    };
+
+    controls.forEach((control) => {
+        control.addEventListener('click', () => selectPlan(control.dataset.careerPlan));
+    });
+
+    selectPlan(section.dataset.careerPlan || controls.find((control) => control.classList.contains('is-active'))?.dataset.careerPlan || 'offer');
+}
+function initStartStepInteractions() {
+    const steps = Array.from(document.querySelectorAll('#start .start-step'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (steps.length === 0 || prefersReducedMotion) return;
+
+    const clearActiveStep = () => {
+        steps.forEach((step) => step.classList.remove('is-start-focus'));
+    };
+
+    const setActiveStep = (step) => {
+        clearActiveStep();
+        step.classList.add('is-start-focus');
+    };
+
+    steps.forEach((step) => {
+        step.addEventListener('pointerenter', (event) => {
+            if (event.pointerType === 'mouse') setActiveStep(step);
+        });
+
+        step.addEventListener('pointermove', (event) => {
+            if (event.pointerType !== 'mouse') return;
+
+            const bounds = step.getBoundingClientRect();
+            const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+            const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+
+            step.style.setProperty('--start-pointer-x', `${x}%`);
+            step.style.setProperty('--start-pointer-y', `${y}%`);
+        });
+
+        step.addEventListener('pointerleave', (event) => {
+            if (event.pointerType === 'mouse') clearActiveStep();
+        });
+    });
+}
 function initProgramAccordion() {
     const modules = Array.from(document.querySelectorAll('.program-module'));
     const detail = document.querySelector('.program-detail');
@@ -1587,6 +1685,310 @@ function initPricingCarousel() {
 
 }
 
+
+function initReviewVideos() {
+    const cards = Array.from(document.querySelectorAll('[data-review-card]'));
+    if (cards.length === 0) return;
+
+    cards.forEach((card) => {
+        const video = card.querySelector('[data-review-video]');
+        const playButton = card.querySelector('[data-review-play]');
+        const state = card.querySelector('[data-review-state]');
+        if (!(video instanceof HTMLVideoElement) || !(playButton instanceof HTMLButtonElement)) return;
+
+        const configuredSource = video.dataset.reviewSrc?.trim();
+        if (configuredSource && !video.getAttribute('src')) {
+            video.src = configuredSource;
+        }
+
+        const showPlayback = () => {
+            card.classList.remove('is-awaiting-video');
+            card.classList.add('is-playing');
+            if (state) state.textContent = '';
+        };
+
+        const showUnavailableState = () => {
+            card.classList.remove('is-playing');
+            card.classList.add('is-awaiting-video');
+            if (state) state.textContent = 'Видео появится после загрузки файла';
+        };
+
+        playButton.addEventListener('click', async () => {
+            const hasSource = Boolean(video.currentSrc || video.getAttribute('src') || video.dataset.reviewSrc);
+            if (!hasSource) {
+                showUnavailableState();
+                return;
+            }
+
+            video.controls = true;
+            try {
+                await video.play();
+                showPlayback();
+            } catch (error) {
+                console.warn('Review video could not start:', error);
+                if (state) state.textContent = 'Не удалось запустить видео';
+            }
+        });
+
+        video.addEventListener('play', showPlayback);
+    });
+}
+function initAmbientPointerTilt({ selector, stateKey, activeClass, tiltXRange, tiltYRange, minRadius, radiusFactor, cssPrefix }) {
+    const target = document.querySelector(selector);
+    if (!target || target.dataset[stateKey] === 'true') return;
+    target.dataset[stateKey] = 'true';
+
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!supportsFinePointer || reducedMotion) return;
+
+    const resetPointer = () => {
+        target.classList.remove(activeClass);
+        target.style.removeProperty(`--${cssPrefix}-tilt-x`);
+        target.style.removeProperty(`--${cssPrefix}-tilt-y`);
+        target.style.removeProperty(`--${cssPrefix}-pointer-strength`);
+    };
+
+    window.addEventListener('pointermove', (event) => {
+        if (event.pointerType && event.pointerType !== 'mouse') return;
+
+        const rect = target.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const centerX = rect.left + (rect.width / 2);
+        const centerY = rect.top + (rect.height / 2);
+        const distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+        const radius = Math.max(minRadius, Math.max(rect.width, rect.height) * radiusFactor);
+        const strength = Math.max(0, 1 - (distance / radius));
+
+        if (strength < 0.08) {
+            resetPointer();
+            return;
+        }
+
+        const relativeX = Math.min(Math.max((event.clientX - centerX) / (rect.width / 2), -1), 1);
+        const relativeY = Math.min(Math.max((event.clientY - centerY) / (rect.height / 2), -1), 1);
+        target.style.setProperty(`--${cssPrefix}-tilt-x`, `${(-relativeY * tiltXRange * strength).toFixed(2)}deg`);
+        target.style.setProperty(`--${cssPrefix}-tilt-y`, `${(relativeX * tiltYRange * strength).toFixed(2)}deg`);
+        target.style.setProperty(`--${cssPrefix}-pointer-strength`, strength.toFixed(3));
+        target.classList.add(activeClass);
+    }, { passive: true });
+
+    window.addEventListener('blur', resetPointer);
+}
+
+function initAboutPhotoPointer() {
+    initAmbientPointerTilt({
+        selector: '#about .about-photo--experience',
+        stateKey: 'aboutPhotoPointerInitialized',
+        activeClass: 'is-about-photo-pointer-active',
+        tiltXRange: 3.2,
+        tiltYRange: 3.6,
+        minRadius: 560,
+        radiusFactor: 1.38,
+        cssPrefix: 'about-photo',
+    });
+}
+
+function initHeroPointer() {
+    initAmbientPointerTilt({
+        selector: '#hero .hero-mentor-window',
+        stateKey: 'heroPointerInitialized',
+        activeClass: 'is-hero-pointer-active',
+        tiltXRange: 5.4,
+        tiltYRange: 6,
+        minRadius: 640,
+        radiusFactor: 1.28,
+        cssPrefix: 'hero',
+    });
+}
+function initAboutAchievements() {
+    const section = document.getElementById('about');
+    const cards = Array.from(section?.querySelectorAll('[data-about-achievement]') || []);
+
+    if (!section || cards.length === 0 || section.dataset.aboutAchievementsInitialized === 'true') return;
+    section.dataset.aboutAchievementsInitialized = 'true';
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const formatValue = (value, suffix) => `${Math.round(value)}${suffix}`;
+
+    const animateValue = (output, target, suffix, duration) => {
+        if (reducedMotion) {
+            output.textContent = formatValue(target, suffix);
+            return;
+        }
+
+        const startedAt = performance.now();
+        const tick = (now) => {
+            const progress = Math.min((now - startedAt) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            output.textContent = formatValue(target * eased, suffix);
+            if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    };
+
+    const reveal = () => {
+        cards.forEach((card, index) => {
+            const output = card.querySelector('[data-about-value]');
+            const target = Number(card.dataset.target || 0);
+            const suffix = card.dataset.suffix || '';
+            const progress = Number(card.dataset.progress || 0);
+            const show = () => {
+                card.classList.add('is-loaded');
+                card.style.setProperty('--about-ring-progress', String(progress));
+                if (output) animateValue(output, target, suffix, 950);
+            };
+
+            if (reducedMotion) show();
+            else window.setTimeout(show, index * 115);
+        });
+    };
+
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (supportsFinePointer && !reducedMotion) {
+        cards.forEach((card) => {
+            const resetPointer = () => {
+                card.classList.remove('is-achievement-pointer-active');
+                card.style.removeProperty('--about-pointer-x');
+                card.style.removeProperty('--about-pointer-y');
+                card.style.removeProperty('--about-tilt-x');
+                card.style.removeProperty('--about-tilt-y');
+            };
+
+            card.addEventListener('pointermove', (event) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) return;
+
+                const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+                const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+                card.style.setProperty('--about-pointer-x', `${(x * 100).toFixed(1)}%`);
+                card.style.setProperty('--about-pointer-y', `${(y * 100).toFixed(1)}%`);
+                card.style.setProperty('--about-tilt-x', `${((0.5 - y) * 4).toFixed(2)}deg`);
+                card.style.setProperty('--about-tilt-y', `${((x - 0.5) * 5).toFixed(2)}deg`);
+                card.classList.add('is-achievement-pointer-active');
+            });
+
+            card.addEventListener('pointerleave', resetPointer);
+            card.addEventListener('pointercancel', resetPointer);
+        });
+    }
+    if (!('IntersectionObserver' in window) || reducedMotion) {
+        reveal();
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            reveal();
+            observer.disconnect();
+        });
+    }, { threshold: 0.28 });
+
+    observer.observe(section);
+}
+function initCodeReviewAccordion() {
+    const accordion = document.querySelector('[data-code-review-accordion]');
+    const cases = Array.from(accordion?.querySelectorAll('.code-review-case') || []);
+    const dots = Array.from(accordion?.querySelectorAll('[data-code-review-dot]') || []);
+    const progress = accordion?.querySelector('[data-code-review-progress]');
+    const AUTO_ADVANCE_DELAY = 10_000;
+    let activeIndex = 0;
+    let remainingDelay = AUTO_ADVANCE_DELAY;
+    let autoAdvanceStartedAt = 0;
+    let autoAdvanceId;
+    let isPaused = false;
+
+    if (cases.length === 0 || !accordion) return;
+    if (accordion.dataset.codeReviewInitialized === 'true') return;
+    accordion.dataset.codeReviewInitialized = 'true';
+
+    const resetProgress = () => {
+        if (!(progress instanceof HTMLElement)) return;
+        progress.classList.remove('is-running', 'is-paused');
+        void progress.offsetWidth;
+        progress.classList.add('is-running');
+        if (isPaused) progress.classList.add('is-paused');
+    };
+
+    const clearAutoAdvance = () => {
+        window.clearTimeout(autoAdvanceId);
+        autoAdvanceId = undefined;
+    };
+
+    const startAutoAdvance = ({ reset = false } = {}) => {
+        clearAutoAdvance();
+        if (reset) {
+            remainingDelay = AUTO_ADVANCE_DELAY;
+            resetProgress();
+        }
+        if (isPaused) return;
+
+        autoAdvanceStartedAt = performance.now();
+        autoAdvanceId = window.setTimeout(() => {
+            openCase(cases[(activeIndex + 1) % cases.length], false);
+            startAutoAdvance({ reset: true });
+        }, remainingDelay);
+    };
+
+    const openCase = (targetCase, restartTimer = true) => {
+        activeIndex = Math.max(0, cases.indexOf(targetCase));
+
+        cases.forEach((caseItem, index) => {
+            const button = caseItem.querySelector('.code-review-case__head');
+            const panel = document.getElementById(button?.getAttribute('aria-controls') || '');
+            const dot = dots[index];
+            const isTarget = index === activeIndex;
+
+            caseItem.classList.toggle('is-open', isTarget);
+            button?.setAttribute('aria-expanded', String(isTarget));
+            if (panel) panel.hidden = !isTarget;
+            const toggle = caseItem.querySelector('.code-review-case__toggle');
+            if (toggle) toggle.textContent = isTarget ? '−' : '+';
+            dot?.classList.toggle('is-active', isTarget);
+            dot?.setAttribute('aria-pressed', String(isTarget));
+        });
+
+        if (restartTimer) startAutoAdvance({ reset: true });
+    };
+
+    const pauseAutoAdvance = () => {
+        if (isPaused) return;
+        const elapsed = performance.now() - autoAdvanceStartedAt;
+        remainingDelay = Math.max(0, remainingDelay - elapsed);
+        isPaused = true;
+        clearAutoAdvance();
+        progress?.classList.add('is-paused');
+    };
+
+    const resumeAutoAdvance = () => {
+        if (!isPaused) return;
+        isPaused = false;
+        progress?.classList.remove('is-paused');
+        startAutoAdvance();
+    };
+
+    cases.forEach((caseItem) => caseItem.querySelector('.code-review-case__head')?.addEventListener('click', () => openCase(caseItem)));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => openCase(cases[index])));
+
+    accordion.addEventListener('mouseenter', pauseAutoAdvance);
+    accordion.addEventListener('mouseleave', resumeAutoAdvance);
+    accordion.addEventListener('focusin', pauseAutoAdvance);
+    accordion.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+            if (!accordion.matches(':focus-within') && !accordion.matches(':hover')) resumeAutoAdvance();
+        }, 0);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pauseAutoAdvance();
+        else resumeAutoAdvance();
+    });
+
+    openCase(cases.find((caseItem) => caseItem.classList.contains('is-open')) || cases[0], false);
+    startAutoAdvance({ reset: true });
+}
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     syncViewportContext();
@@ -1605,7 +2007,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initActiveNavigation();
     initBrandTypewriter();
     initSkillBadges();
+    initHeroPointer();
+    initAboutPhotoPointer();
+    initAboutAchievements();
     initProgramAccordion();
+    initReviewVideos();
+    initCodeReviewAccordion();
+    initResumeTooltips();
     bindFormListeners();
     
     // Инициализируем карусель и карточки с небольшой задержкой,
@@ -1613,6 +2021,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         initPricingCarousel();
         initPriceCards();
+        initStartStepInteractions();
+        initCareerPlanSelector();
     }, 100);
     
     // Close modal on overlay click
@@ -1637,3 +2047,111 @@ document.addEventListener('DOMContentLoaded', () => {
 window.openContactForm = openContactForm;
 window.closeContactForm = closeContactForm;
 window.showLockedModal = showLockedModal;
+
+// Cached or dynamically restored pages can load this script after DOMContentLoaded.
+// Initialize this self-contained block in that case without duplicating normal startup.
+window.addEventListener('load', initHeroPointer, { once: true });
+window.addEventListener('load', initAboutPhotoPointer, { once: true });
+window.addEventListener('load', initAboutAchievements, { once: true });
+window.addEventListener('load', initCodeReviewAccordion, { once: true });
+window.addEventListener('load', initResumeTooltips, { once: true });
+window.addEventListener('load', initCareerPlanSelector, { once: true });
+
+if (document.readyState !== 'loading') {
+    initHeroPointer();
+    initAboutPhotoPointer();
+    initAboutAchievements();
+    initCodeReviewAccordion();
+    initResumeTooltips();
+    initCareerPlanSelector();
+}
+
+function initResumeTooltips() {
+    const tooltip = document.getElementById('resume-tooltip');
+    const triggers = [...document.querySelectorAll('[data-resume-tooltip]')];
+
+    if (!tooltip || !triggers.length || tooltip.dataset.initialized === 'true') return;
+
+    tooltip.dataset.initialized = 'true';
+    let activeTrigger = null;
+    let hideTimer;
+    let positionFrame;
+    let tooltipSize = { width: 0, height: 0 };
+    let pointerPosition = null;
+
+    const positionTooltip = (clientX, clientY) => {
+        const padding = 12;
+        const offset = 18;
+        let left = clientX + offset;
+        let top = clientY + offset;
+
+        if (left + tooltipSize.width > window.innerWidth - padding) left = clientX - tooltipSize.width - offset;
+        if (top + tooltipSize.height > window.innerHeight - padding) top = clientY - tooltipSize.height - offset;
+
+        tooltip.style.setProperty('--resume-tooltip-x', `${Math.max(padding, left)}px`);
+        tooltip.style.setProperty('--resume-tooltip-y', `${Math.max(padding, top)}px`);
+    };
+
+    const schedulePosition = (clientX, clientY) => {
+        pointerPosition = { clientX, clientY };
+        if (positionFrame) return;
+
+        positionFrame = requestAnimationFrame(() => {
+            positionFrame = 0;
+            if (!activeTrigger || !pointerPosition) return;
+            positionTooltip(pointerPosition.clientX, pointerPosition.clientY);
+        });
+    };
+
+    const showTooltip = (trigger, clientX, clientY) => {
+        window.clearTimeout(hideTimer);
+        activeTrigger = trigger;
+        tooltip.textContent = trigger.dataset.resumeTooltip || '';
+        tooltip.hidden = false;
+        tooltip.classList.add('is-visible');
+        tooltipSize = tooltip.getBoundingClientRect();
+        positionTooltip(clientX, clientY);
+    };
+
+    const hideTooltip = (trigger, immediate = false) => {
+        if (trigger && activeTrigger !== trigger) return;
+
+        window.clearTimeout(hideTimer);
+        const hide = () => {
+            activeTrigger = null;
+            pointerPosition = null;
+            tooltip.classList.remove('is-visible');
+            tooltip.hidden = true;
+        };
+
+        if (immediate) hide();
+        else hideTimer = window.setTimeout(hide, 30);
+    };
+
+    triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-describedby', tooltip.id);
+
+        trigger.addEventListener('pointerenter', (event) => {
+            if (event.pointerType === 'touch') return;
+            showTooltip(trigger, event.clientX, event.clientY);
+        });
+
+        trigger.addEventListener('pointermove', (event) => {
+            if (activeTrigger === trigger) schedulePosition(event.clientX, event.clientY);
+        });
+
+        trigger.addEventListener('pointerleave', () => hideTooltip(trigger));
+        trigger.addEventListener('focus', () => {
+            const bounds = trigger.getBoundingClientRect();
+            showTooltip(trigger, bounds.right, bounds.top + Math.min(bounds.height / 2, 28));
+        });
+        trigger.addEventListener('blur', () => hideTooltip(trigger));
+    });
+
+    window.addEventListener('scroll', () => hideTooltip(null, true), { passive: true });
+    window.addEventListener('resize', () => {
+        if (!activeTrigger || !pointerPosition) return;
+        tooltipSize = tooltip.getBoundingClientRect();
+        schedulePosition(pointerPosition.clientX, pointerPosition.clientY);
+    }, { passive: true });
+}

@@ -1,0 +1,70 @@
+<section id="market-entry" class="section market-entry-section fade-in" aria-labelledby="market-entry-title">
+    <div class="container market-entry__shell">
+        <article class="market-entry__support">
+            <span class="section-kicker">Выход на рынок</span>
+            <h2 id="market-entry-title">Превращаем опыт в аргументы для найма</h2>
+            <p class="market-entry__lead">Собираем позиционирование, усиливаем резюме реальными проектами и сопровождаем первые отклики до интервью.</p>
+
+            <div class="market-entry__steps" aria-label="Как строим выход на рынок">
+                <div>
+                    <span>Позиционирование</span>
+                    <strong>Твой опыт звучит убедительно</strong>
+                    <p>Упаковываем реальные задачи, проекты и стек. Никакой выдумки, только понятная польза для команды.</p>
+                </div>
+                <div>
+                    <span>Первые отклики</span>
+                    <strong>Не отпускаем после резюме</strong>
+                    <p>Делаем версии под вакансии и сообщения рекрутерам. Разбираем ответы и сразу меняем стратегию.</p>
+                </div>
+                <div>
+                    <span>Поддержка в поиске</span>
+                    <strong>Каждый шаг под контролем</strong>
+                    <p>Трекер, приоритеты и следующий ход всегда под рукой. Поиск не превращается в одиночный марафон.</p>
+                </div>
+            </div>
+
+            <div class="market-entry__support-note">
+                <i aria-hidden="true"></i>
+                <span>С действующими HR-специалистами сверяем позиционирование, читаемость резюме и ожидания рынка до активных откликов.</span>
+            </div>
+        </article>
+
+        <section class="market-entry__compare" aria-label="Пример сильного и слабого резюме">
+            <div class="resume-compare__document" aria-label="Сравнение неверного и сильного резюме">
+                <article class="resume-sheet resume-sheet--before" aria-label="Неверное резюме">
+                    <header class="resume-sheet__top" data-resume-tooltip="До: резюме не задаёт целевую роль и не показывает, почему кандидата стоит позвать на backend-вакансию." tabindex="0"><span class="resume-sheet__index">01 / до</span><span class="resume-sheet__state">ценность скрыта</span></header>
+                    <div class="resume-sheet__person"><img class="resume-sheet__avatar" src="{{ url_for('static', filename='img/do.jpeg') }}" alt="Пример кандидата в резюме до" loading="lazy"><div><strong>Алексей Иванов</strong><span>Программист</span></div></div>
+                    <div class="resume-sheet__section resume-sheet__section--profile" data-resume-tooltip="Общие качества не доказывают уровень: непонятно, что кандидат умеет делать в backend." tabindex="0"><span>О себе</span><p>Ищу работу backend-разработчиком. Быстро учусь, коммуникабельный, ответственный. Готов выполнять любые задачи.</p></div>
+                    <div class="resume-sheet__section resume-sheet__section--jobs" data-resume-tooltip="Обязанности перечислены без результата. Рекрутер не видит личный вклад и релевантность backend-позиции." tabindex="0">
+                        <span>Опыт работы</span>
+                        <div class="resume-job-list">
+                            <article class="resume-job resume-job--irrelevant"><span class="resume-job__period">2019–2021</span><div><strong>Курьер, доставка еды</strong><p class="resume-job__text">Работал курьером в сервисе доставки еды. Забирал заказы в ресторанах и развозил их по разным районам города. Поддерживал связь с клиентами при задержках. Соблюдал график смен и требования сервиса. </p></div></article>
+                            <article class="resume-job"><span class="resume-job__period">2022–2023</span><div><strong>Оператор поддержки</strong><p class="resume-job__text">Принимал обращения клиентов в чате и по почте. Проверял статусы заявок во внутренних системах. Заполнял рабочие таблицы и передавал ошибки разработчикам. Отвечал на вопросы менеджеров по проблемным заказам.</p></div></article>
+                            <article class="resume-job"><span class="resume-job__period">2024</span><div><strong>Стажёр backend</strong><p class="resume-job__text">Делал задачи на Python в учебном сервисе. Работал с FastAPI и PostgreSQL. Исправлял ошибки в API и добавлял новые endpoints. Писал тесты и участвовал в код-ревью.</p></div></article>
+                        </div>
+                    </div>
+                    <div class="resume-sheet__section resume-sheet__section--skills" data-resume-tooltip="Технологии и личные качества смешаны: неясно, чем кандидат реально владеет и где это применял." tabindex="0"><span>Навыки</span><p>Python, FastAPI, PostgreSQL, Docker, Git, коммуникабельность, ответственность.</p></div>
+                    <footer class="resume-sheet__footer"><i aria-hidden="true">×</i><span>Рекрутер видит опыт, но не понимает твой уровень и пользу для команды.</span></footer>
+                </article>
+
+                <article class="resume-sheet resume-sheet--after" aria-label="Сильное резюме">
+                    <header class="resume-sheet__top" data-resume-tooltip="После: с первой строки понятны роль, стек и критерий, по которому оценивать кандидата." tabindex="0"><span class="resume-sheet__index">02 / после</span><span class="resume-sheet__state">язык вакансии</span></header>
+                    <div class="resume-sheet__person"><img class="resume-sheet__avatar" src="{{ url_for('static', filename='img/giga.jpg') }}" alt="Пример кандидата в резюме после" loading="lazy"><div><strong>Алексей Иванов</strong><span>Junior Backend Developer</span></div></div>
+                    <div class="resume-sheet__section resume-sheet__section--profile" data-resume-tooltip="Позиционирование сразу называет роль, стек и тип задач, за которые кандидат готов отвечать." tabindex="0"><span>О себе</span><p>Junior Backend Developer с практикой в Python, FastAPI, REST API, PostgreSQL и Docker. Собираю сервисы, которые снимают ручную работу, и отвечаю за результат задачи до релиза.</p></div>
+                    <div class="resume-sheet__section resume-sheet__section--skills" data-resume-tooltip="Технический стек вынесен отдельно: рекрутер сопоставляет его с требованиями вакансии за несколько секунд." tabindex="0"><span>Hard skills</span><div class="resume-skill-list" aria-label="Технические навыки"><span>FastAPI</span><span>PostgreSQL</span><span>SQLAlchemy</span><span>Docker</span><span>Pytest</span></div></div>
+                    <div class="resume-sheet__section resume-sheet__section--soft" data-resume-tooltip="Soft skills подтверждены действием в работе, а не словами «ответственный» или «коммуникабельный»." tabindex="0"><span>Soft skills в действии</span><p>Декомпозирую задачи, фиксирую риски в PR, синхронизируюсь с командой и довожу изменение до релиза.</p></div>
+                    <div class="resume-sheet__section resume-sheet__section--jobs" data-resume-tooltip="Каждая роль раскрывает контекст, действие, стек и измеримый эффект для команды." tabindex="0">
+                        <span>Опыт и результат</span>
+                        <div class="resume-job-list">
+
+                            <article class="resume-job"><span class="resume-job__period">2022–2023</span><div><strong>Оператор поддержки · автоматизация</strong><p class="resume-job__text">Разобрал повторяющиеся причины задержек в доставке. Написал Python-скрипт, который собирал статусы заявок из выгрузок. Добавил проверку пустых данных перед формированием отчёта. Сократил подготовку ежедневной сводки с двух часов до 25 минут. Решение освободило команде около шести часов в неделю и показало опыт работы с данными.</p></div></article>
+                            <article class="resume-job"><span class="resume-job__period">2024</span><div><strong>Стажёр backend · FastAPI</strong><p class="resume-job__text">На стажировке разделил API- и сервисный слои, чтобы бизнес-правила тестировались отдельно от HTTP. Вынес проверку тарифов и статусов в FastAPI-сервис. Это ускорило обработку заявок на <b>38%</b>. Добавил Pydantic-валидацию, логирование и единый формат ошибок. Покрыл критические сценарии Pytest-тестами и подготовил Docker-окружение для запуска проекта.</p></div></article>
+                        </div>
+                    </div>
+                    <footer class="resume-sheet__footer"><i aria-hidden="true">✓</i><span>За 20 секунд рекрутер видит роль, стек, вклад и подтверждённый результат.</span></footer>
+                </article>
+            </div>
+            <div id="resume-tooltip" class="resume-tooltip" role="tooltip" hidden></div>
+        </section>
+    </div>
+</section>

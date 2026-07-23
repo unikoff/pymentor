@@ -1,0 +1,77 @@
+<section id="career" class="section career-section fade-in" aria-labelledby="career-title">
+    <div class="container career-section__inner">
+        <header class="section-heading career-section__heading">
+            <span class="section-kicker">Карьерный трек</span>
+            <h2 id="career-title">Не просто изучить backend, а дойти до оффера</h2>
+            <p>Для тех, кто готов системно учиться, собрать сильное портфолио и выйти на первую backend-позицию с персональной поддержкой.</p>
+        </header>
+
+        <div class="career-section__layout">
+            <aside class="career-guarantee" aria-label="Условия карьерной гарантии">
+                <span class="career-guarantee__eyebrow">Гарантия трудоустройства</span>
+                <h3>Сопровождение до результата</h3>
+                <p>Если ты выполняешь согласованный план, обязательную практику и действия по поиску работы, сопровождение продолжается без доплаты до оффера.</p>
+                <ul>
+                    <li>Личный учебный и карьерный roadmap</li>
+                    <li>Практика, code review и портфолио</li>
+                    <li>Подготовка к интервью и откликам</li>
+                <div class="career-access-benefit" aria-label="Преимущество: 18 месяцев полного доступа к платформе и материалам">
+                    <strong>18 месяцев</strong>
+                    <span>полного доступа к платформе и материалам</span>
+                </div>
+                </ul>
+                <small>Детальные критерии и обязанности фиксируются в индивидуальном договоре.</small>
+                <div class="career-payment-switch" role="group" aria-label="Выбор модели оплаты карьерного трека">
+                    <button class="career-payment-switch__option" type="button" data-career-plan="fixed" aria-pressed="false">150 000 ₽ сразу</button>
+                    <button class="career-payment-switch__option is-active" type="button" data-career-plan="offer" aria-pressed="true">50 000 ₽ + оффер</button>
+                </div>
+            </aside>
+
+            <div class="career-offers">
+                <article class="career-offer" data-career-offer="fixed">
+                    <div class="career-offer__topline">
+                        <span>Полная поддержка</span>
+                        <span>До 9 месяцев</span>
+                    </div>
+                    <h3>Карьерный трек<br>до оффера</h3>
+                    <div class="career-offer__price">150 000 ₽</div>
+                    <p class="career-offer__summary">Фиксированная стоимость за интенсивный путь: от диагностики до выхода на рынок.</p>
+                    <ul>
+                        <li>Индивидуальная программа и практика</li>
+                        <li>Проекты для портфолио</li>
+                        <li>Собеседования и сопровождение откликов</li>
+                    </ul>
+                    <div class="career-offer__actions">
+                        <button class="btn-secondary btn-wide" type="button" onclick="openContactForm()">Обсудить формат</button>
+                        <a href="{{ url_for('static', filename='docs/career-track-fixed-fee-draft.pdf') }}" download>Скачать черновик договора</a>
+                    </div>
+                </article>
+
+                <article class="career-offer career-offer--featured is-career-selected" data-career-offer="offer">
+                    <div class="career-offer__topline">
+                        <span>Оплата с оффера</span>
+                        <span class="career-offer__availability" role="status" aria-label="Набор открыт, места ограничены"><i aria-hidden="true"></i><span>Набор открыт</span><small>места ограничены</small></span>
+                    </div>
+                    <h3>Карьерный трек<br>с разделённой оплатой</h3>
+                    <div class="career-offer__split-price">
+                        <strong>50 000 ₽</strong>
+                        <span>на старте</span>
+                        <strong>+150%</strong>
+                        <span>после оффера</span>
+                    </div>
+                    <p class="career-offer__summary">Группа до 10 человек: меньше оплаты в начале, общая практика и работа в команде. Формула, срок и база расчёта фиксируются в индивидуальном договоре.</p>
+                    <ul>
+                        <li>Командные задания: Git, pull request и code review</li>
+                        <li>Практика взаимодействия в команде разработчиков</li>
+                        <li>Поддержка до получения оффера</li>
+                        <li>План поиска и подготовка к интервью</li>
+                    </ul>
+                    <div class="career-offer__actions">
+                        <button class="btn-primary btn-wide" type="button" onclick="openContactForm()">Разобрать условия</button>
+                        <a href="{{ url_for('static', filename='docs/career-track-offer-fee-draft.pdf') }}" download>Скачать черновик договора</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,140 @@
+<section id="code-review" class="section code-review-section fade-in" aria-labelledby="code-review-title">
+    <div class="container code-review-section__inner">
+        <header class="code-review-section__heading">
+            <div>
+                <span class="section-kicker">Твой PR, а не абстрактный пример</span>
+                <h2 id="code-review-title">Разобрал.<br>Исправил.<br><em>Применил.</em></h2>
+            </div>
+            <p>Не просто отмечаем ошибки. Разбираем твой PR, объясняем компромиссы и фиксируем приём, который ты применишь в следующей задаче.</p>
+            <div class="code-review-section__principles" aria-label="Что остаётся после code review">
+                <span>После ревью у тебя</span>
+                <ul>
+                    <li><b>01</b><span><strong>Логика правки</strong><small>не «так лучше», а причина решения</small></span></li>
+                    <li><b>02</b><span><strong>Рабочий код</strong><small>исправленный фрагмент и комментарии к нему</small></span></li>
+                    <li><b>03</b><span><strong>Приём на будущее</strong><small>что проверить и применить в следующей задаче</small></span></li>
+                </ul>
+                <p>Решение, комментарии и следующий шаг остаются в платформе, чтобы к ним можно было вернуться.</p>
+            </div>
+        </header>
+
+        <div class="code-review-accordion" data-code-review-accordion>
+            <article class="code-review-case is-open">
+                <button class="code-review-case__head" type="button" aria-expanded="true" aria-controls="code-review-case-01">
+                    <span class="code-review-case__number">01</span>
+                    <span class="code-review-case__title">Сервисный слой</span>
+                    <span class="code-review-case__label">валидация и границы API</span>
+                    <span class="code-review-case__toggle" aria-hidden="true">−</span>
+                </button>
+                <div id="code-review-case-01" class="code-review-case__body" role="region" aria-label="Пример ревью сервисного слоя">
+                    <div class="github-review" aria-label="Дифф файла api routes tasks py">
+                        <div class="github-review__file">
+                            <span class="github-review__path"><i aria-hidden="true"></i><span><b>Твой PR</b><small>api/routes/tasks.py</small></span></span>
+                            <span class="github-review__status">Разобрано</span>
+                        </div>
+                        <div class="github-review__diff">
+    <div class="github-review__hunk">@@ -14,2 +14,1 @@ def create_task(payload, session):</div>
+    <div class="github-review__line github-review__line--removed"><span>14</span><span>14</span><code>- if payload.due_at &lt; datetime.now(UTC):</code></div>
+    <div class="github-review__line github-review__line--removed"><span>15</span><span>15</span><code>-     raise HTTPException(400, "date is in the past")</code></div>
+    <div class="github-review__line github-review__line--added"><span>14</span><span>14</span><code>+ task_service.validate_due_at(payload.due_at)</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строки 14-15</span></div>
+        <p>Проверку дедлайна переносим в сервис: правило можно повторно использовать и тестировать без HTTP-слоя.</p>
+    </aside>
+    <div class="github-review__hunk github-review__hunk--followup">@@ -16,3 +15,2 @@ def create_task(payload, session):</div>
+    <div class="github-review__line github-review__line--removed"><span>16</span><span>16</span><code>- task = Task(**payload.model_dump())</code></div>
+    <div class="github-review__line github-review__line--removed"><span>17</span><span>17</span><code>- session.add(task)</code></div>
+    <div class="github-review__line github-review__line--removed"><span>18</span><span>18</span><code>- session.commit()</code></div>
+    <div class="github-review__line github-review__line--added"><span>15</span><span>15</span><code>+ task = task_service.create(payload, session)</code></div>
+    <div class="github-review__line github-review__line--added"><span>16</span><span>16</span><code>+ return TaskRead.model_validate(task)</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строки 16-18</span></div>
+        <p>Endpoint остаётся тонким: он запускает сценарий и возвращает контракт, не управляя бизнес-правилами напрямую.</p>
+    </aside>
+</div>
+                        
+                    </div>
+                </div>
+            </article>
+
+            <article class="code-review-case">
+                <button class="code-review-case__head" type="button" aria-expanded="false" aria-controls="code-review-case-02">
+                    <span class="code-review-case__number">02</span>
+                    <span class="code-review-case__title">Транзакции и SQL</span>
+                    <span class="code-review-case__label">consistency и работа с базой</span>
+                    <span class="code-review-case__toggle" aria-hidden="true">+</span>
+                </button>
+                <div id="code-review-case-02" class="code-review-case__body" role="region" aria-label="Пример ревью транзакций и SQL" hidden>
+                    <div class="github-review" aria-label="Дифф файла services enrollment py">
+                        <div class="github-review__file">
+                            <span class="github-review__path"><i aria-hidden="true"></i><span><b>Твой PR</b><small>services/enrollment.py</small></span></span>
+                            <span class="github-review__status">Разобрано</span>
+                        </div>
+                        <div class="github-review__diff">
+    <div class="github-review__hunk">@@ -28,2 +28,2 @@ def enroll(user_id, track_id, session):</div>
+    <div class="github-review__line github-review__line--removed"><span>28</span><span>28</span><code>- session.add(Enrollment(user_id=user_id, track_id=track_id))</code></div>
+    <div class="github-review__line github-review__line--removed"><span>29</span><span>29</span><code>- session.commit()</code></div>
+    <div class="github-review__line github-review__line--added"><span>28</span><span>28</span><code>+ enrollment = Enrollment(user_id=user_id, track_id=track_id)</code></div>
+    <div class="github-review__line github-review__line--added"><span>29</span><span>29</span><code>+ progress = Progress(enrollment=enrollment)</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строки 28-29</span></div>
+        <p>Сначала собираем связанные сущности в память: нельзя фиксировать зачисление раньше, чем готов весь пользовательский сценарий.</p>
+    </aside>
+    <div class="github-review__hunk github-review__hunk--followup">@@ -30,2 +30,2 @@ def enroll(user_id, track_id, session):</div>
+    <div class="github-review__line github-review__line--removed"><span>30</span><span>30</span><code>- session.add(Progress(enrollment_id=enrollment.id))</code></div>
+    <div class="github-review__line github-review__line--removed"><span>31</span><span>31</span><code>- session.commit()</code></div>
+    <div class="github-review__line github-review__line--added"><span>30</span><span>30</span><code>+ with session.begin(): session.add_all([enrollment, progress])</code></div>
+    <div class="github-review__line github-review__line--added"><span>31</span><span>31</span><code>+ return enrollment</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строки 30-31</span></div>
+        <p>Одна транзакция гарантирует атомарность: при ошибке в прогрессе зачисление тоже откатится, и база останется согласованной.</p>
+    </aside>
+</div>
+                        
+                    </div>
+                </div>
+            </article>
+
+            <article class="code-review-case">
+                <button class="code-review-case__head" type="button" aria-expanded="false" aria-controls="code-review-case-03">
+                    <span class="code-review-case__number">03</span>
+                    <span class="code-review-case__title">Async I/O</span>
+                    <span class="code-review-case__label">таймауты, ошибки и внешние API</span>
+                    <span class="code-review-case__toggle" aria-hidden="true">+</span>
+                </button>
+                <div id="code-review-case-03" class="code-review-case__body" role="region" aria-label="Пример ревью асинхронного кода" hidden>
+                    <div class="github-review" aria-label="Дифф файла clients weather py">
+                        <div class="github-review__file">
+                            <span class="github-review__path"><i aria-hidden="true"></i><span><b>Твой PR</b><small>clients/weather.py</small></span></span>
+                            <span class="github-review__status">Разобрано</span>
+                        </div>
+                        <div class="github-review__diff">
+    <div class="github-review__hunk">@@ -8,1 +8,1 @@ async def get_weather(city):</div>
+    <div class="github-review__line github-review__line--removed"><span>8</span><span>8</span><code>- response = await client.get(f"/weather/{city}")</code></div>
+    <div class="github-review__line github-review__line--added"><span>8</span><span>8</span><code>+ response = await client.get(f"/weather/{city}", timeout=5)</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строка 8</span></div>
+        <p>У внешнего вызова должен быть таймаут: без него один медленный поставщик может удерживать запрос бесконечно.</p>
+    </aside>
+    <div class="github-review__hunk github-review__hunk--followup">@@ -9,1 +9,2 @@ async def get_weather(city):</div>
+    <div class="github-review__line github-review__line--removed"><span>9</span><span>9</span><code>- return Weather.model_validate(response.json())</code></div>
+    <div class="github-review__line github-review__line--added"><span>9</span><span>9</span><code>+ response.raise_for_status()</code></div>
+    <div class="github-review__line github-review__line--added"><span>10</span><span>10</span><code>+ return Weather.model_validate(response.json())</code></div>
+    <aside class="github-review__thread">
+        <div><strong>Nikita Kiryukhin</strong><span>строка 9</span></div>
+        <p>Статус проверяем до разбора данных: ошибка внешнего API не должна маскироваться как внутренняя ошибка сервиса.</p>
+    </aside>
+</div>
+                        
+                    </div>
+                </div>
+            </article>
+            <div class="code-review-progress" data-code-review-progress aria-hidden="true">
+                <span data-code-review-progress-bar></span>
+            </div>            <div class="code-review-dots" role="group" aria-label="Переключить пример ревью">
+                <button class="code-review-dot is-active" type="button" data-code-review-dot="0" aria-label="Показать ревью: сервисный слой" aria-pressed="true"><span aria-hidden="true"></span></button>
+                <button class="code-review-dot" type="button" data-code-review-dot="1" aria-label="Показать ревью: транзакции и SQL" aria-pressed="false"><span aria-hidden="true"></span></button>
+                <button class="code-review-dot" type="button" data-code-review-dot="2" aria-label="Показать ревью: Async I/O" aria-pressed="false"><span aria-hidden="true"></span></button>
+            </div>
+        </div>
+    </div>
+</section>

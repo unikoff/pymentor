@@ -1,0 +1,67 @@
+name: Test and release landing production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pymentor-landing-production-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout source revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Block dependency changes from automatic deployment
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin production >/dev/null 2>&1; then
+            git fetch --no-tags origin production
+            if ! git diff --quiet origin/production HEAD -- requirements.txt; then
+              echo 'requirements.txt changed: update the shared Passenger venv manually before releasing.' >&2
+              exit 1
+            fi
+          fi
+
+      - name: Install dependencies and test Flask factory
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m compileall -q app passenger_wsgi.py
+          python -c "from app.main import create_app; create_app(); print('Flask factory OK')"
+
+      - name: Publish the verified release branch
+        run: |
+          set -euo pipefail
+          git push origin HEAD:production
+
+      - name: Wait for cron deployment and verify landing
+        run: |
+          set -euo pipefail
+          for attempt in {1..40}; do
+            page_status="$(curl -skS --max-time 20 -o "$RUNNER_TEMP/landing.html" -w '%{http_code}' https://pymentor.ru/)"
+            if [ "$page_status" = '200' ] && grep -qi '<html' "$RUNNER_TEMP/landing.html"; then
+              echo 'DEPLOY_VERIFIED'
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Landing verification failed: page=$page_status" >&2
+          exit 1

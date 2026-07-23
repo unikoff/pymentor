@@ -1,0 +1,192 @@
+<div id="form-overlay" class="modal-overlay hidden"></div>
+
+<div
+    id="contact-form"
+    class="contact-modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="contact-form-title"
+>
+    <div class="contact-modal__header">
+        <div>
+            <span class="section-kicker">Бесплатная консультация</span>
+            <h2 id="contact-form-title">Давай обсудим твою цель</h2>
+        </div>
+
+        <button
+            type="button"
+            class="contact-modal__close"
+            aria-label="Закрыть форму"
+            onclick="closeContactForm()"
+        >
+            &times;
+        </button>
+    </div>
+
+    <div class="contact-progress" aria-hidden="true">
+        <div id="progress-fill" style="width: 25%;"></div>
+    </div>
+
+    <form id="mentorship-form" class="contact-form">
+        <!-- Шаг 1 -->
+        <div class="form-step" data-step="1">
+            <h3>Шаг 1: Как с тобой связаться</h3>
+
+            <div class="form-field">
+                <label for="name">Как тебя зовут?</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    minlength="2"
+                    autocomplete="name"
+                    placeholder="Например, Алексей"
+                >
+            </div>
+
+            <div class="form-field">
+                <label for="contact">Телефон или Telegram</label>
+                <input
+                    type="text"
+                    id="contact"
+                    name="contact"
+                    required
+                    autocomplete="tel"
+                    placeholder="+7 999 123-45-67 или @username"
+                >
+                <small class="form-hint">
+                    Использую контакт только для связи по консультации.
+                </small>
+            </div>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="form-step hidden" data-step="2">
+            <h3>Шаг 2: Твой опыт и цель</h3>
+
+            <div class="form-field">
+                <label for="level">Какой у тебя сейчас опыт?</label>
+                <select id="level" name="level" required>
+                    <option value="Только начинаю знакомство с программированием">
+                        Только начинаю знакомство с программированием
+                    </option>
+                    <option value="Уже знаю основы Python">
+                        Уже знаю основы Python
+                    </option>
+                    <option value="Могу самостоятельно написать простой API">
+                        Могу самостоятельно написать простой API
+                    </option>
+                    <option value="Работаю в разработке и хочу усилить знания">
+                        Работаю в разработке и хочу усилить знания
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="goal">К какому результату ты хочешь прийти?</label>
+                <select id="goal" name="goal" required>
+                    <option value="Освоить backend-разработку с самого начала">
+                        Освоить backend-разработку с самого начала
+                    </option>
+                    <option value="Подготовиться к смене профессии">
+                        Подготовиться к смене профессии
+                    </option>
+                    <option value="Создать и запустить собственный проект">
+                        Создать и запустить собственный проект
+                    </option>
+                    <option value="Систематизировать и углубить знания">
+                        Систематизировать и углубить знания
+                    </option>
+                    <option value="Разобраться с конкретной технической задачей">
+                        Разобраться с конкретной технической задачей
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Шаг 3 -->
+        <div class="form-step hidden" data-step="3">
+            <h3>Шаг 3: Хочешь что-нибудь добавить?</h3>
+            
+
+            <div class="form-field">
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    placeholder="Что мне важно учесть перед консультацией?"
+                ></textarea>
+            </div>
+
+            <div class="form-field">
+                <button
+                    type="button"
+                    id="voice-recorder"
+                    class="btn-secondary voice-button"
+                >
+                    <span class="record-text">
+                        Записать голосовое · до 20 секунд
+                    </span>
+                    <span class="recording-text hidden" aria-live="polite">
+                        Идёт запись… Нажми, чтобы остановить
+                    </span>
+                </button>
+
+                <div id="waveform" class="waveform hidden" aria-hidden="true">
+                    <div class="waveform-bar"></div>
+                    <div class="waveform-bar"></div>
+                </div>
+
+                <audio
+                    id="voice-recording"
+                    controls
+                    class="voice-preview hidden"
+                ></audio>
+            </div>
+        </div>
+
+        <!-- Шаг 4 -->
+        <div class="form-step hidden" data-step="4">
+            <h3>Шаг 4: Почти готово</h3>
+
+            <p class="form-note">
+                Проверь, всё ли верно. После отправки я свяжусь с тобой,
+                чтобы договориться о консультации и уточнить детали.
+            </p>
+
+            <label class="form-checkbox" for="agree">
+                <input
+                    type="checkbox"
+                    id="agree"
+                    name="agree"
+                    value="yes"
+                    required
+                >
+                <span>Я согласен(на) на обработку персональных данных</span>
+            </label>
+
+            <button type="submit" class="btn-primary btn-wide">
+                Отправить заявку
+            </button>
+        </div>
+
+        <div class="form-actions">
+            <button
+                type="button"
+                id="prev-btn"
+                class="btn-secondary hidden"
+            >
+                Назад
+            </button>
+
+            <button
+                type="button"
+                id="next-btn"
+                class="btn-primary"
+            >
+                Продолжить
+            </button>
+        </div>
+    </form>
+</div>

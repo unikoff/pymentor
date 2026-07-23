@@ -48,16 +48,16 @@
                 </div>
 
                 <div class="hero-mentor-window__identity">
-                    <img src="{{ url_for('static', filename='img/ava.jpg') }}" alt="Nikita Kiryukhin, ваш backend-ментор">
+                    <img src="{{ url_for('static', filename='img/ava.jpg') }}" alt="Nikita Kiryukhin, твой backend-ментор">
                     <div>
-                        <span>Ваш ментор</span>
+                        <span>Твой ментор</span>
                         <strong>Nikita Kiryukhin</strong>
                     </div>
                 </div>
 
                 <div class="hero-mentor-window__message">
                     <span>Как работаем</span>
-                    <h2>Разбираю ваш код, логику и следующие шаги.</h2>
+                    <h2>Разбираю твой код, логику и следующие шаги.</h2>
                 </div>
 
                 <div class="hero-mentor-window__review" aria-label="Пример комментария из код-ревью">
@@ -73,111 +73,3 @@
         </div>
     </div>
 </section>
-
-<div id="form-overlay" class="modal-overlay hidden" onclick="closeContactForm()"></div>
-
-<div id="contact-form" class="contact-modal hidden" role="dialog" aria-modal="true" aria-labelledby="contact-form-title">
-    <div class="contact-modal__header">
-        <div>
-            <span class="section-kicker">Бесплатная консультация</span>
-            <h2 id="contact-form-title">Запишитесь на бесплатную консультацию</h2>
-        </div>
-        <button onclick="closeContactForm()" class="contact-modal__close" type="button" aria-label="Закрыть форму">&times;</button>
-    </div>
-
-    <div class="contact-progress" aria-hidden="true">
-        <div id="progress-fill" style="width: 0%;"></div>
-    </div>
-
-    <form id="mentorship-form" class="contact-form">
-        <div class="form-step" data-step="1">
-            <h3>Шаг 1: Контактные данные</h3>
-
-            <div class="form-field">
-                <label for="name">Ваше Имя</label>
-                <input type="text" id="name" name="name" required autocomplete="name">
-            </div>
-
-            <div class="form-field">
-                <label for="contact">Телефон или Telegram (username)</label>
-                <input
-                    type="text"
-                    id="contact"
-                    name="contact"
-                    required
-                    autocomplete="tel"
-                    placeholder="+7... или @username"
-                >
-            </div>
-        </div>
-
-        <div class="form-step hidden" data-step="2">
-            <h3>Шаг 2: Уровень и Цель</h3>
-
-            <div class="form-field">
-                <label for="level">Ваш текущий уровень <span id="level-emoji">😊</span></label>
-                <select id="level" name="level" required>
-                    <option value="Новичок (не знаю ничего)">Новичок (не знаю ничего)</option>
-                    <option value="Начинающий (знаю только основы)">Начинающий (знаю только основы)</option>
-                    <option value="Средний (могу писать простые API)">Средний (могу писать простые API)</option>
-                    <option value="Продвинутый (работаю в IT, нужно углубить знания)">Продвинутый (работаю в IT, нужно углубить знания)</option>
-                </select>
-            </div>
-
-            <div class="form-field">
-                <label for="goal">Основная цель обучения <span id="goal-emoji">💼</span></label>
-                <select id="goal" name="goal" required>
-                    <option value="профессия с 0">Изучить Backend с нуля</option>
-                    <option value="Сменить профессию на Backend-разработчика">Сменить профессию на Backend-разработчика</option>
-                    <option value="Запустить личный проект">Запустить личный проект</option>
-                    <option value="Системное повышение квалификации">Системное повышение квалификации</option>
-                    <option value="Решить конкретную техническую проблему">Решить конкретную техническую проблему</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-step hidden" data-step="3">
-            <h3>Шаг 3: Что я должен знать?</h3>
-
-            <div class="form-field">
-                <label for="message">Опишите свой запрос (или прикрепите голосовое сообщение)</label>
-                <textarea id="message" name="message" rows="4"></textarea>
-            </div>
-
-            <div class="form-field">
-                <button type="button" id="voice-recorder" class="btn-secondary voice-button">
-                    <span class="record-text">🎙️ Записать аудио (до 20 сек)</span>
-                    <span class="recording-text hidden">🔴 Идет запись...</span>
-                </button>
-                <div id="waveform" class="waveform hidden">
-                    <div class="waveform-bar"></div>
-                    <div class="waveform-bar"></div>
-                </div>
-                <audio id="voice-recording" controls class="voice-preview hidden"></audio>
-            </div>
-        </div>
-
-        <div class="form-step hidden" data-step="4">
-            <h3>Шаг 4: Подтвердите отправку</h3>
-            <p class="form-note">
-                Проверьте введенные данные. Нажимая "Отправить", вы соглашаетесь с тем, что Никита свяжется с вами для обсуждения деталей.
-            </p>
-            <label class="form-checkbox" for="agree">
-                <input type="checkbox" id="agree" required>
-                <span>Я согласен(а) на обработку данных</span>
-            </label>
-            <button type="submit" class="btn-primary btn-wide">
-                Отправить заявку
-            </button>
-        </div>
-
-        <div class="form-actions">
-            <button type="button" id="prev-btn" class="btn-secondary hidden">
-                Назад
-            </button>
-            <button type="button" id="next-btn" class="btn-primary">
-                Далее
-            </button>
-        </div>
-    </form>
-</div>

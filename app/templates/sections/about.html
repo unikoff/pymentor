@@ -1,66 +1,88 @@
 <section id="about" class="section about-section fade-in" aria-labelledby="about-title">
-    <div class="container about-layout">
-        <div class="about-media">
-            <div class="about-photo">
+    <div class="container about-layout about-layout--achievements">
+        <div class="about-media about-media--experience">
+            <div class="about-orbit" aria-hidden="true">
+                <span class="about-orbit__arc about-orbit__arc--one"></span>
+                <span class="about-orbit__arc about-orbit__arc--two"></span>
+                <span class="about-orbit__point about-orbit__point--one"></span>
+                <span class="about-orbit__point about-orbit__point--two"></span>
+            </div>
+
+            <div class="about-photo about-photo--experience">
                 <img
                     src="{{ url_for('static', filename='img/ava.png') }}"
-                    alt="Nikita Kiryukhin - Backend Developer Mentor"
+                    alt="Никита Кирюхин - backend-разработчик и ментор"
                 >
+                <div class="about-photo__badge">
+                    <span>PRODUCTION MODE</span>
+                    <strong>from API to deploy</strong>
+                </div>
             </div>
-            <div class="about-quote">
-                <span>НЕ ЕЩЁ ОДИН КУРС</span>
-                <p>Разберём, что ты уже умеешь и чего не хватает. Соберём персональный маршрут без лишней теории — с практикой и ревью.</p>
+
+            <div class="about-media__caption">
+                <span class="about-media__status"><i aria-hidden="true"></i>реальная разработка</span>
+                <p>Архитектура, API, базы данных и продуктовые решения - не только учебные примеры.</p>
             </div>
         </div>
 
-        <div class="about-content">
+        <div class="about-content about-content--achievements">
             <span class="section-kicker">Обо мне / Опыт</span>
-            <h2 id="about-title">От учебных задач — к полноценной backend-разработке</h2>
-            <div class="about-copy">
-                <p>
-                    Меня зовут Никита Кирюхин. Я backend-разработчик: отвечаю за архитектуру в собственном
-                    стартапе на Python и React — сервис на FastAPI и SQLAlchemy с PostgreSQL и Redis,
-                    всё завёрнуто в Docker. Проектирую API, кеширование и фоновые задачи под реальную нагрузку.
-                    Параллельно 5 лет готовил задания и проверял код студентов в онлайн-школе —
-                    50+ финальных проектов и 200+ часов ревью.
-                </p>
-                <p>
-                    Я менторю, потому что видел, как способные люди бросают backend не из-за сложности,
-                    а из-за хаоса: курсы вразнобой, некому показать код, непонятно, что дальше.
-                    Моя работа — убрать этот хаос и довести тебя до уровня, с которым берут на работу.
-                </p>
+            <h2 id="about-title">Опыт, который превращает обучение в результат</h2>
+            <p class="about-intro">Я строю backend-продукты и помогаю ученикам пройти тот же путь: от первых API до проектного мышления, портфолио и оффера.</p>
+
+            <div class="about-achievement-grid" data-about-achievements aria-label="Ключевые достижения">
+                <article class="about-achievement" data-about-achievement data-target="30" data-suffix="+" data-progress="84">
+                    <div class="about-achievement__ring" aria-hidden="true">
+                        <div class="about-achievement__core"><output data-about-value>0+</output></div>
+                    </div>
+                    <div>
+                        <strong>учеников</strong>
+                        <span>вышли на уровень backend-разработчика</span>
+                    </div>
+                </article>
+
+                <article class="about-achievement" data-about-achievement data-target="180" data-suffix="k ₽" data-progress="92">
+                    <div class="about-achievement__ring" aria-hidden="true">
+                        <div class="about-achievement__core"><output data-about-value>0k ₽</output></div>
+                    </div>
+                    <div>
+                        <strong>средний оффер</strong>
+                        <span>выпускников после выхода на рынок</span>
+                    </div>
+                </article>
+
+                <article class="about-achievement" data-about-achievement data-target="100" data-suffix="%" data-progress="100">
+                    <div class="about-achievement__ring" aria-hidden="true">
+                        <div class="about-achievement__core"><output data-about-value>0%</output></div>
+                    </div>
+                    <div>
+                        <strong>учеников</strong>
+                        <span>получают заметный результат и ясный следующий шаг</span>
+                    </div>
+                </article>
+
+                <article class="about-achievement" data-about-achievement data-target="5" data-suffix=" лет" data-progress="88">
+                    <div class="about-achievement__ring" aria-hidden="true">
+                        <div class="about-achievement__core"><output data-about-value>0</output></div>
+                    </div>
+                    <div>
+                        <strong>в разработке</strong>
+                        <span>пишу код, разбираю архитектуру и ревью</span>
+                    </div>
+                </article>
             </div>
 
-            <div class="about-facts" aria-label="Факты и цифры">
-                <span>5 лет пишу backend</span>
-                <span>50+ проектов на ревью</span>
-                <span>200+ часов разбора кода</span>
-                <span>Стартап на Python + React</span>
-            </div>
-
-            <div class="about-evidence" aria-label="Что это даёт тебе">
-                <div>
-                    <strong>Материалы</strong>
-                    <span>получаешь темы, которые сразу применяешь</span>
-                </div>
-                <div>
-                    <strong>Код-ревью</strong>
-                    <span>поймёшь, <em>почему</em> так, а не просто <em>как</em> исправить</span>
-                </div>
-                <div>
-                    <strong>Архитектура</strong>
-                    <span>видишь, как устроены реальные backend-системы</span>
-                </div>
+            <div class="about-experience-note">
+                <span>Инженерный контекст</span>
+                <p>В SeaNet работаю с FastAPI, PostgreSQL, Redis и Docker. На менторинге ты разбираешь те же инженерные решения на задачах и собственных проектах.</p>
             </div>
 
             <div class="skill-list" aria-label="Ключевые технологии">
                 <span class="skill-badge">Python</span>
-                <span class="skill-badge">Django</span>
-                <span class="skill-badge">Flask</span>
                 <span class="skill-badge">FastAPI</span>
                 <span class="skill-badge">PostgreSQL</span>
-                <span class="skill-badge">MongoDB</span>
-                <span class="skill-badge">Testing</span>
+                <span class="skill-badge">Redis</span>
+                <span class="skill-badge">Docker</span>
                 <span class="skill-badge">CI/CD</span>
             </div>
         </div>

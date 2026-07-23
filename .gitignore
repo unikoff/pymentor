@@ -7,3 +7,5 @@ __pycache__/
 app/tempCodeRunnerFile.py
 server.*.log
 .claude/
+instance/*.sqlite3
+instance/*.sqlite3-*
