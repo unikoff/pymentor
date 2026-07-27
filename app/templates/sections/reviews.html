@@ -1,49 +1,62 @@
 <section id="reviews" class="section reviews-section fade-in" aria-labelledby="reviews-title">
     <div class="container reviews-section__inner">
         <header class="reviews-section__heading">
-            <span id="reviews-title" class="section-kicker">Видеоотзывы</span>
+            <div class="reviews-section__title-group">
+                <span id="reviews-title" class="section-kicker">Истории учеников</span>
+                <h2>Результат слышно<br>в их историях</h2>
+            </div>
+            <p>Три разных старта и один принцип: сначала разбираем реальную ситуацию, затем собираем маршрут, который приводит к следующему карьерному шагу.</p>
         </header>
 
-        <div class="review-cards" aria-label="Видеоотзывы учеников">
-            <article class="review-card review-card--start" data-review-card>
-                <div class="review-card__comment">
-                    <span class="review-card__eyebrow">01 · Старт в backend</span>
-                    <blockquote>«Здесь появится короткий рассказ о начале пути в разработке»</blockquote>
-                    <p>Добавим исходную точку, первые задачи и понятный результат без общих обещаний.</p>
-                    <span class="review-card__person">Ученик · публикация по согласованию</span>
+        <div class="review-cards" aria-label="Истории учеников">
+            <article class="review-card review-card--ozon" tabindex="0">
+                <div class="review-card__photo">
+                    <img src="{{ url_for('static', filename='img/giga.jpg') }}" alt="Портрет автора кейса о переходе в Ozon" loading="lazy">
+                    <span class="review-card__photo-index">01</span>
+                    <span class="review-card__photo-hint">Наведи, чтобы прочитать</span>
                 </div>
-                <div class="review-card__media">
-                    <video class="review-card__video" data-review-video playsinline preload="metadata" aria-label="Видеоотзыв: старт в backend"></video>
-                    <span class="review-card__video-state" data-review-state>Видео появится здесь</span>
-                    <button class="review-card__play" type="button" data-review-play aria-label="Воспроизвести видеоотзыв: старт в backend"><span aria-hidden="true"></span></button>
+                <div class="review-card__comment">
+                    <span class="review-card__eyebrow">01 · Выпускник ИТМО</span>
+                    <h3>Backend-разработчик<br>в Ozon</h3>
+                    <p>После ИТМО у меня была хорошая техническая база, но я не понимал, как превратить её в следующий карьерный шаг. Я работал на позиции, которая мне не нравилась, получал около 100 000 ₽ и не знал, чего именно мне не хватает для более сильных вакансий.</p>
+                    <p>С Никитой мы начали с диагностики. Из плана убрали знакомые темы и сосредоточились на пробелах: Python, архитектуре и задачах, на которых я раньше терялся. Перед откликами провели тренировочные интервью и заранее зафиксировали критерии готовности.</p>
+                    <p>В результате я получил оффер в Ozon на 250 000 ₽. Сейчас продолжаю работать в компании и получаю больше 300 000 ₽.</p>
+                    <span class="review-card__meta">Подготовка: 3 месяца · Тренировочных интервью: 5</span>
+                    <span class="review-card__person">Дмитрий Вострецов · отзыв публикуется с согласия</span>
+                </div>  
+            </article>
+
+            <article class="review-card review-card--support" tabindex="0">
+                <div class="review-card__photo">
+                    <img src="{{ url_for('static', filename='img/giga.jpg') }}" alt="Портрет автора кейса о переходе из технической поддержки в Python-разработку" loading="lazy">
+                    <span class="review-card__photo-index">02</span>
+                    <span class="review-card__photo-hint">Наведи, чтобы прочитать</span>
+                </div>
+                <div class="review-card__comment">
+                    <span class="review-card__eyebrow">02 · Рост внутри IT</span>
+                    <h3>Из технической поддержки<br>в Python-разработку</h3>
+                    <p>До наставничества я несколько лет пытался перейти из поддержки в разработку. Покупал курсы, читал статьи, начинал новые темы, но постоянно перескакивал дальше, не закрепив предыдущую. Материалов было достаточно, но самостоятельно я не мог выстроить из них систему.</p>
+                    <p>Во время обучения на каждую неделю был конкретный результат. Я писал функциональность, показывал код Никите, получал замечания и переделывал решение. Некоторые задачи возвращались на доработку несколько раз.</p>
+                    <p>В итоге я собрал API, подготовился к техническим интервью и получил первую работу Python-разработчиком с зарплатой 190 000 ₽.</p>
+                    <span class="review-card__meta">Подготовка: 3 месяца · Код проверялся до исправления ошибок</span>
+                    <span class="review-card__person">Переход из поддержки · отзыв публикуется с согласия</span>
                 </div>
             </article>
 
-            <article class="review-card review-card--practice" data-review-card>
+            <article class="review-card review-card--warehouse" tabindex="0">
+                <div class="review-card__photo">
+                    <img src="{{ url_for('static', filename='img/giga.jpg') }}" alt="Портрет автора кейса о переходе со склада в backend-разработку" loading="lazy">
+                    <span class="review-card__photo-index">03</span>
+                    <span class="review-card__photo-hint">Наведи, чтобы прочитать</span>
+                </div>
                 <div class="review-card__comment">
-                    <span class="review-card__eyebrow">02 · Практика и review</span>
-                    <blockquote>«Здесь будет отзыв о задачах, ошибках и обратной связи по коду»</blockquote>
-                    <p>Фокус на конкретной проектной практике: что изменилось в коде и в инженерном мышлении.</p>
-                    <span class="review-card__person">Ученик · публикация по согласованию</span>
-                </div>
-                <div class="review-card__media">
-                    <video class="review-card__video" data-review-video playsinline preload="metadata" aria-label="Видеоотзыв: практика и code review"></video>
-                    <span class="review-card__video-state" data-review-state>Видео появится здесь</span>
-                    <button class="review-card__play" type="button" data-review-play aria-label="Воспроизвести видеоотзыв: практика и code review"><span aria-hidden="true"></span></button>
-                </div>
-            </article>
-
-            <article class="review-card review-card--result" data-review-card>
-                <div class="review-card__comment">
-                    <span class="review-card__eyebrow">03 · Проект и результат</span>
-                    <blockquote>«Здесь будет отзыв о работающем сервисе и следующем карьерном шаге»</blockquote>
-                    <p>Добавим контекст проекта, защиту решений и то, как портфолио стало инструментом поиска работы.</p>
-                    <span class="review-card__person">Ученик · публикация по согласованию</span>
-                </div>
-                <div class="review-card__media">
-                    <video class="review-card__video" data-review-video playsinline preload="metadata" aria-label="Видеоотзыв: проект и следующий шаг"></video>
-                    <span class="review-card__video-state" data-review-state>Видео появится здесь</span>
-                    <button class="review-card__play" type="button" data-review-play aria-label="Воспроизвести видеоотзыв: проект и следующий шаг"><span aria-hidden="true"></span></button>
+                    <span class="review-card__eyebrow">03 · Переход без риска</span>
+                    <h3>Со склада - в удалённый<br>backend</h3>
+                    <p>Я работал на складе и получал около 150 000 ₽. Увольняться ради обучения было слишком рискованно, а после смен и дороги часто не оставалось сил на длинные занятия.</p>
+                    <p>Поэтому мы не строили обучение вокруг идеального свободного графика. В рабочие дни были короткие блоки, а в выходные - проект и исправление замечаний. К откликам перешли только после контрольных точек.</p>
+                    <p>До оффера я продолжал работать на складе. Затем устроился junior backend-разработчиком на удалёнку с зарплатой 200 000 ₽.</p>
+                    <span class="review-card__meta">Нагрузка: 15 часов в неделю · Не увольнялся до оффера</span>
+                    <span class="review-card__person">Переход со склада · отзыв публикуется с согласия</span>
                 </div>
             </article>
         </div>

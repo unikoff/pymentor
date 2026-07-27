@@ -33,49 +33,49 @@
             </div>
         </div>
 
-        <div class="platform-showcase" aria-label="Иллюстрация учебной платформы">
+        <div class="platform-showcase" data-platform-workspace aria-label="Иллюстрация учебной платформы">
             <div class="platform-showcase__label">
                 <span>Рабочее пространство ученика</span>
                 <strong>Теория, код и обратная связь в одном окне</strong>
             </div>
 
-            <div class="platform-window" aria-hidden="true">
+            <div id="platform-window-workspace" class="platform-window">
                 <div class="platform-window__bar">
                     <span></span><span></span><span></span>
                     <em>pymentor / backend-track</em>
                 </div>
                 <div class="platform-window__body">
-                    <div class="platform-window__side">
-                        <span class="is-active"></span>
+                    <div class="platform-window__side" aria-hidden="true">
+                        <span class="is-active" data-platform-side="theory"></span>
+                        <span data-platform-side="practice"></span>
                         <span></span>
-                        <span></span>
-                        <span></span>
+                        <span data-platform-side="progress"></span>
                     </div>
                     <div class="platform-window__main">
-                        <div class="platform-window__chip">Урок 07 · REST API</div>
+                        <div class="platform-window__chip" data-platform-chip>Урок 07 · REST API</div>
                         <div class="platform-window__line" style="width: 78%"></div>
                         <div class="platform-window__line" style="width: 58%"></div>
                         <div class="platform-window__code">
-                            <span style="width: 82%"></span>
-                            <span style="width: 64%"></span>
-                            <span style="width: 72%"></span>
+                            <span data-platform-code-line style="width: 82%"></span>
+                            <span data-platform-code-line style="width: 64%"></span>
+                            <span data-platform-code-line style="width: 72%"></span>
                         </div>
                         <div class="platform-window__task">
                             <i></i>
                             <span>
-                                <b>Практика проверена</b>
-                                <u>Комментарий наставника уже внутри</u>
+                                <b data-platform-task-title>Практика проверена</b>
+                                <u data-platform-task-detail>Комментарий наставника уже внутри</u>
                             </span>
                         </div>
-                        <div class="platform-window__progress"><span style="width: 68%"></span></div>
+                        <div class="platform-window__progress"><span data-platform-progress style="width: 68%"></span></div>
                     </div>
                 </div>
             </div>
 
-            <ul class="platform-showcase__results" aria-label="Возможности платформы">
-                <li><strong>Теория</strong><span>по шагам</span></li>
-                <li><strong>Практика</strong><span>с проверкой</span></li>
-                <li><strong>Прогресс</strong><span>всегда виден</span></li>
+            <ul class="platform-showcase__results" aria-label="Переключить сценарий платформы">
+                <li><button class="platform-mode is-active" type="button" data-platform-mode="theory" aria-pressed="true"><strong>Теория</strong><span>короткий разбор</span></button></li>
+                <li><button class="platform-mode" type="button" data-platform-mode="practice" aria-pressed="false"><strong>Практика</strong><span>задача и ревью</span></button></li>
+                <li><button class="platform-mode" type="button" data-platform-mode="progress" aria-pressed="false"><strong>Прогресс</strong><span>следующий шаг</span></button></li>
             </ul>
         </div>
     </div>

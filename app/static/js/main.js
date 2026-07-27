@@ -1686,53 +1686,6 @@ function initPricingCarousel() {
 }
 
 
-function initReviewVideos() {
-    const cards = Array.from(document.querySelectorAll('[data-review-card]'));
-    if (cards.length === 0) return;
-
-    cards.forEach((card) => {
-        const video = card.querySelector('[data-review-video]');
-        const playButton = card.querySelector('[data-review-play]');
-        const state = card.querySelector('[data-review-state]');
-        if (!(video instanceof HTMLVideoElement) || !(playButton instanceof HTMLButtonElement)) return;
-
-        const configuredSource = video.dataset.reviewSrc?.trim();
-        if (configuredSource && !video.getAttribute('src')) {
-            video.src = configuredSource;
-        }
-
-        const showPlayback = () => {
-            card.classList.remove('is-awaiting-video');
-            card.classList.add('is-playing');
-            if (state) state.textContent = '';
-        };
-
-        const showUnavailableState = () => {
-            card.classList.remove('is-playing');
-            card.classList.add('is-awaiting-video');
-            if (state) state.textContent = 'Видео появится после загрузки файла';
-        };
-
-        playButton.addEventListener('click', async () => {
-            const hasSource = Boolean(video.currentSrc || video.getAttribute('src') || video.dataset.reviewSrc);
-            if (!hasSource) {
-                showUnavailableState();
-                return;
-            }
-
-            video.controls = true;
-            try {
-                await video.play();
-                showPlayback();
-            } catch (error) {
-                console.warn('Review video could not start:', error);
-                if (state) state.textContent = 'Не удалось запустить видео';
-            }
-        });
-
-        video.addEventListener('play', showPlayback);
-    });
-}
 function initAmbientPointerTilt({ selector, stateKey, activeClass, tiltXRange, tiltYRange, minRadius, radiusFactor, cssPrefix }) {
     const target = document.querySelector(selector);
     if (!target || target.dataset[stateKey] === 'true') return;
@@ -1989,6 +1942,85 @@ function initCodeReviewAccordion() {
     openCase(cases.find((caseItem) => caseItem.classList.contains('is-open')) || cases[0], false);
     startAutoAdvance({ reset: true });
 }
+function initPlatformWorkspace() {
+    const workspace = document.querySelector('[data-platform-workspace]');
+    if (!workspace || workspace.dataset.initialized === 'true') return;
+
+    const buttons = Array.from(workspace.querySelectorAll('[data-platform-mode]'));
+    const chip = workspace.querySelector('[data-platform-chip]');
+    const taskTitle = workspace.querySelector('[data-platform-task-title]');
+    const taskDetail = workspace.querySelector('[data-platform-task-detail]');
+    const progress = workspace.querySelector('[data-platform-progress]');
+    const codeLines = Array.from(workspace.querySelectorAll('[data-platform-code-line]'));
+    const sideItems = Array.from(workspace.querySelectorAll('[data-platform-side]'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!buttons.length || !chip || !taskTitle || !taskDetail || !progress || codeLines.length !== 3) return;
+    workspace.dataset.initialized = 'true';
+
+    const modes = {
+        theory: {
+            chip: 'Урок 07 · REST API',
+            title: 'Теория открыта',
+            detail: 'Видео, конспект и контекст доступны до первой практики',
+            progress: '68%', lines: ['82%', '64%', '72%'], side: 'theory'
+        },
+        practice: {
+            chip: 'Задание 07 · CRUD',
+            title: 'Практика отправлена',
+            detail: 'Решение в уроке, наставник оставит ревью рядом с кодом',
+            progress: '74%', lines: ['70%', '86%', '58%'], side: 'practice'
+        },
+        progress: {
+            chip: 'Трек · Backend API',
+            title: 'Следующий шаг выбран',
+            detail: 'Темп и ближайшая задача собраны в одном маршруте',
+            progress: '82%', lines: ['88%', '56%', '76%'], side: 'progress'
+        }
+    };
+
+    let transitionTimer;
+    const renderMode = (modeName, animate = true) => {
+        const mode = modes[modeName];
+        if (!mode) return;
+
+        buttons.forEach((button) => {
+            const isActive = button.dataset.platformMode === modeName;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+        sideItems.forEach((item) => item.classList.toggle('is-active', item.dataset.platformSide === mode.side));
+        chip.textContent = mode.chip;
+        taskTitle.textContent = mode.title;
+        taskDetail.textContent = mode.detail;
+        progress.style.width = mode.progress;
+        codeLines.forEach((line, index) => { line.style.width = mode.lines[index]; });
+
+        if (!animate || prefersReducedMotion) return;
+        window.clearTimeout(transitionTimer);
+        workspace.classList.remove('is-switching');
+        void workspace.offsetWidth;
+        workspace.classList.add('is-switching');
+        transitionTimer = window.setTimeout(() => workspace.classList.remove('is-switching'), 300);
+    };
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => renderMode(button.dataset.platformMode));
+        button.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            let nextIndex = index;
+            if (event.key === 'ArrowLeft') nextIndex = (index - 1 + buttons.length) % buttons.length;
+            if (event.key === 'ArrowRight') nextIndex = (index + 1) % buttons.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = buttons.length - 1;
+            buttons[nextIndex].focus();
+            renderMode(buttons[nextIndex].dataset.platformMode);
+        });
+    });
+
+    renderMode('theory', false);
+}
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     syncViewportContext();
@@ -2011,7 +2043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAboutPhotoPointer();
     initAboutAchievements();
     initProgramAccordion();
-    initReviewVideos();
+    initPlatformWorkspace();
     initCodeReviewAccordion();
     initResumeTooltips();
     bindFormListeners();
@@ -2053,6 +2085,7 @@ window.showLockedModal = showLockedModal;
 window.addEventListener('load', initHeroPointer, { once: true });
 window.addEventListener('load', initAboutPhotoPointer, { once: true });
 window.addEventListener('load', initAboutAchievements, { once: true });
+window.addEventListener('load', initPlatformWorkspace, { once: true });
 window.addEventListener('load', initCodeReviewAccordion, { once: true });
 window.addEventListener('load', initResumeTooltips, { once: true });
 window.addEventListener('load', initCareerPlanSelector, { once: true });
@@ -2061,6 +2094,7 @@ if (document.readyState !== 'loading') {
     initHeroPointer();
     initAboutPhotoPointer();
     initAboutAchievements();
+    initPlatformWorkspace();
     initCodeReviewAccordion();
     initResumeTooltips();
     initCareerPlanSelector();
@@ -2081,7 +2115,7 @@ function initResumeTooltips() {
 
     const positionTooltip = (clientX, clientY) => {
         const padding = 12;
-        const offset = 18;
+        const offset = 10;
         let left = clientX + offset;
         let top = clientY + offset;
 
@@ -2108,9 +2142,9 @@ function initResumeTooltips() {
         activeTrigger = trigger;
         tooltip.textContent = trigger.dataset.resumeTooltip || '';
         tooltip.hidden = false;
-        tooltip.classList.add('is-visible');
         tooltipSize = tooltip.getBoundingClientRect();
         positionTooltip(clientX, clientY);
+        tooltip.classList.add('is-visible');
     };
 
     const hideTooltip = (trigger, immediate = false) => {
