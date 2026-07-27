@@ -596,8 +596,14 @@ async function submitForm() {
             body: formData,
         });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok) {
+        if (!response.ok || !result.ok) {
             throw new Error(result.message || '\u041e\u0448\u0438\u0431\u043a\u0430 \u0441\u0435\u0442\u0438 \u0438\u043b\u0438 \u0441\u0435\u0440\u0432\u0435\u0440\u0430');
+        }
+
+        try {
+            window.ym?.(111051719, 'reachGoal', 'lead_success');
+        } catch (error) {
+            console.warn('Yandex.Metrika goal tracking failed:', error);
         }
 
         restoreSubmitState();
