@@ -14211,4 +14211,32 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         opacity: 0;
         transform: translateY(0.25rem);
     }
+
+    /* An opened long story becomes a normal reading card instead of a fixed overlay. */
+    #reviews .review-card.is-expanded {
+        min-height: 0;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo {
+        position: relative;
+        inset: auto;
+        height: clamp(13.5rem, 63vw, 17.5rem);
+    }
+
+    #reviews .review-card.is-expanded .review-card__comment {
+        position: relative;
+        inset: auto;
+        max-height: none;
+        margin: 0.7rem;
+        overflow: visible;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint {
+        opacity: 1;
+        transform: none;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint::after {
+        content: 'Нажми, чтобы скрыть';
+    }
 }
