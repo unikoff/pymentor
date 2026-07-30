@@ -2027,6 +2027,39 @@ function initPlatformWorkspace() {
 
     renderMode('theory', false);
 }
+
+function initReviewCardInteractions() {
+    const cards = Array.from(document.querySelectorAll('#reviews .review-card'));
+    if (!cards.length || cards[0].dataset.mobileInteractionInitialized === 'true') return;
+
+    const mobileQuery = window.matchMedia('(max-width: 899px)');
+
+    const setExpanded = (card, expanded) => {
+        card.classList.toggle('is-expanded', expanded);
+        card.setAttribute('aria-expanded', String(expanded));
+    };
+
+    cards.forEach((card) => {
+        card.dataset.mobileInteractionInitialized = 'true';
+        card.setAttribute('aria-expanded', 'false');
+
+        card.addEventListener('click', () => {
+            if (!mobileQuery.matches) return;
+            setExpanded(card, !card.classList.contains('is-expanded'));
+        });
+
+        card.addEventListener('keydown', (event) => {
+            if (!mobileQuery.matches || !['Enter', ' '].includes(event.key)) return;
+            event.preventDefault();
+            setExpanded(card, !card.classList.contains('is-expanded'));
+        });
+    });
+
+    mobileQuery.addEventListener('change', ({ matches }) => {
+        if (!matches) cards.forEach((card) => setExpanded(card, false));
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     syncViewportContext();
@@ -2050,6 +2083,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAboutAchievements();
     initProgramAccordion();
     initPlatformWorkspace();
+    initReviewCardInteractions();
     initCodeReviewAccordion();
     initResumeTooltips();
     bindFormListeners();
@@ -2092,6 +2126,7 @@ window.addEventListener('load', initHeroPointer, { once: true });
 window.addEventListener('load', initAboutPhotoPointer, { once: true });
 window.addEventListener('load', initAboutAchievements, { once: true });
 window.addEventListener('load', initPlatformWorkspace, { once: true });
+window.addEventListener('load', initReviewCardInteractions, { once: true });
 window.addEventListener('load', initCodeReviewAccordion, { once: true });
 window.addEventListener('load', initResumeTooltips, { once: true });
 window.addEventListener('load', initCareerPlanSelector, { once: true });
@@ -2101,6 +2136,7 @@ if (document.readyState !== 'loading') {
     initAboutPhotoPointer();
     initAboutAchievements();
     initPlatformWorkspace();
+    initReviewCardInteractions();
     initCodeReviewAccordion();
     initResumeTooltips();
     initCareerPlanSelector();
@@ -2177,7 +2213,15 @@ function initResumeTooltips() {
         });
 
         trigger.addEventListener('pointermove', (event) => {
-            if (activeTrigger === trigger) schedulePosition(event.clientX, event.clientY);
+            if (event.pointerType === 'touch') return;
+
+            // A scroll can move this zone under a stationary pointer without firing pointerenter.
+            if (activeTrigger !== trigger) {
+                showTooltip(trigger, event.clientX, event.clientY);
+                return;
+            }
+
+            schedulePosition(event.clientX, event.clientY);
         });
 
         trigger.addEventListener('pointerleave', () => hideTooltip(trigger));

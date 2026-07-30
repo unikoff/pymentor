@@ -13876,3 +13876,339 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         height: 100%;
     }
 }
+
+/* Pricing: three distinct paths with a clear flagship tier. */
+@media (min-width: 900px) {
+    #pricing.pricing-section--plans > .container {
+        width: min(100%, 110rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading {
+        margin-bottom: clamp(1rem, 1.9vh, 1.55rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
+        max-width: 30ch;
+        font-size: clamp(2.25rem, 3.6vmin, 3.7rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.16fr) minmax(0, 0.92fr);
+        gap: clamp(1rem, 1.35vw, 1.5rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(28rem, 57vh, 36.5rem) !important;
+        padding: clamp(1.25rem, 1.65vw, 1.8rem);
+        border-color: rgb(255 250 240 / 0.2);
+        box-shadow: 0 1.45rem 3.7rem rgb(0 0 0 / 0.24), inset 0 1px rgb(255 255 255 / 0.07);
+    }
+
+    #pricing.pricing-section--plans .price-option::before {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 2;
+        display: block !important;
+        height: 0.34rem;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--plan-accent) 0 38%, rgb(var(--plan-accent-rgb) / 0.22) 72%, transparent);
+        content: '';
+        pointer-events: none;
+    }
+
+    #pricing.pricing-section--plans .price-option--single {
+        background:
+            radial-gradient(circle at 4% 4%, rgb(var(--plan-accent-rgb) / 0.2), transparent 31%),
+            linear-gradient(145deg, rgb(30 46 31 / 0.98), rgb(17 27 18 / 0.98)) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--support {
+        background:
+            radial-gradient(circle at 96% 8%, rgb(var(--plan-accent-rgb) / 0.18), transparent 32%),
+            linear-gradient(145deg, rgb(35 47 28 / 0.98), rgb(19 28 17 / 0.98)) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive {
+        border-width: 2px;
+        border-color: rgb(183 255 90 / 0.88);
+        box-shadow: 0 1.8rem 4.8rem rgb(183 255 90 / 0.18), 0 1.5rem 4rem rgb(0 0 0 / 0.26), inset 0 1px rgb(255 255 255 / 0.54);
+        transform: translateY(-0.3rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive::before {
+        height: 0.42rem;
+        background: linear-gradient(90deg, #1c2918 0 19%, var(--brand) 45% 72%, #1c2918 100%);
+    }
+
+    #pricing.pricing-section--plans .price-option__topline {
+        min-height: 2.25rem;
+        align-items: center;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:first-child {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.15rem;
+        padding: 0.42rem 0.72rem;
+        border: 1px solid rgb(var(--plan-accent-rgb) / 0.32);
+        border-radius: 999px;
+        background: rgb(var(--plan-accent-rgb) / 0.1);
+        letter-spacing: 0.055em;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:last-child {
+        display: grid;
+        width: 2.25rem;
+        height: 2.25rem;
+        place-items: center;
+        border: 1px solid rgb(var(--plan-accent-rgb) / 0.3);
+        border-radius: 50%;
+        background: rgb(var(--plan-accent-rgb) / 0.09);
+        color: var(--plan-accent);
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:first-child,
+    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:last-child {
+        border-color: rgb(20 26 16 / 0.16);
+        background: rgb(20 26 16 / 0.07);
+        color: var(--ink);
+    }
+
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: clamp(1.1rem, 1.85vh, 1.45rem);
+        padding: 0.78rem 0.9rem;
+        border: 1px solid rgb(255 250 240 / 0.11);
+        border-radius: 0.85rem;
+        background: rgb(0 0 0 / 0.13);
+    }
+
+    #pricing.pricing-section--plans .price-option__format strong {
+        color: var(--paper);
+        font-size: clamp(0.88rem, 0.92vw, 1rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-option__format {
+        background: rgb(20 26 16 / 0.055);
+    }
+
+    #pricing.pricing-section--plans .price-option h3 {
+        max-width: 15ch;
+        margin-top: clamp(1.1rem, 1.8vh, 1.45rem);
+        font-size: clamp(1.72rem, 2.1vw, 2.25rem);
+        line-height: 0.96;
+    }
+
+    #pricing.pricing-section--plans .price-option .price-card__price {
+        margin-top: clamp(1rem, 1.75vh, 1.35rem);
+        font-size: clamp(3.2rem, 3.9vw, 4.65rem);
+        letter-spacing: -0.11em;
+        line-height: 0.8;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
+        font-size: clamp(3.65rem, 4.7vw, 5.65rem);
+    }
+
+    #pricing.pricing-section--plans .price-option__benefit {
+        margin-top: 0.7rem;
+        padding: 0.48rem 0.72rem;
+        box-shadow: 0 0.5rem 1.2rem rgb(var(--plan-accent-rgb) / 0.14);
+    }
+
+    #pricing.pricing-section--plans .price-option__summary {
+        min-height: 2.85em;
+        margin-top: 0.85rem;
+        font-size: clamp(0.84rem, 0.88vw, 0.94rem);
+    }
+
+    #pricing.pricing-section--plans .price-option ul {
+        gap: 0.56rem;
+        margin-top: 1.05rem;
+    }
+
+    #pricing.pricing-section--plans .price-option li {
+        font-size: clamp(0.8rem, 0.84vw, 0.91rem);
+    }
+
+    #pricing.pricing-section--plans .price-option .btn-wide {
+        min-height: 3.4rem;
+        border-width: 1px;
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 900px) {
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(25.75rem, 54vh, 29.5rem) !important;
+        padding: 1.05rem 1.2rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline {
+        min-height: 1.95rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:first-child {
+        min-height: 1.85rem;
+        padding: 0.35rem 0.58rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:last-child {
+        width: 1.9rem;
+        height: 1.9rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: 0.85rem;
+        padding: 0.58rem 0.7rem;
+    }
+
+    #pricing.pricing-section--plans .price-option h3 {
+        margin-top: 0.9rem;
+        font-size: clamp(1.42rem, 2vw, 1.9rem);
+    }
+
+    #pricing.pricing-section--plans .price-option .price-card__price {
+        margin-top: 0.82rem;
+        font-size: clamp(2.8rem, 3.7vw, 3.85rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
+        font-size: clamp(3.2rem, 4.35vw, 4.45rem);
+    }
+
+    #pricing.pricing-section--plans .price-option__summary {
+        margin-top: 0.62rem;
+        font-size: 0.78rem;
+    }
+
+    #pricing.pricing-section--plans .price-option ul {
+        gap: 0.38rem;
+        margin-top: 0.76rem;
+    }
+
+    #pricing.pricing-section--plans .price-option li {
+        font-size: 0.74rem;
+    }
+
+    #pricing.pricing-section--plans .price-option .btn-wide {
+        min-height: 2.8rem;
+    }
+}
+
+/* Pricing scale pass: larger plans without breaking the full-screen frame. */
+@media (min-width: 900px) {
+    #pricing.pricing-section--plans > .container {
+        width: min(100%, 118rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.28fr) minmax(0, 0.9fr);
+        gap: clamp(1.15rem, 1.55vw, 1.85rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(31rem, 62vh, 40rem) !important;
+        padding: clamp(1.45rem, 1.95vw, 2.15rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive {
+        transform: translateY(-0.38rem) !important;
+    }
+
+    /* The pointer spotlight reads as a vertical stripe on the light flagship card. */
+    #pricing.pricing-section--plans .price-option--intensive::after,
+    #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus::after {
+        display: none !important;
+        opacity: 0 !important;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 900px) {
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(27.25rem, 57vh, 32rem) !important;
+        padding: 1.15rem 1.35rem;
+    }
+}
+
+/* A pointer can already be over a resume zone when the section appears. */
+#market-entry [data-resume-tooltip] {
+    transition: none;
+}
+
+/* The tooltip itself must appear immediately on first hover. */
+#market-entry .resume-tooltip,
+#market-entry .resume-tooltip.is-visible {
+    transition: none;
+}
+
+/* On phones a review is read on demand, so the portrait remains the first view. */
+@media (max-width: 899px) {
+    #reviews .review-card {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #reviews .review-card__comment,
+    #reviews .review-card:hover:not(.is-expanded) .review-card__comment,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__comment {
+        position: absolute;
+        inset: 0.7rem;
+        max-height: none;
+        overflow-y: auto;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(0.7rem);
+    }
+
+    #reviews .review-card::before,
+    #reviews .review-card:hover:not(.is-expanded)::before,
+    #reviews .review-card:focus:not(.is-expanded)::before {
+        opacity: 0;
+    }
+
+    #reviews .review-card:hover:not(.is-expanded) .review-card__photo img,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__photo img {
+        filter: saturate(0.78) contrast(1.02) brightness(0.76);
+        transform: scale(1.02);
+    }
+
+    #reviews .review-card:hover:not(.is-expanded) .review-card__photo-hint,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__photo-hint {
+        opacity: 1;
+        transform: none;
+    }
+
+    #reviews .review-card__photo-hint {
+        display: block;
+        font-size: 0;
+    }
+
+    #reviews .review-card__photo-hint::after {
+        content: 'Нажми, чтобы прочитать';
+        font-size: clamp(0.6rem, 2.5vw, 0.7rem);
+    }
+
+    #reviews .review-card.is-expanded::before,
+    #reviews .review-card.is-expanded .review-card__comment {
+        opacity: 1;
+    }
+
+    #reviews .review-card.is-expanded .review-card__comment {
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo img {
+        filter: saturate(0.92) contrast(1.04) brightness(0.58);
+        transform: scale(1.07);
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint {
+        opacity: 0;
+        transform: translateY(0.25rem);
+    }
+}

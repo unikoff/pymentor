@@ -35,6 +35,6 @@ def build_lead_message(data, has_audio):
             lines.append(f"{label}: {value}")
 
     if has_audio:
-        lines.extend(["", "Голосовое сообщение будет отправлено отдельным сообщением."])
+        lines.extend(["", "Голосовое сообщение прикреплено к заявке."])
 
     return "\n".join(lines)

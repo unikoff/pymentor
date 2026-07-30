@@ -1,6 +1,7 @@
 if __package__:
     from app.lead_form import build_lead_message
     from app.telegram_delivery import (
+        TELEGRAM_CAPTION_MAX_LENGTH,
         TelegramDeliveryError,
         is_telegram_configured,
         send_telegram_audio,
@@ -9,6 +10,7 @@ if __package__:
 else:
     from lead_form import build_lead_message
     from telegram_delivery import (
+        TELEGRAM_CAPTION_MAX_LENGTH,
         TelegramDeliveryError,
         is_telegram_configured,
         send_telegram_audio,
@@ -25,8 +27,14 @@ def is_lead_delivery_configured():
 
 
 def deliver_lead(data, audio_file=None):
+    message = build_lead_message(data, bool(audio_file))
+
     try:
-        message_sent = send_telegram_message(build_lead_message(data, bool(audio_file)))
+        if audio_file and len(message) <= TELEGRAM_CAPTION_MAX_LENGTH:
+            # One Telegram request confirms both the lead text and the recording.
+            return bool(send_telegram_audio(audio_file, caption=message))
+
+        message_sent = send_telegram_message(message)
         audio_sent = send_telegram_audio(audio_file) if audio_file else True
     except TelegramDeliveryError as exc:
         raise LeadDeliveryError("Lead delivery failed.") from exc

@@ -6,6 +6,7 @@ import requests
 
 LOGGER = logging.getLogger(__name__)
 TELEGRAM_TIMEOUT_SECONDS = 8
+TELEGRAM_CAPTION_MAX_LENGTH = 1024
 PLACEHOLDER_PREFIXES = ("your_", "your-", "your ", "замените")
 
 
@@ -50,10 +51,13 @@ def send_telegram_message(text):
     return bool(response.json().get("ok"))
 
 
-def send_telegram_audio(audio_file):
+def send_telegram_audio(audio_file, caption=None):
     token, chat_id = get_telegram_config()
     if not is_telegram_configured():
         return False
+
+    if caption is not None and len(caption) > TELEGRAM_CAPTION_MAX_LENGTH:
+        raise TelegramDeliveryError("Telegram audio caption is too long.")
 
     audio_file.stream.seek(0)
     files = {
@@ -64,10 +68,14 @@ def send_telegram_audio(audio_file):
         )
     }
 
+    payload = {"chat_id": chat_id}
+    if caption:
+        payload["caption"] = caption
+
     try:
         response = requests.post(
             f"https://api.telegram.org/bot{token}/sendAudio",
-            data={"chat_id": chat_id},
+            data=payload,
             files=files,
             timeout=TELEGRAM_TIMEOUT_SECONDS,
         )
