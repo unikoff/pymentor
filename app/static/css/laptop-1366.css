@@ -1,0 +1,365 @@
+/* Compact full-screen layout for 1366x768 to 1440x900 laptops. */
+@media (min-width: 1200px) and (max-width: 1440px) and (max-height: 920px) {
+    html[data-viewport="desktop"] #roadmap.program-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.55rem) !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap.program-section > .container {
+        height: 100% !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        min-height: 0;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading {
+        margin-bottom: 0.65rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading .section-kicker {
+        margin-bottom: 0.35rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading h2 {
+        margin-top: 0 !important;
+        font-size: clamp(2rem, 2.5vw, 2.3rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading p {
+        margin-top: 0.35rem !important;
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-layout {
+        height: 31.25rem !important;
+        min-height: 0 !important;
+        gap: 1.25rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-modules {
+        gap: 0.38rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module,
+    html[data-viewport="desktop"] #roadmap .program-module__head {
+        min-height: 0 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__head {
+        grid-template-columns: 2.75rem minmax(0, 1fr) minmax(8rem, 10vw, 10rem) !important;
+        gap: 0.55rem !important;
+        padding: 0.38rem 0.8rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__title {
+        font-size: 0.93rem !important;
+        line-height: 1.05 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__volume {
+        font-size: 0.66rem !important;
+        line-height: 1.1 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-detail {
+        padding: 1rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-section__cta,
+    html[data-viewport="desktop"] #roadmap .program-section__cta .btn-large {
+        min-height: 2.45rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-section__cta .btn-large {
+        padding-block: 0.55rem !important;
+        font-size: 0.78rem !important;
+    }
+
+    html[data-viewport="desktop"] #career.career-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.7rem) !important;
+        padding-bottom: 0.75rem !important;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__inner {
+        height: 100% !important;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        min-height: 0;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading {
+        margin-bottom: 0.75rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading .section-kicker {
+        margin-bottom: 0.3rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading h2 {
+        margin-top: 0;
+        font-size: clamp(2rem, 2.7vw, 2.45rem);
+        line-height: 1.02;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading p {
+        margin-top: 0.4rem;
+        font-size: 0.8rem;
+        line-height: 1.35;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__layout,
+    html[data-viewport="desktop"] #career .career-offers {
+        min-height: 0;
+        height: 100%;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__layout {
+        gap: 1rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee,
+    html[data-viewport="desktop"] #career .career-offer {
+        min-height: 0;
+        padding: 0.95rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee h3 {
+        margin-top: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee p,
+    html[data-viewport="desktop"] #career .career-offer__summary {
+        margin-top: 0.65rem;
+        font-size: 0.74rem;
+        line-height: 1.35;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee ul,
+    html[data-viewport="desktop"] #career .career-offer ul {
+        gap: 0.35rem;
+        margin-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee li,
+    html[data-viewport="desktop"] #career .career-offer li {
+        font-size: 0.7rem;
+        line-height: 1.28;
+    }
+
+    html[data-viewport="desktop"] #career .career-access-benefit {
+        margin-top: 0.75rem;
+        padding: 0.55rem 0.65rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee small {
+        margin-top: 0.72rem;
+        padding-top: 0.65rem;
+        font-size: 0.62rem;
+        line-height: 1.28;
+    }
+
+    html[data-viewport="desktop"] #career .career-payment-switch {
+        margin-top: 0.7rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-payment-switch__option {
+        min-height: 2.05rem;
+        padding: 0.3rem 0.4rem;
+        font-size: 0.58rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offers {
+        gap: 0.85rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer h3 {
+        margin-top: 0.72rem;
+        font-size: 1.45rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__price,
+    html[data-viewport="desktop"] #career .career-offer__split-price {
+        margin-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__price,
+    html[data-viewport="desktop"] #career .career-offer__split-price strong {
+        font-size: clamp(2.55rem, 3.9vw, 3.35rem);
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions {
+        gap: 0.38rem;
+        padding-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions .btn-wide {
+        min-height: 2.35rem;
+        font-size: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions a {
+        font-size: 0.56rem;
+    }
+}
+
+/* Keep the career offer inside a landscape tablet viewport. */
+@media (min-width: 900px) and (max-width: 1199px) and (max-height: 820px) {
+    html[data-viewport="tablet"] #career.career-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.55rem) !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        height: 100%;
+        min-height: 0;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading {
+        margin-bottom: 0.5rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading .section-kicker {
+        margin-bottom: 0.25rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading h2 {
+        margin-top: 0;
+        font-size: clamp(1.85rem, 3.1vw, 2.2rem);
+        line-height: 1.02;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading p {
+        margin-top: 0.3rem;
+        font-size: 0.72rem;
+        line-height: 1.3;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__layout,
+    html[data-viewport="tablet"] #career .career-offers {
+        height: 100%;
+        min-height: 0;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__layout {
+        gap: 0.7rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee,
+    html[data-viewport="tablet"] #career .career-offer {
+        min-height: 0;
+        padding: 0.65rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee h3,
+    html[data-viewport="tablet"] #career .career-offer h3 {
+        margin-top: 0.45rem;
+        font-size: 1.18rem;
+        line-height: 1;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee p,
+    html[data-viewport="tablet"] #career .career-offer__summary {
+        margin-top: 0.42rem;
+        font-size: 0.62rem;
+        line-height: 1.25;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee ul,
+    html[data-viewport="tablet"] #career .career-offer ul {
+        gap: 0.27rem;
+        margin-top: 0.48rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee li,
+    html[data-viewport="tablet"] #career .career-offer li {
+        font-size: 0.59rem;
+        line-height: 1.2;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit {
+        gap: 0.4rem;
+        margin-top: 0.48rem;
+        padding: 0.36rem 0.44rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit strong {
+        font-size: 0.84rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit span,
+    html[data-viewport="tablet"] #career .career-guarantee small {
+        font-size: 0.54rem;
+        line-height: 1.16;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee small {
+        margin-top: 0.45rem;
+        padding-top: 0.42rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-payment-switch {
+        gap: 0.24rem;
+        margin-top: 0.42rem;
+        padding: 0.22rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-payment-switch__option {
+        min-height: 1.72rem;
+        padding: 0.22rem;
+        font-size: 0.5rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offers {
+        gap: 0.55rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__topline,
+    html[data-viewport="tablet"] #career .career-offer__availability {
+        font-size: 0.48rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__price,
+    html[data-viewport="tablet"] #career .career-offer__split-price {
+        margin-top: 0.45rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__price,
+    html[data-viewport="tablet"] #career .career-offer__split-price strong {
+        font-size: clamp(1.8rem, 3.45vw, 2.25rem);
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__split-price span {
+        font-size: 0.56rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions {
+        gap: 0.25rem;
+        padding-top: 0.45rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions .btn-wide {
+        min-height: 1.9rem;
+        font-size: 0.61rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions a {
+        font-size: 0.5rem;
+    }
+}
