@@ -246,28 +246,6 @@
             }
         }
 
-        @media (max-width: 640px) {
-            .page-loader {
-                padding: 18px;
-            }
-
-            .page-loader__card {
-                padding: 24px 22px 22px;
-                border-radius: 22px;
-            }
-
-            .page-loader__stage {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
-            .page-loader__orb {
-                width: 68px;
-                height: 68px;
-            }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .page-loader__orb,
             .page-loader__bar span {
@@ -715,24 +693,6 @@
     justify-content: center;
     gap: 8px;
     margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-    
-    .carousel-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(0, 255, 65, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .carousel-dot.active {
-        background: var(--matrix-green);
-        width: 24px;
-        border-radius: 4px;
-    }
 }
 
 /* ==========================================================
@@ -3004,25 +2964,6 @@ html[data-viewport="wide"] .roadmap-section .section-heading p {
     }
 }
 
-@media (max-width: 420px) {
-    html[data-viewport="mobile"] {
-        --section-pad-y: 34px;
-    }
-
-    .container {
-        width: min(100% - 20px, 1180px);
-    }
-
-    .hero-proof {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-proof div:last-child {
-        grid-column: auto;
-    }
-
-}
-
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -3336,19 +3277,6 @@ html[data-viewport="tablet"] .footer-actions {
 
 }
 
-@media (max-width: 768px) {
-    .value-card__label,
-    .roadmap-intro__meta span,
-    .footer-meta span {
-        font-size: 15px;
-    }
-
-    .about-evidence div {
-        min-height: auto;
-    }
-
-}
-
 /* Correction pass for visible overflow and footer snap issues. */
 .site-footer {
     scroll-snap-align: none !important;
@@ -3443,29 +3371,6 @@ html[data-viewport="wide"] .market-entry-section .section-heading p {
 html[data-viewport="desktop"] .pricing-section > .container,
 html[data-viewport="wide"] .pricing-section > .container {
     gap: 1.25rem;
-}
-
-@media (min-width: 900px) and (max-height: 900px) {
-    html[data-viewport="desktop"] main > section,
-    html[data-viewport="wide"] main > section,
-    html[data-viewport="tablet"] main > section {
-        padding-top: calc(var(--nav-height) + 1.5rem);
-        padding-bottom: 2rem;
-    }
-
-    html[data-viewport="desktop"] .section > .container,
-    html[data-viewport="wide"] .section > .container,
-    html[data-viewport="tablet"] .section > .container {
-        min-height: calc(var(--viewport-height) - var(--nav-height) - 3.5rem);
-    }
-
-    html[data-viewport="desktop"] .roadmap-section .section-heading h2,
-    html[data-viewport="wide"] .roadmap-section .section-heading h2,
-    html[data-viewport="desktop"] .market-entry-section .section-heading h2,
-    html[data-viewport="wide"] .market-entry-section .section-heading h2 {
-        font-size: 2.15rem;
-    }
-
 }
 
 /* Process must be a true single-screen slide on desktop and tablet. */
@@ -3580,16 +3485,6 @@ html[data-viewport="tablet"] #market-entry.section {
     grid-area: kicker;
 }
 
-@media (max-width: 768px) {
-    html[data-viewport] #market-entry.section {
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-    }
-
-}
-
 /* Footer stays compact, but participates in one-step section scrolling. */
 html[data-viewport="desktop"] .site-footer,
 html[data-viewport="wide"] .site-footer,
@@ -3700,36 +3595,6 @@ html[data-viewport="tablet"] #market-entry.market-entry-redesign {
         overflow: visible;
     }
 
-}
-
-/* Mobile footer polish: keep desktop layout unchanged. */
-@media (max-width: 768px) {
-    .site-footer .footer-actions {
-        width: min(100%, 22rem);
-        max-width: 22rem;
-        margin: 1.5rem auto 0;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .site-footer .footer-actions .btn-primary,
-    .site-footer .footer-actions a {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .site-footer .footer-bottom {
-        width: min(100%, calc(100% - 2rem));
-        margin-inline: auto;
-        text-align: center;
-    }
-
-    .site-footer .footer-bottom span {
-        display: block;
-        width: 100%;
-    }
 }
 
 /* Snap sections must not visually drift after the scroll lands. */
@@ -4079,7 +3944,8 @@ html[data-viewport="tablet"] #start .start-journey {
 }
 
 #start .start-step__detail,
-#start .start-step__platform-link {
+#start .start-step__platform-link,
+#start .start-step__offer-link {
     align-self: end;
     width: fit-content;
     margin: clamp(0.9rem, 1.35vmin, 1.3rem) 0 0;
@@ -4107,7 +3973,8 @@ html[data-viewport="tablet"] #start .start-journey {
     box-shadow: 0 0 12px rgba(183, 255, 90, 0.5);
 }
 
-#start .start-step__platform-link {
+#start .start-step__platform-link,
+#start .start-step__offer-link {
     padding: 0 0 0.34rem;
     border-bottom: 1px solid rgba(183, 255, 90, 0.66);
     color: rgba(255, 250, 240, 0.92);
@@ -4115,7 +3982,8 @@ html[data-viewport="tablet"] #start .start-journey {
     letter-spacing: 0.01em;
 }
 
-#start .start-step__platform-link:hover {
+#start .start-step__platform-link:hover,
+#start .start-step__offer-link:hover {
     border-color: var(--brand);
     color: var(--brand);
 }
@@ -4224,12 +4092,14 @@ html[data-viewport="tablet"] #start .start-journey {
     }
 
     #start .start-step__detail,
-    #start .start-step__platform-link {
+    #start .start-step__platform-link,
+    #start .start-step__offer-link {
         margin-top: 0.56rem;
         font-size: 15px;
     }
 
-    #start .start-step__platform-link {
+    #start .start-step__platform-link,
+    #start .start-step__offer-link {
         padding-bottom: 0.22rem;
     }
 
@@ -4506,16 +4376,6 @@ html[data-viewport="tablet"] #start .start-journey {
         gap: 32px;
     }
 
-}
-
-@media (max-width: 600px) {
-    .platform-actions .btn-primary {
-        width: 100%;
-    }
-
-    .about-facts span {
-        white-space: normal;
-    }
 }
 
 /* ====================================================== */
@@ -4893,6 +4753,14 @@ html[data-viewport="tablet"] #roadmap.section {
     line-height: 1.55;
 }
 
+#roadmap .program-detail__text p {
+    margin: 0;
+}
+
+#roadmap .program-detail__text p + p {
+    margin-top: 0.8em;
+}
+
 /* Акцент на результате: плашка с галочкой внизу панели */
 #roadmap .program-detail__result {
     display: flex;
@@ -5134,7 +5002,8 @@ html[data-viewport="tablet"] #about .about-photo img {
     }
 
     #start .start-step__detail,
-    #start .start-step__platform-link {
+    #start .start-step__platform-link,
+    #start .start-step__offer-link {
         width: fit-content;
         margin-top: 1rem;
         font-size: 0.8rem;
@@ -5150,21 +5019,6 @@ html[data-viewport="tablet"] #about .about-photo img {
 
     #platform .platform-lesson ul {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 699px) {
-    #roadmap .program-modules {
-        grid-template-columns: 1fr;
-    }
-
-    #roadmap .program-module__head {
-        grid-template-columns: 2.1rem minmax(0, 1fr);
-    }
-
-    #roadmap .program-module__volume {
-        grid-column: 2;
-        margin-top: 0.18rem;
     }
 }
 
@@ -5820,46 +5674,6 @@ html[data-viewport="tablet"] #market-entry .market-entry-redesign__shell {
     }
 }
 
-@media (max-width: 768px) {
-    html[data-viewport] #market-entry .market-entry-redesign__shell {
-        height: auto !important;
-        grid-template-columns: 1fr;
-    }
-
-    
-    #market-entry .market-entry-redesign__outcomes,
-    .platform-showcase__results {
-        height: auto;
-        grid-template-columns: 1fr;
-        grid-template-rows: none;
-    }
-
-    }
-
-/* ====================================================== */
-/* Крупные экраны: масштабируем весь дизайн через root    */
-/* font-size — все rem-значения растут пропорционально.   */
-/* Условие по высоте бережёт фулскрин-фит на низких окнах. */
-/* ====================================================== */
-
-@media (min-width: 1700px) and (min-height: 950px) {
-    :root {
-        font-size: 17px;
-    }
-}
-
-@media (min-width: 2200px) and (min-height: 1200px) {
-    :root {
-        font-size: 19px;
-    }
-}
-
-@media (min-width: 3200px) and (min-height: 1750px) {
-    :root {
-        font-size: 23px;
-    }
-}
-
 /* Платформа: блок «Внутри каждого урока» — читаемые кегли */
 #platform .platform-lesson__label {
     font-size: clamp(0.74rem, 0.85vmin, 0.86rem);
@@ -5877,60 +5691,6 @@ html[data-viewport="tablet"] #market-entry .market-entry-redesign__shell {
 
 #platform .platform-note {
     font-size: clamp(0.78rem, 0.9vmin, 0.9rem);
-}
-
-/* Wide-экраны с небольшой высотой (1600x900 и близкие):
-   ужимаем «Обо мне», чтобы секция влезала в экран */
-@media (min-width: 1600px) and (max-height: 1000px) {
-    html[data-viewport="wide"] #about .about-photo img {
-        height: clamp(17rem, 36vh, 24rem) !important;
-    }
-
-    html[data-viewport="wide"] #about .about-content h2 {
-        font-size: clamp(1.8rem, 3vmin, 2.6rem);
-    }
-
-    html[data-viewport="wide"] #about .about-copy p {
-        font-size: 0.95rem;
-    }
-
-    html[data-viewport="wide"] #about .about-quote {
-        padding: 1rem;
-    }
-
-    html[data-viewport="wide"] #about .about-quote p {
-        font-size: 0.88rem;
-    }
-
-    html[data-viewport="wide"] #about .about-evidence div {
-        padding: 0.9rem;
-    }
-
-    html[data-viewport="wide"] #about .about-evidence strong {
-        font-size: 0.9rem;
-    }
-
-    html[data-viewport="wide"] #about .about-evidence span {
-        font-size: 0.8rem;
-    }
-
-    html[data-viewport="wide"] #about .about-facts span {
-        padding: 0.45rem 0.65rem;
-        font-size: 0.72rem;
-    }
-}
-
-/* QHD/4K: контейнер использует больше ширины экрана */
-@media (min-width: 2200px) {
-    html[data-viewport="wide"] .section > .container {
-        width: min(76vw, 2300px);
-    }
-}
-
-@media (min-width: 3200px) {
-    html[data-viewport="wide"] .section > .container {
-        width: min(72vw, 2900px);
-    }
 }
 
 /* Pricing: дожимаем карточки в экран на низких ноутбуках */
@@ -6321,44 +6081,6 @@ body {
     }
 }
 
-@media (max-width: 768px) {
-    #roadmap.section {
-        min-height: auto !important;
-        height: auto !important;
-        padding-top: calc(var(--nav-height) + 1.4rem) !important;
-        padding-bottom: 3.25rem !important;
-        overflow: visible;
-    }
-
-    #roadmap.program-section > .container {
-        width: min(calc(100% - 28px), 42rem) !important;
-        min-height: 0 !important;
-        height: auto !important;
-    }
-
-    #roadmap .program-heading {
-        margin-bottom: 1.25rem;
-        text-align: left;
-    }
-
-    #roadmap .program-heading h2 {
-        margin-left: 0;
-        font-size: clamp(2rem, 9vw, 3.25rem);
-        line-height: 1.05;
-    }
-
-    #roadmap .program-heading p {
-        margin-left: 0;
-        font-size: 0.94rem;
-    }
-
-    
-    #roadmap .program-module:last-child {
-        grid-column: auto !important;
-    }
-
-    }
-
 /* Process: reserve space for the outcomes before decorative copy. */
 #market-entry.market-entry-section {
     overflow: clip;
@@ -6374,29 +6096,6 @@ body {
 #market-entry .market-entry-redesign__outcomes,
 #market-entry .market-entry-outcome-card {
     min-width: 0;
-}
-
-@media (min-width: 1200px) {
-    #market-entry.section {
-        padding-top: calc(var(--nav-height) + clamp(0.75rem, 1.5vh, 1.3rem)) !important;
-        padding-bottom: clamp(0.75rem, 1.5vh, 1.3rem) !important;
-    }
-
-    #market-entry .market-entry-redesign__shell {
-        max-height: calc(var(--viewport-height) - var(--nav-height) - clamp(1.5rem, 3vh, 2.6rem)) !important;
-        grid-template-columns: minmax(20rem, 0.82fr) minmax(0, 1.18fr);
-        gap: clamp(2.5rem, 4.5vw, 6.5rem);
-    }
-
-    /* Карточки в сумме — ровно высота левого блока (строка сетки = высота интро) */
-    #market-entry .market-entry-redesign__outcomes {
-        align-self: stretch;
-        height: auto;
-    }
-
-    #market-entry .market-entry-outcome-card {
-        overflow: hidden;
-    }
 }
 
 @media (min-width: 769px) and (max-width: 1199px) {
@@ -6502,89 +6201,6 @@ body {
 
     #market-entry .market-entry-redesign__intro {
         align-items: center;
-    }
-}
-
-@media (max-width: 768px) {
-    #market-entry.section {
-        min-height: auto !important;
-        height: auto !important;
-        padding-top: calc(var(--nav-height) + 1.4rem) !important;
-        padding-bottom: 3.25rem !important;
-        overflow: visible;
-    }
-
-    #market-entry .market-entry-redesign__shell {
-        width: min(calc(100% - 28px), 42rem) !important;
-        height: auto !important;
-        min-height: 0 !important;
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
-    }
-
-    #market-entry .market-entry-redesign__intro {
-        display: grid;
-        gap: 1rem;
-        padding: 0;
-    }
-
-    #market-entry .market-entry-redesign__title {
-        max-width: 14ch;
-        font-size: clamp(2.1rem, 10vw, 3.4rem);
-        line-height: 1;
-    }
-
-    #market-entry .market-entry-redesign__lead {
-        font-size: 0.94rem;
-        line-height: 1.5;
-    }
-
-    #market-entry .market-entry-redesign__promise {
-        padding: 1rem;
-    }
-
-    #market-entry .market-entry-redesign__metrics {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.5rem;
-    }
-
-    #market-entry .market-entry-redesign__metrics div {
-        min-height: 5.5rem;
-        padding: 0.75rem;
-    }
-
-    #market-entry .market-entry-redesign__metrics strong {
-        font-size: 1.55rem;
-    }
-
-    #market-entry .market-entry-redesign__metrics span {
-        font-size: 0.62rem;
-    }
-
-    #market-entry .market-entry-redesign__outcomes {
-        height: auto !important;
-        grid-template-columns: 1fr !important;
-        grid-template-rows: none !important;
-        gap: 0.85rem;
-    }
-
-    #market-entry .market-entry-outcome-card {
-        min-height: 0;
-        padding: 1rem;
-        overflow: visible;
-    }
-
-    #market-entry .market-entry-outcome-card h3 {
-        font-size: 1.45rem;
-    }
-
-    #market-entry .market-entry-outcome-card > p {
-        font-size: 0.88rem;
-    }
-
-    #market-entry .market-entry-outcome-card__result {
-        margin-top: 1rem;
     }
 }
 
@@ -6886,25 +6502,6 @@ html[data-viewport="mobile"] #start .start-steps {
     grid-template-rows: none !important;
 }
 
-/* Keep the desktop detail panel visually complete at its right edge. */
-@media (min-width: 900px) {
-    #roadmap .program-detail {
-        border-top-right-radius: var(--radius-lg) !important;
-        border-bottom-right-radius: var(--radius-lg) !important;
-        clip-path: inset(0 round var(--radius-lg));
-    }
-}
-
-/* Give the result copy enough breathing room in the mobile accordion. */
-@media (max-width: 899px) {
-    #roadmap .program-module__result {
-        min-height: 7.5rem !important;
-        padding: 1rem !important;
-        font-size: 0.96rem !important;
-        line-height: 1.5 !important;
-    }
-}
-
 /* =====================================================
    ROADMAP — FINAL STABLE LAYOUT
    ===================================================== */
@@ -7078,299 +6675,6 @@ html {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
-    }
-}
-
-/* =====================================================
-   ROADMAP — MOBILE ACCORDION FIX
-   ===================================================== */
-
-@media (max-width: 768px) {
-    /*
-     * Секция и контейнер растут по реальному содержимому.
-     */
-    #roadmap.program-section,
-    #roadmap.program-section > .container,
-    #roadmap .program-layout,
-    #roadmap .program-modules {
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-    }
-
-    #roadmap.program-section {
-        overflow: visible !important;
-    }
-
-    #roadmap .program-layout {
-        display: block !important;
-        width: 100% !important;
-        contain: none !important;
-    }
-
-    /*
-     * Запрещаем Grid растягивать строки списка
-     * до высоты самой высокой открытой карточки.
-     */
-    #roadmap .program-modules {
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) !important;
-        grid-template-rows: none !important;
-        grid-auto-rows: max-content !important;
-
-        align-content: start !important;
-        align-items: start !important;
-
-        gap: 12px !important;
-        overflow: visible !important;
-    }
-
-    /*
-     * Каждая карточка занимает только высоту содержимого.
-     */
-    #roadmap .program-module {
-        display: block !important;
-
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-
-        overflow: hidden !important;
-    }
-
-    /*
-     * Главная правка:
-     * убираем desktop height: 100%.
-     */
-    #roadmap .program-module__head {
-        display: grid !important;
-        grid-template-columns: 2.25rem minmax(0, 1fr) !important;
-        grid-template-rows: auto auto !important;
-        grid-auto-rows: max-content !important;
-
-        width: 100% !important;
-        height: auto !important;
-        min-height: 68px !important;
-        max-height: none !important;
-
-        align-items: start !important;
-        align-content: start !important;
-
-        gap: 7px 10px !important;
-        padding: 14px 16px !important;
-
-        overflow: visible !important;
-    }
-
-    #roadmap .program-module__number {
-        grid-column: 1 !important;
-        grid-row: 1 / span 2 !important;
-
-        align-self: start !important;
-        margin-top: 2px;
-    }
-
-    #roadmap .program-module__summary {
-        grid-column: 2 !important;
-        grid-row: 1 !important;
-
-        min-width: 0 !important;
-        height: auto !important;
-
-        align-self: start !important;
-    }
-
-    #roadmap .program-module__volume {
-        grid-column: 2 !important;
-        grid-row: 2 !important;
-
-        justify-self: start !important;
-        align-self: start !important;
-
-        margin: 3px 0 0 !important;
-        white-space: normal !important;
-    }
-
-    #roadmap .program-module__title,
-    #roadmap .program-module__subtitle {
-        min-width: 0 !important;
-        max-width: 100% !important;
-
-        overflow-wrap: anywhere;
-        word-break: normal;
-    }
-
-    #roadmap .program-module__title {
-        font-size: 1rem !important;
-        line-height: 1.2 !important;
-    }
-
-    #roadmap .program-module__subtitle {
-        margin-top: 4px;
-        font-size: 0.86rem !important;
-        line-height: 1.4 !important;
-    }
-
-    #roadmap .program-module__tags {
-        margin-top: 8px !important;
-        gap: 6px !important;
-    }
-
-    /*
-     * Закрытое тело действительно не занимает места.
-     */
-    #roadmap .program-module__body[hidden] {
-        display: none !important;
-    }
-
-    /*
-     * Открытое тело остаётся в обычном потоке документа.
-     * Никаких absolute, фиксированных высот и наложений.
-     */
-    #roadmap .program-module__body:not([hidden]) {
-        position: static !important;
-        display: block !important;
-
-        width: auto !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-
-        margin: 0 16px !important;
-        padding: 14px 0 16px 2.25rem !important;
-
-        border-top: 1px solid rgba(255, 250, 240, 0.1);
-
-        overflow: visible !important;
-        transform: none !important;
-    }
-
-    #roadmap .program-module__body p {
-        position: static !important;
-
-        width: 100% !important;
-        max-width: none !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        font-size: 0.88rem !important;
-        line-height: 1.48 !important;
-
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-    }
-
-    #roadmap .program-module__body p + p {
-        margin-top: 12px !important;
-    }
-
-    #roadmap .program-module__result {
-        position: static !important;
-        display: block !important;
-
-        width: 100% !important;
-        max-width: 100% !important;
-
-        margin-top: 14px !important;
-        padding: 11px 12px !important;
-
-        border: 1px solid rgba(183, 255, 90, 0.28);
-        border-radius: 12px;
-        background: rgba(183, 255, 90, 0.08);
-
-        font-size: 0.84rem !important;
-        line-height: 1.4 !important;
-
-        white-space: normal !important;
-        overflow: visible !important;
-        overflow-wrap: anywhere;
-    }
-
-    #roadmap .program-module__result strong {
-        display: inline !important;
-        margin-right: 4px;
-    }
-
-    /*
-     * На телефоне правая desktop-панель не участвует
-     * в раскладке.
-     */
-    #roadmap .program-detail {
-        display: none !important;
-    }
-}
-
-/* =====================================================
-   ROADMAP — MOBILE FOCUS AND RESULT FIX
-   ===================================================== */
-
-@media (max-width: 899px) {
-    /*
-     * Убираем случайную полосу от глобального button:focus.
-     * Состояние выбранной карточки продолжает задавать
-     * .program-module.is-selected.
-     */
-    #roadmap button.program-module__head {
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    #roadmap button.program-module__head:focus,
-    #roadmap button.program-module__head:active {
-        outline: none !important;
-        box-shadow: none !important;
-        transform: none !important;
-    }
-
-    /*
-     * Оставляем нормальную индикацию при навигации клавиатурой.
-     */
-    #roadmap button.program-module__head:focus-visible {
-        outline: 2px solid var(--brand) !important;
-        outline-offset: -3px !important;
-        box-shadow: none !important;
-    }
-
-    /*
-     * Увеличенная плашка результата.
-     */
-    #roadmap .program-module__body .program-module__result {
-        position: static !important;
-        display: block !important;
-
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-        min-height: 1rem !important;
-        height: auto !important;
-
-        margin: 16px 0 0 !important;
-        padding: 0.5rem !important;
-
-        box-sizing: border-box !important;
-
-        border: 1px solid rgba(183, 255, 90, 0.42) !important;
-        border-radius: 14px !important;
-        background: rgba(183, 255, 90, 0.1) !important;
-
-        color: var(--text-primary) !important;
-        font-size: 0.8rem !important;
-        line-height: 1.55 !important;
-
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        overflow-wrap: anywhere !important;
-    }
-
-    #roadmap .program-module__body .program-module__result strong {
-        display: inline !important;
-        margin-right: 0.35rem !important;
-
-        color: var(--brand) !important;
-        font-size: inherit !important;
-        line-height: inherit !important;
     }
 }
 
@@ -7754,54 +7058,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     margin: 0;
     white-space: nowrap;
 }
-
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #pricing .price-card,
-    html[data-viewport="wide"] #pricing .price-card,
-    html[data-viewport="tablet"] #pricing .price-card {
-        min-height: clamp(29rem, 52vh, 34rem) !important;
-    }
-
-    html[data-viewport="desktop"] #pricing .price-card--featured,
-    html[data-viewport="wide"] #pricing .price-card--featured,
-    html[data-viewport="tablet"] #pricing .price-card--featured {
-        transform: translateY(-0.85rem) scale(1.045) !important;
-    }
-}
-
-@media (max-width: 899px) {
-    #pricing .price-card__topline {
-        gap: 0.55rem;
-    }
-
-    #pricing .price-card--featured::after {
-        top: 0.9rem;
-        right: 0.9rem;
-        left: auto;
-        transform: none;
-        font-size: 0.58rem;
-    }
-
-    #pricing .price-card--featured .price-card__topline {
-        padding-right: 7.5rem;
-    }
-
-    #pricing .price-card__reassurance {
-        min-height: 0;
-        margin-bottom: 0.8rem !important;
-    }
-
-    #pricing .pricing-reassurance {
-        grid-template-columns: auto minmax(0, 1fr);
-        gap: 0.7rem 0.9rem;
-    }
-
-    #pricing .pricing-reassurance .btn-primary {
-        grid-column: 1 / -1;
-        width: 100%;
-        justify-content: center;
-    }
-}
 /* ====================================================== */
 /* Hero: премиальная типографика и спокойная статистика   */
 /* ====================================================== */
@@ -8108,113 +7364,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-size: clamp(0.76rem, 0.9vmin, 0.92rem);
     line-height: 1.28;
 }
-
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #hero .hero-panel,
-    html[data-viewport="wide"] #hero .hero-panel,
-    html[data-viewport="tablet"] #hero .hero-panel {
-        display: block;
-        align-self: center;
-    }
-}
-
-@media (min-width: 1440px) {
-    #hero .hero-layout {
-        grid-template-columns: 54% 42%;
-        gap: 4%;
-    }
-
-    #hero .hero-panel {
-        width: min(100%, 42rem);
-    }
-
-    #hero .hero-mentor-window {
-        min-height: clamp(28rem, 46vh, 34rem);
-        padding: clamp(1.65rem, 2.7vmin, 2.35rem);
-        border-radius: clamp(1.9rem, 3vmin, 2.55rem);
-    }
-
-    #hero .hero-mentor-window__topline {
-        font-size: clamp(0.67rem, 0.8vmin, 0.8rem);
-    }
-
-    #hero .hero-mentor-window__identity {
-        gap: 1.35rem;
-        margin-top: clamp(1.25rem, 2.1vmin, 1.75rem);
-    }
-
-    #hero .hero-mentor-window__identity img {
-        width: clamp(8rem, 11vmin, 10rem);
-        height: clamp(8rem, 11vmin, 10rem);
-    }
-
-    #hero .hero-mentor-window__identity span {
-        font-size: clamp(0.86rem, 1vmin, 1.04rem);
-    }
-
-    #hero .hero-mentor-window__identity strong {
-        font-size: clamp(1.25rem, 1.6vmin, 1.6rem);
-    }
-
-    #hero .hero-mentor-window__message {
-        margin-top: clamp(1.55rem, 2.8vmin, 2.25rem);
-    }
-
-    #hero .hero-mentor-window__message > span {
-        font-size: clamp(0.67rem, 0.8vmin, 0.8rem);
-    }
-
-    #hero .hero-mentor-window__message h2 {
-        max-width: 15ch;
-        margin-top: 0.7rem;
-        font-size: clamp(2rem, 3.4vmin, 3.15rem);
-    }
-
-    #hero .hero-mentor-window__note {
-        padding-top: clamp(1.2rem, 2vmin, 1.55rem);
-        font-size: clamp(0.68rem, 0.8vmin, 0.8rem);
-    }
-
-    #hero .hero-proof div {
-        padding: 0.35rem clamp(1.4rem, 2.8vw, 2.7rem) !important;
-    }
-
-    #hero .hero-proof strong {
-        font-size: clamp(2.5rem, 4.1vmin, 4.2rem);
-    }
-
-    #hero .hero-proof span {
-        font-size: clamp(0.84rem, 1vmin, 1.02rem);
-    }
-}
-
-@media (max-width: 580px) {
-    #hero .hero-mentor-window {
-        min-height: 20rem;
-        padding: 1rem;
-    }
-
-    #hero .hero-mentor-window__topline {
-        font-size: 0.55rem;
-    }
-
-    #hero .hero-mentor-window__identity img {
-        width: 4.7rem;
-        height: 4.7rem;
-    }
-
-    #hero .hero-mentor-window__message {
-        margin-top: 1.2rem;
-    }
-
-    #hero .hero-mentor-window__message h2 {
-        font-size: 1.45rem;
-    }
-
-    #hero .hero-proof strong {
-        font-size: 1.85rem;
-    }
-}
 /* Keep roadmap titles inside their modules on wide screens. */
 @media (min-width: 1200px) {
     #roadmap .program-layout {
@@ -8264,168 +7413,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         max-width: 100% !important;
         white-space: normal !important;
         line-height: 1.2 !important;
-    }
-}
-/* Mobile layout pass: keep the hero proof readable and pricing in document flow. */
-@media (max-width: 768px) {
-    #hero .hero-proof {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 0 !important;
-        width: 100%;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
-    }
-
-    #hero .hero-proof div,
-    #hero .hero-proof div:last-child {
-        grid-column: auto !important;
-        min-width: 0;
-        min-height: 0 !important;
-        padding: 0 0.55rem !important;
-        border: 0;
-        border-left: 1px solid rgba(255, 250, 240, 0.16);
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-    }
-
-    #hero .hero-proof div:first-child {
-        padding-left: 0 !important;
-        border-left: 0;
-    }
-
-    #hero .hero-proof strong {
-        font-size: clamp(1.45rem, 7.4vw, 2rem);
-        line-height: 1;
-        white-space: nowrap;
-    }
-
-    #hero .hero-proof span {
-        max-width: none;
-        margin-top: 0.35rem;
-        font-size: clamp(0.62rem, 3.15vw, 0.76rem);
-        line-height: 1.25;
-        overflow-wrap: normal;
-    }
-
-    #pricing.section {
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        padding-top: calc(var(--nav-height) + 1.75rem) !important;
-        padding-bottom: 3.5rem !important;
-        overflow: visible !important;
-    }
-
-    #pricing > .container {
-        display: grid !important;
-        grid-template-rows: auto auto auto !important;
-        gap: 1.5rem !important;
-    }
-
-    #pricing .section-heading {
-        margin: 0 !important;
-        text-align: center;
-    }
-
-    #pricing .pricing-carousel-wrapper,
-    #pricing .pricing-carousel {
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-    }
-
-    #pricing .pricing-carousel {
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) !important;
-        gap: 1rem !important;
-        padding: 0 !important;
-        scroll-behavior: auto !important;
-        scroll-snap-type: none !important;
-    }
-
-    #pricing .price-card,
-    #pricing .price-card.active-card {
-        min-height: 0 !important;
-        height: auto !important;
-        padding: clamp(1.15rem, 5vw, 1.5rem) !important;
-        transform: none !important;
-    }
-
-    #pricing .price-card--featured {
-        order: -1;
-    }
-
-    #pricing .price-card--featured::after {
-        display: none;
-    }
-
-    #pricing .price-card--featured .price-card__topline {
-        padding-right: 0;
-    }
-
-    #pricing .price-card__topline {
-        margin-bottom: 1rem;
-    }
-
-    #pricing .price-card h3 {
-        margin: 0.85rem 0 0.35rem !important;
-        font-size: clamp(1.45rem, 7.2vw, 1.9rem) !important;
-        line-height: 1.04;
-    }
-
-    #pricing .price-card__price,
-    #pricing .price-card--featured .price-card__price {
-        margin-bottom: 0.4rem !important;
-        font-size: clamp(3rem, 13vw, 4.15rem) !important;
-        line-height: 0.96;
-        white-space: nowrap;
-    }
-
-    #pricing .price-card__meta {
-        margin: 0 0 1rem;
-        font-size: clamp(0.68rem, 3.2vw, 0.8rem);
-    }
-
-    #pricing .price-card ul {
-        display: grid;
-        gap: 0.55rem !important;
-        margin: 0 0 1.2rem !important;
-    }
-
-    #pricing .price-card li,
-    #pricing .price-card li:nth-child(n + 4) {
-        display: list-item !important;
-        font-size: clamp(0.78rem, 3.6vw, 0.9rem) !important;
-        line-height: 1.38 !important;
-    }
-
-    #pricing .price-card .btn-primary,
-    #pricing .price-card .btn-secondary {
-        width: 100%;
-        min-height: 3.15rem !important;
-        padding-block: 0.7rem !important;
-        font-size: 0.88rem;
-    }
-
-    #pricing .carousel-dots {
-        display: none !important;
-    }
-
-    #pricing .pricing-deal {
-        width: 100%;
-        margin: 0;
-        padding: 1.2rem;
-    }
-}
-@media (max-width: 580px) {
-    #hero .hero-mentor-window__review {
-        margin-top: 1.2rem;
-    }
-
-    #hero .hero-mentor-window__review p {
-        font-size: 0.9rem;
     }
 }
 /* ====================================================== */
@@ -8677,57 +7664,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 .career-offer--featured li::before {
     background: var(--ink);
 }
-
-@media (max-width: 899px) {
-    .career-section {
-        min-height: auto;
-        padding-top: calc(var(--nav-height) + 3rem);
-        padding-bottom: 4rem;
-    }
-
-    .career-section__layout,
-    .career-offers {
-        grid-template-columns: 1fr;
-    }
-
-    .career-offer {
-        min-height: 0;
-    }
-}
-
-@media (max-height: 760px) and (min-width: 900px) {
-    .career-section {
-        padding-top: calc(var(--nav-height) + 1rem);
-        padding-bottom: 1rem;
-    }
-
-    .career-section__heading {
-        margin-bottom: 1.15rem;
-    }
-
-    .career-section__heading .section-kicker {
-        margin-bottom: 0.45rem;
-    }
-
-    .career-section__heading p {
-        margin-top: 0.5rem;
-    }
-
-    .career-offer {
-        min-height: 24.5rem;
-        padding: 1.15rem;
-    }
-
-    .career-guarantee {
-        padding: 1.25rem;
-    }
-
-    .career-guarantee ul,
-    .career-offer ul {
-        gap: 0.45rem;
-        margin-top: 0.9rem;
-    }
-}
 /* Standard pricing section: product selector layout. */
 #pricing.pricing-section--plans {
     overflow: clip;
@@ -8966,21 +7902,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     margin-top: 0.8rem;
 }
 
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #pricing.pricing-section--plans,
-    html[data-viewport="wide"] #pricing.pricing-section--plans,
-    html[data-viewport="tablet"] #pricing.pricing-section--plans {
-        padding-top: calc(var(--nav-height) + clamp(0.7rem, 1.3vh, 1.15rem)) !important;
-        padding-bottom: clamp(0.7rem, 1.15vh, 1rem) !important;
-    }
-
-    html[data-viewport="desktop"] #pricing.pricing-section--plans .price-option--intensive,
-    html[data-viewport="wide"] #pricing.pricing-section--plans .price-option--intensive,
-    html[data-viewport="tablet"] #pricing.pricing-section--plans .price-option--intensive {
-        transform: translateY(-0.75rem) scale(1.015) !important;
-    }
-}
-
 @media (max-height: 800px) and (min-width: 900px) {
     #pricing.pricing-section--plans .pricing-showcase__heading {
         margin-bottom: 1rem;
@@ -9013,37 +7934,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     #pricing.pricing-section--plans .price-option ul {
         gap: 0.42rem;
         margin-top: 0.9rem;
-    }
-}
-
-@media (max-width: 899px) {
-    #pricing.pricing-section--plans {
-        min-height: auto;
-        padding-top: calc(var(--nav-height) + 3rem);
-        padding-bottom: 3.5rem;
-    }
-
-    #pricing.pricing-section--plans > .container {
-        width: 100%;
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading {
-        display: block;
-        margin-inline: max(1.25rem, env(safe-area-inset-left));
-        text-align: left;
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
-        max-width: 12ch;
-        text-align: left;
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__grid {
-        grid-template-columns: repeat(3, minmax(280px, 1fr)) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option {
-        min-height: 0 !important;
     }
 }
 /* Pricing format-label pass. */
@@ -9090,13 +7980,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 
 #pricing.pricing-section--plans .price-option--intensive .price-option__format strong {
     color: var(--ink);
-}
-
-@media (max-height: 800px) and (min-width: 900px) {
-    #pricing.pricing-section--plans .price-option__format {
-        margin-top: 1.1rem;
-        padding: 0.62rem 0;
-    }
 }
 
 /* Review deck: three tall cards, each split into a comment and a vertical video. */
@@ -9296,15 +8179,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #reviews .review-card.is-playing .review-card__video-state { opacity: 0; pointer-events: none; }
 #reviews .review-card.is-awaiting-video .review-card__video-state { color: var(--brand); }
 
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #reviews.reviews-section,
-    html[data-viewport="wide"] #reviews.reviews-section,
-    html[data-viewport="tablet"] #reviews.reviews-section {
-        padding-top: calc(var(--nav-height) + clamp(1rem, 2.2vh, 1.8rem)) !important;
-        padding-bottom: clamp(0.85rem, 1.8vh, 1.5rem) !important;
-    }
-}
-
 @media (min-width: 900px) and (max-height: 900px) {
     #reviews .reviews-section__heading h2 { font-size: clamp(2rem, 3.55vw, 3.5rem); }
     #reviews .reviews-section__heading { gap: 2rem; }
@@ -9498,18 +8372,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #code-review .code-review-notes ul { display: grid; gap: 0.42rem; margin: 0; padding: 0; list-style: none; }
 #code-review .code-review-notes li { position: relative; padding-left: 0.95rem; color: rgba(255, 250, 240, 0.76); font-size: clamp(0.7rem, 0.78vw, 0.8rem); line-height: 1.32; }
 #code-review .code-review-notes li::before { position: absolute; top: 0.45em; left: 0; width: 0.33rem; height: 0.33rem; border-radius: 50%; background: var(--brand); content: ''; }
-
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #reviews.reviews-section,
-    html[data-viewport="wide"] #reviews.reviews-section,
-    html[data-viewport="tablet"] #reviews.reviews-section,
-    html[data-viewport="desktop"] #code-review.code-review-section,
-    html[data-viewport="wide"] #code-review.code-review-section,
-    html[data-viewport="tablet"] #code-review.code-review-section {
-        padding-top: calc(var(--nav-height) + clamp(1rem, 2.2vh, 1.8rem)) !important;
-        padding-bottom: clamp(0.85rem, 1.8vh, 1.5rem) !important;
-    }
-}
 
 @media (min-width: 900px) and (max-height: 900px) {
     #reviews .reviews-section__heading h2,
@@ -9995,15 +8857,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     color: #8b949e;
     font-size: 0.5rem;
 }
-
-@media (max-width: 899px) {
-    #code-review .github-review__comment > div,
-    #code-review .github-review__comment p,
-    #code-review .github-review__comment > span {
-        grid-column: 1;
-        grid-row: auto;
-    }
-}
 /* Code review refinement: compact rationale and dot navigation. */
 @media (min-width: 900px) {
     #code-review .code-review-section__heading {
@@ -10131,24 +8984,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     outline-offset: 0.2rem;
     border-radius: 50%;
 }
-
-@media (max-width: 899px) {
-    #code-review .code-review-section__principles {
-        margin-top: 1.15rem;
-    }
-
-    #code-review .code-review-case__head {
-        grid-template-columns: 2.35rem minmax(0, 1fr) auto;
-    }
-
-    #code-review .code-review-case__label {
-        display: none;
-    }
-
-    #code-review .code-review-dots {
-        margin-top: 0.25rem;
-    }
-}
 /* Remove non-content mentor note decoration. */
 #code-review .code-review-notes::after { display: none; }
 /* Code review readability: larger content and navigation dots. */
@@ -10236,48 +9071,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     width: 2.6rem;
 }
 
-@media (max-width: 899px) {
-    #code-review .github-review__line {
-        grid-template-columns: 2.25rem 2.25rem minmax(0, 1fr);
-        font-size: clamp(0.64rem, 2.85vw, 0.76rem);
-    }
-
-    #code-review .github-review__comment p {
-        font-size: 0.84rem;
-    }
-
-    #code-review .code-review-notes li {
-        font-size: 15px;
-    }
-}
-/* Code review rationale: outcome closes the feedback loop. */
-@media (min-width: 900px) {
-    #code-review .code-review-notes {
-        grid-template-rows: auto auto;
-        align-content: center;
-    }
-
-    #code-review .code-review-notes > span {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    #code-review .code-review-notes h3 {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    #code-review .code-review-notes ul {
-        grid-column: 3;
-        grid-row: 1;
-    }
-
-    #code-review .code-review-notes__outcome {
-        grid-column: 2 / 4;
-        grid-row: 2;
-    }
-}
-
 #code-review .code-review-notes__outcome {
     margin: 0;
     padding-top: clamp(0.55rem, 0.9vh, 0.75rem);
@@ -10294,25 +9087,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-weight: 800;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-}
-
-@media (max-width: 899px) {
-    #code-review .code-review-notes {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-
-    #code-review .code-review-notes > span,
-    #code-review .code-review-notes h3,
-    #code-review .code-review-notes ul,
-    #code-review .code-review-notes__outcome {
-        grid-column: 1;
-        grid-row: auto;
-    }
-
-    #code-review .code-review-notes__outcome {
-        font-size: 0.8rem;
-    }
 }
 /* Code review auto-advance: reading timer and case transition. */
 #code-review .code-review-case.is-open {
@@ -10492,13 +9266,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     margin-top: 0.45rem;
 }
 
-@media (max-width: 899px) {
-    #code-review .code-review-progress {
-        width: min(20rem, 84%);
-        height: 0.4rem;
-    }
-}
-
 /* Pricing polish: preserve the original product-selector composition. */
 #pricing.pricing-section--plans .pricing-showcase__heading p {
     max-width: 40rem;
@@ -10517,82 +9284,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 
 #pricing.pricing-section--plans .price-option--support .price-option__summary {
     margin-top: 0.85rem;
-}
-
-@media (max-width: 899px) {
-    #pricing.pricing-section--plans .pricing-showcase__heading p {
-        margin-top: 0.65rem;
-        text-align: left;
-    }
-}
-/* Mobile layout: stack pricing cards and preserve safe side gutters. */
-@media (max-width: 899px) {
-    #pricing.pricing-section--plans > .container,
-    .career-section__inner {
-        width: auto;
-        margin-inline: max(1.1rem, env(safe-area-inset-left)) max(1.1rem, env(safe-area-inset-right));
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading {
-        margin-inline: 0;
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
-        max-width: 18ch;
-    }
-
-    #pricing.pricing-section--plans .pricing-carousel-wrapper,
-    #pricing.pricing-section--plans .pricing-showcase__grid {
-        min-width: 0;
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__grid {
-        grid-template-columns: minmax(0, 1fr) !important;
-        gap: 1rem !important;
-        overflow: visible !important;
-        padding: 0 !important;
-        scroll-snap-type: none !important;
-    }
-
-    #pricing.pricing-section--plans .price-option {
-        width: 100%;
-        min-width: 0;
-        min-height: 0 !important;
-        padding: clamp(1.2rem, 5vw, 1.55rem);
-        border-radius: 1.45rem;
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive {
-        transform: none !important;
-    }
-
-    #pricing.pricing-section--plans .price-option__format {
-        margin-top: 1.25rem;
-        padding: 0.7rem 0;
-    }
-
-    #pricing.pricing-section--plans .price-option h3 {
-        max-width: none;
-        margin-top: 1.2rem;
-    }
-
-    #pricing.pricing-section--plans .price-option .price-card__price {
-        margin-top: 1.1rem;
-        font-size: clamp(2.55rem, 12vw, 3.45rem);
-    }
-
-    #pricing.pricing-section--plans .price-option__summary {
-        min-height: 0;
-    }
-
-    #pricing.pricing-section--plans .price-option ul {
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    #pricing-dots {
-        display: none !important;
-    }
 }
 /* Program spectrum: meaning-based accents for each learning stage. */
 #roadmap .program-module {
@@ -10717,17 +9408,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     --detail-accent: #ffb86e;
     --detail-accent-rgb: 255 184 110;
 }
-
-@media (max-width: 768px) {
-    #roadmap .program-module__title {
-        gap: 0.45rem;
-    }
-
-    #roadmap .program-module__icon {
-        width: 1.4em;
-        height: 1.4em;
-    }
-}
 /* Pricing interaction: each plan has a distinct, purposeful accent. */
 #pricing.pricing-section--plans .price-option {
     --plan-accent: #b7ff5a;
@@ -10817,12 +9497,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     68%, 100% {
         opacity: 0;
         transform: translateX(120%);
-    }
-}
-
-@media (max-width: 899px) {
-    #pricing.pricing-section--plans .price-option.is-pricing-focus:not(.price-option--intensive) {
-        transform: none !important;
     }
 }
 
@@ -11115,64 +9789,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     50% { transform: scale(1.15); opacity: 1; }
 }
 
-@media (max-width: 899px) {
-    #about.section {
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        overflow: visible !important;
-    }
-
-    #about > .container {
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-    }
-
-    #about .about-layout--achievements {
-        grid-template-columns: 1fr;
-        gap: 1.7rem;
-        padding-block: calc(var(--nav-height) + 1.35rem) 2.25rem;
-    }
-
-    #about .about-photo--experience {
-        width: min(100%, 28rem);
-        margin-inline: auto;
-    }
-
-    #about .about-photo--experience img {
-        height: min(66vh, 27rem) !important;
-    }
-
-    #about .about-media__caption {
-        max-width: 28rem;
-        margin-inline: auto;
-        padding-left: 0;
-    }
-
-    #about .about-content--achievements h2 {
-        max-width: 13ch;
-        font-size: clamp(2.2rem, 11.5vw, 3.6rem);
-    }
-
-    #about .about-achievement-grid {
-        gap: 0.7rem;
-    }
-
-    #about .about-achievement {
-        min-height: 6.1rem;
-        padding: 0.72rem;
-    }
-
-    #about .about-achievement__ring {
-        width: clamp(3.1rem, 16vw, 4.15rem);
-    }
-
-    #about .about-content--achievements .skill-list {
-        gap: 0.42rem;
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
     #about .about-orbit__arc,
     #about .about-orbit__point {
@@ -11187,14 +9803,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus {
     border-color: rgba(183, 255, 90, 0.94);
     box-shadow: 0 2rem 5.2rem rgba(183, 255, 90, 0.28), 0 1.4rem 3.8rem rgba(0, 0, 0, 0.24);
-}
-
-@media (min-width: 900px) {
-    html[data-viewport="desktop"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus,
-    html[data-viewport="wide"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus,
-    html[data-viewport="tablet"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus {
-        transform: translateY(-1.05rem) scale(1.025) !important;
-    }
 }
 
 #start .start-step {
@@ -11252,12 +9860,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     border-color: rgb(var(--start-accent-rgb) / 0.68);
     background: rgb(var(--start-accent-rgb) / 0.2);
     box-shadow: 0 0 0.65rem rgb(var(--start-accent-rgb) / 0.3);
-}
-
-@media (max-width: 899px) {
-    #start .start-step.is-start-focus {
-        transform: none;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11955,22 +10557,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     color: var(--brand);
 }
 
-@media (min-width: 900px) {
-    #market-entry.market-entry-section {
-        height: var(--viewport-height) !important;
-        min-height: var(--viewport-height) !important;
-        max-height: var(--viewport-height) !important;
-        box-sizing: border-box;
-        padding-top: calc(var(--nav-height) + clamp(0.75rem, 1.55vh, 1.2rem)) !important;
-        padding-bottom: clamp(0.75rem, 1.3vh, 1.1rem) !important;
-    }
-
-    #market-entry .market-entry__shell {
-        height: 100%;
-        min-height: 0;
-    }
-}
-
 @media (min-width: 900px) and (max-height: 790px) {
     #market-entry .market-entry__support {
         padding: 1.15rem;
@@ -12081,18 +10667,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         scroll-behavior: auto;
     }
 }
-/* Ambient cursor field for hero and about portrait. */
-@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
-    #hero .hero-mentor-window.is-hero-pointer-active {
-        border-color: rgb(183 255 90 / calc(0.14 + (var(--hero-pointer-strength, 0) * 0.28)));
-        box-shadow: 0 1px 0 rgba(255, 250, 240, 0.13) inset, 0 2.4rem 6.2rem rgba(0, 0, 0, 0.48), 0 1rem 2.6rem rgb(183 255 90 / calc(0.025 + (var(--hero-pointer-strength, 0) * 0.1)));
-    }
-
-    #about .about-photo--experience.is-about-photo-pointer-active {
-        border-color: rgb(183 255 90 / calc(0.18 + (var(--about-photo-pointer-strength, 0) * 0.28)));
-        box-shadow: 0 2.1rem 5.6rem rgb(0 0 0 / 0.3), 0 0.8rem 2.4rem rgb(183 255 90 / calc(0.03 + (var(--about-photo-pointer-strength, 0) * 0.1))), inset 0 1px rgb(255 255 255 / 0.18);
-    }
-}
 /* Process resume: one document split into amber before and green after. */
 #market-entry .resume-compare__document {
     display: grid;
@@ -12150,17 +10724,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #market-entry .resume-sheet--after .resume-sheet__section b {
     color: var(--brand);
     font-weight: 800;
-}
-
-@media (max-width: 899px) {
-    #market-entry .resume-compare__document {
-        grid-template-columns: 1fr;
-    }
-
-    #market-entry .resume-compare__document .resume-sheet--after {
-        border-top: 1px solid rgb(183 255 90 / 0.34);
-        border-left: 0;
-    }
 }
 /* Process resume: profile and skills examples. */
 #market-entry .resume-sheet__section--profile p,
@@ -12221,12 +10784,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 
     #market-entry .resume-compare__document .resume-sheet__footer {
         margin-top: 0.8rem;
-    }
-}
-
-@media (max-width: 899px) {
-    #market-entry .resume-skill-list span {
-        font-size: 0.63rem;
     }
 }
 /* Unified interactive palette: start, pricing, roadmap. */
@@ -12475,54 +11032,10 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     }
 }
 
-@media (max-width: 899px) {
-    #market-entry .resume-job {
-        grid-template-columns: 3.6rem minmax(0, 1fr);
-    }
-
-    #market-entry .resume-job strong {
-        font-size: 0.73rem;
-    }
-
-    #market-entry .resume-job p {
-        font-size: 13px;
-    }
-}/* Process resume: desktop full-screen content fit. */
-@media (min-width: 900px) {
-    #market-entry .market-entry__support {
-        padding-block: 0.9rem;
-    }
-}
-
 /* Process resume: readable prose overrides generic document typography. */
 #market-entry .resume-job p.resume-job__text {
     font-size: 13px;
     line-height: 1.3;
-}
-
-@media (max-width: 899px) {
-    #market-entry .resume-job p.resume-job__text {
-        font-size: 14px;
-        line-height: 1.38;
-    }
-}
-/* Process resume: retain readable type while fitting the denser relevant example. */
-@media (min-width: 900px) {
-    #market-entry .resume-sheet--after .resume-sheet__section {
-        margin-top: 0.32rem;
-    }
-
-    #market-entry .resume-sheet--after .resume-job {
-        padding-block: 0.2rem;
-    }
-
-    #market-entry .resume-sheet--after .resume-job p.resume-job__text {
-        line-height: 1.22;
-    }
-
-    #market-entry .resume-sheet--after .resume-sheet__footer {
-        padding-top: 0.3rem;
-    }
 }
 /* Process resume: prose experience descriptions. */
 #market-entry .resume-job__text {
@@ -12577,13 +11090,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         font-size: 0.58rem;
     }
 }
-
-@media (max-width: 899px) {
-    #market-entry .resume-job__text {
-        font-size: 15px;
-        line-height: 1.42;
-    }
-}
 /* Code review sizing controls.
    width: 100% keeps the full size, 92% is the current balance, 84% is more compact.
    height: clamp(minimum, viewport share, maximum). */
@@ -12595,109 +11101,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 /* The dots provide the accessible labels and navigation for every review slide. */
 #code-review .code-review-case__head {
     display: none;
-}
-
-@media (min-width: 900px) {
-    #code-review .code-review-case__body {
-        place-items: center;
-    }
-
-    #code-review .github-review {
-        width: var(--code-review-window-width);
-        height: var(--code-review-window-height);
-        max-width: 100%;
-        max-height: 100%;
-    }
-}
-/* Code review: editorial left rail balances the review workspace. */
-@media (min-width: 900px) {
-    #code-review .code-review-section__inner {
-        grid-template-columns: minmax(24rem, 0.72fr) minmax(0, 1.28fr);
-        gap: clamp(2.4rem, 4.4vw, 5.6rem);
-    }
-
-    #code-review .code-review-section__heading {
-        position: relative;
-        align-content: center;
-        gap: clamp(1.1rem, 2.1vh, 1.75rem);
-        padding: clamp(1.2rem, 2.3vw, 2rem) 0 clamp(1.2rem, 2.3vw, 2rem) clamp(1rem, 1.4vw, 1.45rem);
-        border-left: 1px solid rgb(183 255 90 / 0.28);
-    }
-
-    #code-review .code-review-section__heading::before {
-        position: absolute;
-        top: clamp(1.2rem, 2.3vw, 2rem);
-        left: -0.28rem;
-        width: 0.5rem;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background: var(--brand);
-        box-shadow: 0 0 1.2rem rgb(183 255 90 / 0.8);
-        content: '';
-    }
-
-    #code-review .code-review-section__heading > div {
-        max-width: 28rem;
-    }
-
-    #code-review .code-review-section__heading h2 {
-        max-width: 8ch;
-        margin-top: 0.9rem;
-        font-size: clamp(3rem, 4.1vw, 4.8rem);
-        line-height: 0.92;
-    }
-
-    #code-review .code-review-section__heading > p {
-        max-width: 29rem;
-        margin: 0;
-        padding-left: 0.05rem;
-        color: rgb(255 250 240 / 0.76);
-        font-size: clamp(0.9rem, 1vw, 1.05rem);
-        line-height: 1.55;
-    }
-
-    #code-review .code-review-section__principles {
-        align-self: stretch;
-        width: min(100%, 30rem);
-        min-height: 0;
-        margin-top: clamp(0.35rem, 1vh, 0.8rem);
-        padding: clamp(1rem, 1.35vw, 1.35rem);
-    }
-
-    #code-review .code-review-section__principles ul {
-        grid-template-columns: 1fr;
-        gap: 0;
-        border-top: 1px solid rgb(255 250 240 / 0.12);
-    }
-
-    #code-review .code-review-section__principles li {
-        grid-template-columns: clamp(2.4rem, 3vw, 3rem) minmax(0, 1fr);
-        align-items: center;
-        gap: 0.78rem;
-        padding: 0.72rem 0;
-        padding-right: 0;
-        border-right: 0;
-        border-bottom: 1px solid rgb(255 250 240 / 0.12);
-    }
-
-    #code-review .code-review-section__principles li:last-child {
-        border-bottom: 0;
-    }
-
-    #code-review .code-review-section__principles li br {
-        display: none;
-    }
-
-    #code-review .code-review-section__principles li span {
-        font-size: clamp(0.84rem, 0.98vw, 1.02rem);
-        line-height: 1.15;
-    }
-
-    #code-review .code-review-section__principles p {
-        margin-top: 0.2rem;
-        padding-top: 0.85rem;
-        font-size: clamp(0.74rem, 0.84vw, 0.88rem);
-    }
 }
 /* Code review outcomes: content makes the left rail useful, not decorative. */
 #code-review .code-review-section__heading h2 em {
@@ -12722,12 +11125,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-size: clamp(0.66rem, 0.76vw, 0.76rem);
     font-weight: 500;
     line-height: 1.3;
-}
-
-@media (max-width: 899px) {
-    #code-review .code-review-section__principles li small {
-        display: none;
-    }
 }
 /* Code review: left rail does not use a marker dot. */
 #code-review .code-review-section__heading::before {
@@ -12850,17 +11247,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     }
 }
 
-@media (max-width: 899px) {
-    #career .career-offer.is-career-selected,
-    #career .career-offer:hover {
-        transform: none;
-    }
-
-    #career .career-payment-switch__option {
-        font-size: 0.62rem;
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
     #career .career-offer,
     #career .career-payment-switch__option {
@@ -12928,12 +11314,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-size: clamp(0.66rem, 0.76vw, 0.76rem);
     font-weight: 700;
     line-height: 1.28;
-}
-
-@media (max-width: 899px) {
-    #career .career-access-benefit {
-        margin-top: 1.15rem;
-    }
 }
 
 /* Code review: personalized review window. */
@@ -13071,21 +11451,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-size: clamp(0.74rem, 0.88vw, 0.9rem);
     line-height: 1.46;
 }
-
-@media (max-width: 899px) {
-    #code-review .github-review__file {
-        min-height: 4rem;
-        padding: 0.72rem 0.8rem;
-    }
-
-    #code-review .github-review__thread {
-        margin-inline: 0.6rem;
-    }
-
-    #code-review .github-review__thread p {
-        font-size: 0.75rem;
-    }
-}
 /* Resume screen: independent narrative on the left, readable document on the right. */
 #market-entry .market-entry__support {
     padding: 0;
@@ -13156,12 +11521,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
         line-height: 1.3;
     }
 }
-@media (min-width: 900px) {
-    #market-entry .resume-sheet--before .resume-job p.resume-job__text {
-        font-size: clamp(16px, 0.88vw, 18px);
-        line-height: 1.32;
-    }
-}
 /* One body scale for both resume halves and every content section. */
 #market-entry .resume-sheet {
     --resume-body-size: clamp(14px, 0.7vw, 15px);
@@ -13176,49 +11535,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #market-entry .resume-sheet .resume-sheet__footer {
     font-size: var(--resume-body-size);
     line-height: 1.32;
-}
-@media (min-width: 900px) and (max-height: 900px) {
-    #market-entry .resume-sheet {
-        --resume-body-size: 12px;
-        padding: 0.5rem 0.62rem;
-    }
-
-    #market-entry .resume-sheet .resume-sheet__section {
-        margin-top: 0.3rem;
-    }
-
-    #market-entry .resume-sheet .resume-sheet__section p,
-    #market-entry .resume-sheet .resume-job p.resume-job__text {
-        line-height: 1.16;
-    }
-
-    #market-entry .resume-sheet .resume-job {
-        padding-block: 0.12rem;
-    }
-
-    #market-entry .resume-sheet .resume-sheet__footer {
-        padding-top: 0.3rem;
-        font-size: var(--resume-body-size);
-        line-height: 1.16;
-    }
-}
-@media (min-width: 900px) and (max-height: 900px) {
-    #market-entry .resume-sheet .resume-sheet__top {
-        padding-bottom: 0.42rem;
-    }
-
-    #market-entry .resume-sheet .resume-sheet__person {
-        margin-top: 0.45rem;
-    }
-
-    #market-entry .resume-sheet .resume-skill-list {
-        gap: 0.2rem;
-    }
-
-    #market-entry .resume-sheet .resume-skill-list span {
-        padding: 0.2rem 0.32rem;
-        font-size: 0.56rem;
-    }
 }
 /* Career actions: compact glass cards with a deliberate visual rhythm. */
 #market-entry .market-entry__steps {
@@ -13479,22 +11795,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 768px) {
-    #platform .platform-showcase__results {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    #platform .platform-mode {
-        min-height: 4.35rem;
-        padding: 0.58rem 0.44rem;
-        text-align: center;
-    }
-
-    #platform .platform-mode span {
-        display: none;
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
     #platform .platform-mode,
     #platform .platform-window__chip,
@@ -13714,25 +12014,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     outline-offset: 0.3rem;
 }
 
-@media (max-width: 899px) {
-    #reviews.reviews-section {
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        overflow: visible;
-    }
-
-    #reviews .reviews-section__inner { height: auto; }
-    #reviews .review-cards { grid-template-columns: 1fr; gap: 0.9rem; }
-    #reviews .review-card { min-height: clamp(24rem, 112vw, 34rem); }
-    #reviews .review-card__comment {
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-    }
-    #reviews .review-card__photo-hint { display: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
     #reviews .review-card,
     #reviews .review-card::before,
@@ -13795,345 +12076,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     line-height: 1.3;
 }
 
-@media (max-width: 899px) {
-    #reviews .reviews-section__inner { grid-template-rows: auto; }
-    #reviews .reviews-section__heading { grid-template-columns: 1fr; align-items: start; gap: 1rem; }
-    #reviews .reviews-section__heading h2 { max-width: 11ch; font-size: clamp(2.5rem, 11vw, 4.1rem); }
-    #reviews .reviews-section__heading > p { margin: 0; }
-    #reviews .review-card__comment { position: relative; inset: auto; max-height: none; overflow: visible; }
-}
-/* Reviews: reserve an independent header zone above the full-screen card deck. */
-@media (min-width: 900px) {
-    #reviews .reviews-section__inner {
-        grid-template-rows: minmax(12.5rem, 0.24fr) minmax(0, 0.76fr);
-        gap: clamp(1rem, 1.65vh, 1.4rem);
-    }
-
-    #reviews .reviews-section__heading {
-        min-height: 0;
-        grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
-        align-items: end;
-        gap: clamp(2rem, 5vw, 6rem);
-        overflow: hidden;
-    }
-
-    #reviews .reviews-section__title-group {
-        min-width: 0;
-        padding-bottom: clamp(0.1rem, 0.5vh, 0.35rem);
-    }
-
-    #reviews .reviews-section__heading h2 {
-        max-width: 11ch;
-        margin-top: clamp(0.62rem, 1vh, 0.9rem);
-    }
-
-    #reviews .reviews-section__heading > p {
-        align-self: end;
-        max-width: 47rem;
-        margin: 0 0 clamp(0.28rem, 0.7vh, 0.55rem);
-    }
-
-    #reviews .review-cards {
-        min-height: 0;
-        height: 100%;
-    }
-}
-/* Reviews: split the slide into a safe copy area and a photo-card deck. */
-@media (min-width: 900px) {
-    #reviews .reviews-section__inner {
-        grid-template-rows: minmax(12.25rem, 0.25fr) minmax(0, 0.75fr);
-        gap: clamp(0.65rem, 1.1vh, 0.9rem);
-    }
-
-    #reviews .reviews-section__heading {
-        grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
-        align-items: stretch;
-        gap: clamp(2rem, 5vw, 6rem);
-        overflow: visible;
-    }
-
-    #reviews .reviews-section__title-group {
-        align-self: start;
-        padding: 0;
-    }
-
-    #reviews .reviews-section__heading h2 {
-        max-width: 15ch;
-        margin-top: clamp(0.75rem, 1.1vh, 1rem);
-        font-size: clamp(2.55rem, 3.4vw, 4.25rem);
-        line-height: 0.95;
-    }
-
-    #reviews .reviews-section__heading > p {
-        align-self: start;
-        max-width: 46rem;
-        margin: clamp(3rem, 5.4vh, 5rem) 0 0;
-    }
-
-    #reviews .review-cards {
-        align-self: stretch;
-        min-height: 0;
-        height: 100%;
-    }
-}
-
-/* Pricing: three distinct paths with a clear flagship tier. */
-@media (min-width: 900px) {
-    #pricing.pricing-section--plans > .container {
-        width: min(100%, 110rem);
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading {
-        margin-bottom: clamp(1rem, 1.9vh, 1.55rem);
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
-        max-width: 30ch;
-        font-size: clamp(2.25rem, 3.6vmin, 3.7rem);
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__grid {
-        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.16fr) minmax(0, 0.92fr);
-        gap: clamp(1rem, 1.35vw, 1.5rem) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option {
-        min-height: clamp(28rem, 57vh, 36.5rem) !important;
-        padding: clamp(1.25rem, 1.65vw, 1.8rem);
-        border-color: rgb(255 250 240 / 0.2);
-        box-shadow: 0 1.45rem 3.7rem rgb(0 0 0 / 0.24), inset 0 1px rgb(255 255 255 / 0.07);
-    }
-
-    #pricing.pricing-section--plans .price-option::before {
-        position: absolute;
-        inset: 0 0 auto;
-        z-index: 2;
-        display: block !important;
-        height: 0.34rem;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--plan-accent) 0 38%, rgb(var(--plan-accent-rgb) / 0.22) 72%, transparent);
-        content: '';
-        pointer-events: none;
-    }
-
-    #pricing.pricing-section--plans .price-option--single {
-        background:
-            radial-gradient(circle at 4% 4%, rgb(var(--plan-accent-rgb) / 0.2), transparent 31%),
-            linear-gradient(145deg, rgb(30 46 31 / 0.98), rgb(17 27 18 / 0.98)) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option--support {
-        background:
-            radial-gradient(circle at 96% 8%, rgb(var(--plan-accent-rgb) / 0.18), transparent 32%),
-            linear-gradient(145deg, rgb(35 47 28 / 0.98), rgb(19 28 17 / 0.98)) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive {
-        border-width: 2px;
-        border-color: rgb(183 255 90 / 0.88);
-        box-shadow: 0 1.8rem 4.8rem rgb(183 255 90 / 0.18), 0 1.5rem 4rem rgb(0 0 0 / 0.26), inset 0 1px rgb(255 255 255 / 0.54);
-        transform: translateY(-0.3rem) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive::before {
-        height: 0.42rem;
-        background: linear-gradient(90deg, #1c2918 0 19%, var(--brand) 45% 72%, #1c2918 100%);
-    }
-
-    #pricing.pricing-section--plans .price-option__topline {
-        min-height: 2.25rem;
-        align-items: center;
-    }
-
-    #pricing.pricing-section--plans .price-option__topline span:first-child {
-        display: inline-flex;
-        align-items: center;
-        min-height: 2.15rem;
-        padding: 0.42rem 0.72rem;
-        border: 1px solid rgb(var(--plan-accent-rgb) / 0.32);
-        border-radius: 999px;
-        background: rgb(var(--plan-accent-rgb) / 0.1);
-        letter-spacing: 0.055em;
-    }
-
-    #pricing.pricing-section--plans .price-option__topline span:last-child {
-        display: grid;
-        width: 2.25rem;
-        height: 2.25rem;
-        place-items: center;
-        border: 1px solid rgb(var(--plan-accent-rgb) / 0.3);
-        border-radius: 50%;
-        background: rgb(var(--plan-accent-rgb) / 0.09);
-        color: var(--plan-accent);
-        font-family: var(--font-mono);
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0;
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:first-child,
-    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:last-child {
-        border-color: rgb(20 26 16 / 0.16);
-        background: rgb(20 26 16 / 0.07);
-        color: var(--ink);
-    }
-
-    #pricing.pricing-section--plans .price-option__format {
-        margin-top: clamp(1.1rem, 1.85vh, 1.45rem);
-        padding: 0.78rem 0.9rem;
-        border: 1px solid rgb(255 250 240 / 0.11);
-        border-radius: 0.85rem;
-        background: rgb(0 0 0 / 0.13);
-    }
-
-    #pricing.pricing-section--plans .price-option__format strong {
-        color: var(--paper);
-        font-size: clamp(0.88rem, 0.92vw, 1rem);
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive .price-option__format {
-        background: rgb(20 26 16 / 0.055);
-    }
-
-    #pricing.pricing-section--plans .price-option h3 {
-        max-width: 15ch;
-        margin-top: clamp(1.1rem, 1.8vh, 1.45rem);
-        font-size: clamp(1.72rem, 2.1vw, 2.25rem);
-        line-height: 0.96;
-    }
-
-    #pricing.pricing-section--plans .price-option .price-card__price {
-        margin-top: clamp(1rem, 1.75vh, 1.35rem);
-        font-size: clamp(3.2rem, 3.9vw, 4.65rem);
-        letter-spacing: -0.11em;
-        line-height: 0.8;
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
-        font-size: clamp(3.65rem, 4.7vw, 5.65rem);
-    }
-
-    #pricing.pricing-section--plans .price-option__benefit {
-        margin-top: 0.7rem;
-        padding: 0.48rem 0.72rem;
-        box-shadow: 0 0.5rem 1.2rem rgb(var(--plan-accent-rgb) / 0.14);
-    }
-
-    #pricing.pricing-section--plans .price-option__summary {
-        min-height: 2.85em;
-        margin-top: 0.85rem;
-        font-size: clamp(0.84rem, 0.88vw, 0.94rem);
-    }
-
-    #pricing.pricing-section--plans .price-option ul {
-        gap: 0.56rem;
-        margin-top: 1.05rem;
-    }
-
-    #pricing.pricing-section--plans .price-option li {
-        font-size: clamp(0.8rem, 0.84vw, 0.91rem);
-    }
-
-    #pricing.pricing-section--plans .price-option .btn-wide {
-        min-height: 3.4rem;
-        border-width: 1px;
-        font-size: 0.92rem;
-    }
-}
-
-@media (max-height: 800px) and (min-width: 900px) {
-    #pricing.pricing-section--plans .price-option {
-        min-height: clamp(25.75rem, 54vh, 29.5rem) !important;
-        padding: 1.05rem 1.2rem;
-    }
-
-    #pricing.pricing-section--plans .price-option__topline {
-        min-height: 1.95rem;
-    }
-
-    #pricing.pricing-section--plans .price-option__topline span:first-child {
-        min-height: 1.85rem;
-        padding: 0.35rem 0.58rem;
-    }
-
-    #pricing.pricing-section--plans .price-option__topline span:last-child {
-        width: 1.9rem;
-        height: 1.9rem;
-    }
-
-    #pricing.pricing-section--plans .price-option__format {
-        margin-top: 0.85rem;
-        padding: 0.58rem 0.7rem;
-    }
-
-    #pricing.pricing-section--plans .price-option h3 {
-        margin-top: 0.9rem;
-        font-size: clamp(1.42rem, 2vw, 1.9rem);
-    }
-
-    #pricing.pricing-section--plans .price-option .price-card__price {
-        margin-top: 0.82rem;
-        font-size: clamp(2.8rem, 3.7vw, 3.85rem);
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
-        font-size: clamp(3.2rem, 4.35vw, 4.45rem);
-    }
-
-    #pricing.pricing-section--plans .price-option__summary {
-        margin-top: 0.62rem;
-        font-size: 0.78rem;
-    }
-
-    #pricing.pricing-section--plans .price-option ul {
-        gap: 0.38rem;
-        margin-top: 0.76rem;
-    }
-
-    #pricing.pricing-section--plans .price-option li {
-        font-size: 0.74rem;
-    }
-
-    #pricing.pricing-section--plans .price-option .btn-wide {
-        min-height: 2.8rem;
-    }
-}
-
-/* Pricing scale pass: larger plans without breaking the full-screen frame. */
-@media (min-width: 900px) {
-    #pricing.pricing-section--plans > .container {
-        width: min(100%, 118rem);
-    }
-
-    #pricing.pricing-section--plans .pricing-showcase__grid {
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.28fr) minmax(0, 0.9fr);
-        gap: clamp(1.15rem, 1.55vw, 1.85rem) !important;
-    }
-
-    #pricing.pricing-section--plans .price-option {
-        min-height: clamp(31rem, 62vh, 40rem) !important;
-        padding: clamp(1.45rem, 1.95vw, 2.15rem);
-    }
-
-    #pricing.pricing-section--plans .price-option--intensive {
-        transform: translateY(-0.38rem) !important;
-    }
-
-    /* The pointer spotlight reads as a vertical stripe on the light flagship card. */
-    #pricing.pricing-section--plans .price-option--intensive::after,
-    #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus::after {
-        display: none !important;
-        opacity: 0 !important;
-    }
-}
-
-@media (max-height: 800px) and (min-width: 900px) {
-    #pricing.pricing-section--plans .price-option {
-        min-height: clamp(27.25rem, 57vh, 32rem) !important;
-        padding: 1.15rem 1.35rem;
-    }
-}
-
 /* A pointer can already be over a resume zone when the section appears. */
 #market-entry [data-resume-tooltip] {
     transition: none;
@@ -14143,102 +12085,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
 #market-entry .resume-tooltip,
 #market-entry .resume-tooltip.is-visible {
     transition: none;
-}
-
-/* On phones a review is read on demand, so the portrait remains the first view. */
-@media (max-width: 899px) {
-    #reviews .review-card {
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    #reviews .review-card__comment,
-    #reviews .review-card:hover:not(.is-expanded) .review-card__comment,
-    #reviews .review-card:focus:not(.is-expanded) .review-card__comment {
-        position: absolute;
-        inset: 0.7rem;
-        max-height: none;
-        overflow-y: auto;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(0.7rem);
-    }
-
-    #reviews .review-card::before,
-    #reviews .review-card:hover:not(.is-expanded)::before,
-    #reviews .review-card:focus:not(.is-expanded)::before {
-        opacity: 0;
-    }
-
-    #reviews .review-card:hover:not(.is-expanded) .review-card__photo img,
-    #reviews .review-card:focus:not(.is-expanded) .review-card__photo img {
-        filter: saturate(0.78) contrast(1.02) brightness(0.76);
-        transform: scale(1.02);
-    }
-
-    #reviews .review-card:hover:not(.is-expanded) .review-card__photo-hint,
-    #reviews .review-card:focus:not(.is-expanded) .review-card__photo-hint {
-        opacity: 1;
-        transform: none;
-    }
-
-    #reviews .review-card__photo-hint {
-        display: block;
-        font-size: 0;
-    }
-
-    #reviews .review-card__photo-hint::after {
-        content: 'Нажми, чтобы прочитать';
-        font-size: clamp(0.6rem, 2.5vw, 0.7rem);
-    }
-
-    #reviews .review-card.is-expanded::before,
-    #reviews .review-card.is-expanded .review-card__comment {
-        opacity: 1;
-    }
-
-    #reviews .review-card.is-expanded .review-card__comment {
-        pointer-events: auto;
-        transform: translateY(0);
-    }
-
-    #reviews .review-card.is-expanded .review-card__photo img {
-        filter: saturate(0.92) contrast(1.04) brightness(0.58);
-        transform: scale(1.07);
-    }
-
-    #reviews .review-card.is-expanded .review-card__photo-hint {
-        opacity: 0;
-        transform: translateY(0.25rem);
-    }
-
-    /* An opened long story becomes a normal reading card instead of a fixed overlay. */
-    #reviews .review-card.is-expanded {
-        min-height: 0;
-    }
-
-    #reviews .review-card.is-expanded .review-card__photo {
-        position: relative;
-        inset: auto;
-        height: clamp(13.5rem, 63vw, 17.5rem);
-    }
-
-    #reviews .review-card.is-expanded .review-card__comment {
-        position: relative;
-        inset: auto;
-        max-height: none;
-        margin: 0.7rem;
-        overflow: visible;
-    }
-
-    #reviews .review-card.is-expanded .review-card__photo-hint {
-        opacity: 1;
-        transform: none;
-    }
-
-    #reviews .review-card.is-expanded .review-card__photo-hint::after {
-        content: 'Нажми, чтобы скрыть';
-    }
 }
 
 /* Keep the detailed resume comparison readable inside a 1024px landscape screen. */
@@ -14412,32 +12258,164 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     }
 }
 
-/* Do not truncate the owner name on the narrowest phones. */
-@media (max-width: 374px) {
-    .nav-shell {
-        gap: 8px;
+/* Introductory Python package and its conditions. */
+#pricing.pricing-section--plans .price-option--single .price-option__term {
+    align-self: flex-start;
+    margin: 0.7rem 0 0;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    background: rgb(var(--plan-accent-rgb) / 0.12);
+    color: var(--plan-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+#pricing.pricing-section--plans .price-option--single .price-option__summary {
+    min-height: 0;
+    margin-top: 0.8rem;
+}
+
+#pricing.pricing-section--plans .price-option--single .btn-secondary {
+    border-color: var(--plan-accent);
+    background: var(--plan-accent);
+    color: #10130f;
+}
+
+#pricing.pricing-section--plans .price-option--single .price-option__note {
+    margin: 0.7rem 0 0;
+    color: rgba(255, 250, 240, 0.65);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    text-align: center;
+}
+
+#pricing.pricing-section--plans .pricing-start-terms {
+    max-width: 80rem;
+    margin: 0.75rem auto 0;
+    color: rgba(255, 250, 240, 0.78);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+#pricing.pricing-section--plans .pricing-start-terms summary {
+    width: fit-content;
+    margin: 0 auto;
+    color: var(--paper);
+    cursor: pointer;
+}
+
+#pricing.pricing-section--plans .pricing-start-terms summary:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+}
+
+#pricing.pricing-section--plans .pricing-start-terms__body {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid rgba(255, 250, 240, 0.14);
+    border-radius: 0.85rem;
+    background: rgba(10, 20, 12, 0.92);
+}
+
+#pricing.pricing-section--plans .pricing-start-terms__body p {
+    margin: 0;
+}
+
+@media (min-width: 900px) {
+    #pricing.pricing-section--plans > .container {
+        min-height: 0 !important;
+        max-height: calc(var(--viewport-height) - var(--nav-height) - 2rem);
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 899px) {
+    #pricing.pricing-section--plans,
+    #pricing.pricing-section--plans > .container {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
+
+@media (min-width: 900px) and (max-height: 700px) {
+    #pricing.pricing-section--plans > .container {
+        display: flex !important;
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
     }
 
-    .nav-brand {
-        gap: 7px;
-        overflow: visible;
+    #pricing.pricing-section--plans .pricing-carousel-wrapper,
+    #pricing.pricing-section--plans .pricing-carousel,
+    #pricing.pricing-section--plans .price-option {
+        height: auto !important;
+    }
+}
+
+#pricing.pricing-section--plans .price-option--single li:nth-child(4) {
+    display: list-item !important;
+}
+
+#roadmap .program-section__offer-link {
+    color: var(--brand);
+    font-size: clamp(0.8rem, 1vw, 0.93rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+}
+
+#roadmap .program-section__offer-link:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 4px;
+}
+
+@media (max-width: 1199px) {
+    #roadmap .program-module__tags,
+    #roadmap .program-module__toggle {
+        display: none !important;
+    }
+}
+
+/* Mid-width programme cards reveal their descriptions as an accordion. */
+@media (min-width: 900px) and (max-width: 1199px) {
+    #roadmap.program-section > .container {
+        max-height: calc(var(--viewport-height) - var(--nav-height) - 2rem) !important;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
-    .nav-brand__mark {
-        min-width: 68px;
-        padding-inline: 9px;
-        font-size: 0.6rem;
+    #roadmap .program-modules {
+        align-items: start;
     }
 
-    .nav-brand__text,
-    .nav-brand__text.is-erasing,
-    .nav-brand__text.is-typing {
-        display: inline-block;
-        max-width: none;
-        overflow: visible;
-        font-size: 0.76rem;
-        letter-spacing: -0.04em;
-        text-overflow: clip;
-        white-space: nowrap;
+    #roadmap .program-module__head {
+        height: auto !important;
+    }
+
+    #roadmap .program-module__body:not([hidden]) {
+        display: block !important;
+        margin: 0 0.9rem;
+        padding: 0 0 0.85rem;
+        border-top: 1px solid rgba(255, 250, 240, 0.12);
+        color: var(--text-secondary);
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+
+    #roadmap .program-module__body p {
+        margin: 0.65rem 0 0;
+    }
+
+    #roadmap .program-module__result strong {
+        color: var(--brand);
     }
 }

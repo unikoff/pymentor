@@ -1,0 +1,24 @@
+@media (min-width: 2200px) and (min-height: 1200px) {
+    :root {
+        font-size: 19px;
+    }
+}
+
+@media (min-width: 3200px) and (min-height: 1750px) {
+    :root {
+        font-size: 23px;
+    }
+}
+
+/* QHD/4K: контейнер использует больше ширины экрана */
+@media (min-width: 2200px) {
+    html[data-viewport="wide"] .section > .container {
+        width: min(76vw, 2300px);
+    }
+}
+
+@media (min-width: 3200px) {
+    html[data-viewport="wide"] .section > .container {
+        width: min(72vw, 2900px);
+    }
+}

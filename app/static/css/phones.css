@@ -1,0 +1,1325 @@
+@media (max-width: 640px) {
+            .page-loader {
+                padding: 18px;
+            }
+
+            .page-loader__card {
+                padding: 24px 22px 22px;
+                border-radius: 22px;
+            }
+
+            .page-loader__stage {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .page-loader__orb {
+                width: 68px;
+                height: 68px;
+            }
+        }
+
+@media (max-width: 768px) {
+
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 255, 65, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+        background: var(--matrix-green);
+        width: 24px;
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 420px) {
+    html[data-viewport="mobile"] {
+        --section-pad-y: 34px;
+    }
+
+    .container {
+        width: min(100% - 20px, 1180px);
+    }
+
+    .hero-proof {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-proof div:last-child {
+        grid-column: auto;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .value-card__label,
+    .roadmap-intro__meta span,
+    .footer-meta span {
+        font-size: 15px;
+    }
+
+    .about-evidence div {
+        min-height: auto;
+    }
+
+}
+
+@media (max-width: 768px) {
+    html[data-viewport] #market-entry.section {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+}
+
+/* Mobile footer polish: keep desktop layout unchanged. */
+@media (max-width: 768px) {
+    .site-footer .footer-actions {
+        width: min(100%, 22rem);
+        max-width: 22rem;
+        margin: 1.5rem auto 0;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .site-footer .footer-actions .btn-primary,
+    .site-footer .footer-actions a {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .site-footer .footer-bottom {
+        width: min(100%, calc(100% - 2rem));
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .site-footer .footer-bottom span {
+        display: block;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .platform-actions .btn-primary {
+        width: 100%;
+    }
+
+    .about-facts span {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 699px) {
+    #roadmap .program-modules {
+        grid-template-columns: 1fr;
+    }
+
+    #roadmap .program-module__head {
+        grid-template-columns: 2.1rem minmax(0, 1fr);
+    }
+
+    #roadmap .program-module__volume {
+        grid-column: 2;
+        margin-top: 0.18rem;
+    }
+}
+
+@media (max-width: 768px) {
+    html[data-viewport] #market-entry .market-entry-redesign__shell {
+        height: auto !important;
+        grid-template-columns: 1fr;
+    }
+
+
+    #market-entry .market-entry-redesign__outcomes,
+    .platform-showcase__results {
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+    }
+
+    }
+
+@media (max-width: 768px) {
+    #roadmap.section {
+        min-height: auto !important;
+        height: auto !important;
+        padding-top: calc(var(--nav-height) + 1.4rem) !important;
+        padding-bottom: 3.25rem !important;
+        overflow: visible;
+    }
+
+    #roadmap.program-section > .container {
+        width: min(calc(100% - 28px), 42rem) !important;
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+    #roadmap .program-heading {
+        margin-bottom: 1.25rem;
+        text-align: left;
+    }
+
+    #roadmap .program-heading h2 {
+        margin-left: 0;
+        font-size: clamp(2rem, 9vw, 3.25rem);
+        line-height: 1.05;
+    }
+
+    #roadmap .program-heading p {
+        margin-left: 0;
+        font-size: 0.94rem;
+    }
+
+
+    #roadmap .program-module:last-child {
+        grid-column: auto !important;
+    }
+
+    }
+
+@media (max-width: 768px) {
+    #market-entry.section {
+        min-height: auto !important;
+        height: auto !important;
+        padding-top: calc(var(--nav-height) + 1.4rem) !important;
+        padding-bottom: 3.25rem !important;
+        overflow: visible;
+    }
+
+    #market-entry .market-entry-redesign__shell {
+        width: min(calc(100% - 28px), 42rem) !important;
+        height: auto !important;
+        min-height: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
+
+    #market-entry .market-entry-redesign__intro {
+        display: grid;
+        gap: 1rem;
+        padding: 0;
+    }
+
+    #market-entry .market-entry-redesign__title {
+        max-width: 14ch;
+        font-size: clamp(2.1rem, 10vw, 3.4rem);
+        line-height: 1;
+    }
+
+    #market-entry .market-entry-redesign__lead {
+        font-size: 0.94rem;
+        line-height: 1.5;
+    }
+
+    #market-entry .market-entry-redesign__promise {
+        padding: 1rem;
+    }
+
+    #market-entry .market-entry-redesign__metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+    }
+
+    #market-entry .market-entry-redesign__metrics div {
+        min-height: 5.5rem;
+        padding: 0.75rem;
+    }
+
+    #market-entry .market-entry-redesign__metrics strong {
+        font-size: 1.55rem;
+    }
+
+    #market-entry .market-entry-redesign__metrics span {
+        font-size: 0.62rem;
+    }
+
+    #market-entry .market-entry-redesign__outcomes {
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: none !important;
+        gap: 0.85rem;
+    }
+
+    #market-entry .market-entry-outcome-card {
+        min-height: 0;
+        padding: 1rem;
+        overflow: visible;
+    }
+
+    #market-entry .market-entry-outcome-card h3 {
+        font-size: 1.45rem;
+    }
+
+    #market-entry .market-entry-outcome-card > p {
+        font-size: 0.88rem;
+    }
+
+    #market-entry .market-entry-outcome-card__result {
+        margin-top: 1rem;
+    }
+}
+
+/* Give the result copy enough breathing room in the mobile accordion. */
+@media (max-width: 899px) {
+    #roadmap .program-module__result {
+        min-height: 7.5rem !important;
+        padding: 1rem !important;
+        font-size: 0.96rem !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* =====================================================
+   ROADMAP — MOBILE ACCORDION FIX
+   ===================================================== */
+
+@media (max-width: 768px) {
+    /*
+     * Секция и контейнер растут по реальному содержимому.
+     */
+    #roadmap.program-section,
+    #roadmap.program-section > .container,
+    #roadmap .program-layout,
+    #roadmap .program-modules {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+    }
+
+    #roadmap.program-section {
+        overflow: visible !important;
+    }
+
+    #roadmap .program-layout {
+        display: block !important;
+        width: 100% !important;
+        contain: none !important;
+    }
+
+    /*
+     * Запрещаем Grid растягивать строки списка
+     * до высоты самой высокой открытой карточки.
+     */
+    #roadmap .program-modules {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: none !important;
+        grid-auto-rows: max-content !important;
+
+        align-content: start !important;
+        align-items: start !important;
+
+        gap: 12px !important;
+        overflow: visible !important;
+    }
+
+    /*
+     * Каждая карточка занимает только высоту содержимого.
+     */
+    #roadmap .program-module {
+        display: block !important;
+
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        overflow: hidden !important;
+    }
+
+    /*
+     * Главная правка:
+     * убираем desktop height: 100%.
+     */
+    #roadmap .program-module__head {
+        display: grid !important;
+        grid-template-columns: 2.25rem minmax(0, 1fr) !important;
+        grid-template-rows: auto auto !important;
+        grid-auto-rows: max-content !important;
+
+        width: 100% !important;
+        height: auto !important;
+        min-height: 68px !important;
+        max-height: none !important;
+
+        align-items: start !important;
+        align-content: start !important;
+
+        gap: 7px 10px !important;
+        padding: 14px 16px !important;
+
+        overflow: visible !important;
+    }
+
+    #roadmap .program-module__number {
+        grid-column: 1 !important;
+        grid-row: 1 / span 2 !important;
+
+        align-self: start !important;
+        margin-top: 2px;
+    }
+
+    #roadmap .program-module__summary {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        min-width: 0 !important;
+        height: auto !important;
+
+        align-self: start !important;
+    }
+
+    #roadmap .program-module__volume {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+
+        justify-self: start !important;
+        align-self: start !important;
+
+        margin: 3px 0 0 !important;
+        white-space: normal !important;
+    }
+
+    #roadmap .program-module__title,
+    #roadmap .program-module__subtitle {
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    #roadmap .program-module__title {
+        font-size: 1rem !important;
+        line-height: 1.2 !important;
+    }
+
+    #roadmap .program-module__subtitle {
+        margin-top: 4px;
+        font-size: 0.86rem !important;
+        line-height: 1.4 !important;
+    }
+
+    #roadmap .program-module__tags {
+        margin-top: 8px !important;
+        gap: 6px !important;
+    }
+
+    /*
+     * Закрытое тело действительно не занимает места.
+     */
+    #roadmap .program-module__body[hidden] {
+        display: none !important;
+    }
+
+    /*
+     * Открытое тело остаётся в обычном потоке документа.
+     * Никаких absolute, фиксированных высот и наложений.
+     */
+    #roadmap .program-module__body:not([hidden]) {
+        position: static !important;
+        display: block !important;
+
+        width: auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        margin: 0 16px !important;
+        padding: 14px 0 16px 2.25rem !important;
+
+        border-top: 1px solid rgba(255, 250, 240, 0.1);
+
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    #roadmap .program-module__body p {
+        position: static !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        font-size: 0.88rem !important;
+        line-height: 1.48 !important;
+
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+    }
+
+    #roadmap .program-module__body p + p {
+        margin-top: 12px !important;
+    }
+
+    #roadmap .program-module__result {
+        position: static !important;
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin-top: 14px !important;
+        padding: 11px 12px !important;
+
+        border: 1px solid rgba(183, 255, 90, 0.28);
+        border-radius: 12px;
+        background: rgba(183, 255, 90, 0.08);
+
+        font-size: 0.84rem !important;
+        line-height: 1.4 !important;
+
+        white-space: normal !important;
+        overflow: visible !important;
+        overflow-wrap: anywhere;
+    }
+
+    #roadmap .program-module__result strong {
+        display: inline !important;
+        margin-right: 4px;
+    }
+
+    /*
+     * На телефоне правая desktop-панель не участвует
+     * в раскладке.
+     */
+    #roadmap .program-detail {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   ROADMAP — MOBILE FOCUS AND RESULT FIX
+   ===================================================== */
+
+@media (max-width: 899px) {
+    /*
+     * Убираем случайную полосу от глобального button:focus.
+     * Состояние выбранной карточки продолжает задавать
+     * .program-module.is-selected.
+     */
+    #roadmap button.program-module__head {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #roadmap button.program-module__head:focus,
+    #roadmap button.program-module__head:active {
+        outline: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    /*
+     * Оставляем нормальную индикацию при навигации клавиатурой.
+     */
+    #roadmap button.program-module__head:focus-visible {
+        outline: 2px solid var(--brand) !important;
+        outline-offset: -3px !important;
+        box-shadow: none !important;
+    }
+
+    /*
+     * Увеличенная плашка результата.
+     */
+    #roadmap .program-module__body .program-module__result {
+        position: static !important;
+        display: block !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        min-height: 1rem !important;
+        height: auto !important;
+
+        margin: 16px 0 0 !important;
+        padding: 0.5rem !important;
+
+        box-sizing: border-box !important;
+
+        border: 1px solid rgba(183, 255, 90, 0.42) !important;
+        border-radius: 14px !important;
+        background: rgba(183, 255, 90, 0.1) !important;
+
+        color: var(--text-primary) !important;
+        font-size: 0.8rem !important;
+        line-height: 1.55 !important;
+
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #roadmap .program-module__body .program-module__result strong {
+        display: inline !important;
+        margin-right: 0.35rem !important;
+
+        color: var(--brand) !important;
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}
+
+@media (max-width: 899px) {
+    #pricing .price-card__topline {
+        gap: 0.55rem;
+    }
+
+    #pricing .price-card--featured::after {
+        top: 0.9rem;
+        right: 0.9rem;
+        left: auto;
+        transform: none;
+        font-size: 0.58rem;
+    }
+
+    #pricing .price-card--featured .price-card__topline {
+        padding-right: 7.5rem;
+    }
+
+    #pricing .price-card__reassurance {
+        min-height: 0;
+        margin-bottom: 0.8rem !important;
+    }
+
+    #pricing .pricing-reassurance {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.7rem 0.9rem;
+    }
+
+    #pricing .pricing-reassurance .btn-primary {
+        grid-column: 1 / -1;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 580px) {
+    #hero .hero-mentor-window {
+        min-height: 20rem;
+        padding: 1rem;
+    }
+
+    #hero .hero-mentor-window__topline {
+        font-size: 0.55rem;
+    }
+
+    #hero .hero-mentor-window__identity img {
+        width: 4.7rem;
+        height: 4.7rem;
+    }
+
+    #hero .hero-mentor-window__message {
+        margin-top: 1.2rem;
+    }
+
+    #hero .hero-mentor-window__message h2 {
+        font-size: 1.45rem;
+    }
+
+    #hero .hero-proof strong {
+        font-size: 1.85rem;
+    }
+}
+/* Mobile layout pass: keep the hero proof readable and pricing in document flow. */
+@media (max-width: 768px) {
+    #hero .hero-proof {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 0 !important;
+        width: 100%;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    #hero .hero-proof div,
+    #hero .hero-proof div:last-child {
+        grid-column: auto !important;
+        min-width: 0;
+        min-height: 0 !important;
+        padding: 0 0.55rem !important;
+        border: 0;
+        border-left: 1px solid rgba(255, 250, 240, 0.16);
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    #hero .hero-proof div:first-child {
+        padding-left: 0 !important;
+        border-left: 0;
+    }
+
+    #hero .hero-proof strong {
+        font-size: clamp(1.45rem, 7.4vw, 2rem);
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    #hero .hero-proof span {
+        max-width: none;
+        margin-top: 0.35rem;
+        font-size: clamp(0.62rem, 3.15vw, 0.76rem);
+        line-height: 1.25;
+        overflow-wrap: normal;
+    }
+
+    #pricing.section {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding-top: calc(var(--nav-height) + 1.75rem) !important;
+        padding-bottom: 3.5rem !important;
+        overflow: visible !important;
+    }
+
+    #pricing > .container {
+        display: grid !important;
+        grid-template-rows: auto auto auto !important;
+        gap: 1.5rem !important;
+    }
+
+    #pricing .section-heading {
+        margin: 0 !important;
+        text-align: center;
+    }
+
+    #pricing .pricing-carousel-wrapper,
+    #pricing .pricing-carousel {
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+
+    #pricing .pricing-carousel {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 1rem !important;
+        padding: 0 !important;
+        scroll-behavior: auto !important;
+        scroll-snap-type: none !important;
+    }
+
+    #pricing .price-card,
+    #pricing .price-card.active-card {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: clamp(1.15rem, 5vw, 1.5rem) !important;
+        transform: none !important;
+    }
+
+    #pricing .price-card--featured {
+        order: -1;
+    }
+
+    #pricing .price-card--featured::after {
+        display: none;
+    }
+
+    #pricing .price-card--featured .price-card__topline {
+        padding-right: 0;
+    }
+
+    #pricing .price-card__topline {
+        margin-bottom: 1rem;
+    }
+
+    #pricing .price-card h3 {
+        margin: 0.85rem 0 0.35rem !important;
+        font-size: clamp(1.45rem, 7.2vw, 1.9rem) !important;
+        line-height: 1.04;
+    }
+
+    #pricing .price-card__price,
+    #pricing .price-card--featured .price-card__price {
+        margin-bottom: 0.4rem !important;
+        font-size: clamp(3rem, 13vw, 4.15rem) !important;
+        line-height: 0.96;
+        white-space: nowrap;
+    }
+
+    #pricing .price-card__meta {
+        margin: 0 0 1rem;
+        font-size: clamp(0.68rem, 3.2vw, 0.8rem);
+    }
+
+    #pricing .price-card ul {
+        display: grid;
+        gap: 0.55rem !important;
+        margin: 0 0 1.2rem !important;
+    }
+
+    #pricing .price-card li,
+    #pricing .price-card li:nth-child(n + 4) {
+        display: list-item !important;
+        font-size: clamp(0.78rem, 3.6vw, 0.9rem) !important;
+        line-height: 1.38 !important;
+    }
+
+    #pricing .price-card .btn-primary,
+    #pricing .price-card .btn-secondary {
+        width: 100%;
+        min-height: 3.15rem !important;
+        padding-block: 0.7rem !important;
+        font-size: 0.88rem;
+    }
+
+    #pricing .carousel-dots {
+        display: none !important;
+    }
+
+    #pricing .pricing-deal {
+        width: 100%;
+        margin: 0;
+        padding: 1.2rem;
+    }
+}
+@media (max-width: 580px) {
+    #hero .hero-mentor-window__review {
+        margin-top: 1.2rem;
+    }
+
+    #hero .hero-mentor-window__review p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 899px) {
+    .career-section {
+        min-height: auto;
+        padding-top: calc(var(--nav-height) + 3rem);
+        padding-bottom: 4rem;
+    }
+
+    .career-section__layout,
+    .career-offers {
+        grid-template-columns: 1fr;
+    }
+
+    .career-offer {
+        min-height: 0;
+    }
+}
+
+@media (max-width: 899px) {
+    #pricing.pricing-section--plans {
+        min-height: auto;
+        padding-top: calc(var(--nav-height) + 3rem);
+        padding-bottom: 3.5rem;
+    }
+
+    #pricing.pricing-section--plans > .container {
+        width: 100%;
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading {
+        display: block;
+        margin-inline: max(1.25rem, env(safe-area-inset-left));
+        text-align: left;
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
+        max-width: 12ch;
+        text-align: left;
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: repeat(3, minmax(280px, 1fr)) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        min-height: 0 !important;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .github-review__comment > div,
+    #code-review .github-review__comment p,
+    #code-review .github-review__comment > span {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .code-review-section__principles {
+        margin-top: 1.15rem;
+    }
+
+    #code-review .code-review-case__head {
+        grid-template-columns: 2.35rem minmax(0, 1fr) auto;
+    }
+
+    #code-review .code-review-case__label {
+        display: none;
+    }
+
+    #code-review .code-review-dots {
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .github-review__line {
+        grid-template-columns: 2.25rem 2.25rem minmax(0, 1fr);
+        font-size: clamp(0.64rem, 2.85vw, 0.76rem);
+    }
+
+    #code-review .github-review__comment p {
+        font-size: 0.84rem;
+    }
+
+    #code-review .code-review-notes li {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .code-review-notes {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    #code-review .code-review-notes > span,
+    #code-review .code-review-notes h3,
+    #code-review .code-review-notes ul,
+    #code-review .code-review-notes__outcome {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    #code-review .code-review-notes__outcome {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .code-review-progress {
+        width: min(20rem, 84%);
+        height: 0.4rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #pricing.pricing-section--plans .pricing-showcase__heading p {
+        margin-top: 0.65rem;
+        text-align: left;
+    }
+}
+/* Mobile layout: stack pricing cards and preserve safe side gutters. */
+@media (max-width: 899px) {
+    #pricing.pricing-section--plans > .container,
+    .career-section__inner {
+        width: auto;
+        margin-inline: max(1.1rem, env(safe-area-inset-left)) max(1.1rem, env(safe-area-inset-right));
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading {
+        margin-inline: 0;
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
+        max-width: 18ch;
+    }
+
+    #pricing.pricing-section--plans .pricing-carousel-wrapper,
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        min-width: 0;
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 1rem !important;
+        overflow: visible !important;
+        padding: 0 !important;
+        scroll-snap-type: none !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        width: 100%;
+        min-width: 0;
+        min-height: 0 !important;
+        padding: clamp(1.2rem, 5vw, 1.55rem);
+        border-radius: 1.45rem;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive {
+        transform: none !important;
+    }
+
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: 1.25rem;
+        padding: 0.7rem 0;
+    }
+
+    #pricing.pricing-section--plans .price-option h3 {
+        max-width: none;
+        margin-top: 1.2rem;
+    }
+
+    #pricing.pricing-section--plans .price-option .price-card__price {
+        margin-top: 1.1rem;
+        font-size: clamp(2.55rem, 12vw, 3.45rem);
+    }
+
+    #pricing.pricing-section--plans .price-option__summary {
+        min-height: 0;
+    }
+
+    #pricing.pricing-section--plans .price-option ul {
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    #pricing-dots {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #roadmap .program-module__title {
+        gap: 0.45rem;
+    }
+
+    #roadmap .program-module__icon {
+        width: 1.4em;
+        height: 1.4em;
+    }
+}
+
+@media (max-width: 899px) {
+    #pricing.pricing-section--plans .price-option.is-pricing-focus:not(.price-option--intensive) {
+        transform: none !important;
+    }
+}
+
+@media (max-width: 899px) {
+    #about.section {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    #about > .container {
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+
+    #about .about-layout--achievements {
+        grid-template-columns: 1fr;
+        gap: 1.7rem;
+        padding-block: calc(var(--nav-height) + 1.35rem) 2.25rem;
+    }
+
+    #about .about-photo--experience {
+        width: min(100%, 28rem);
+        margin-inline: auto;
+    }
+
+    #about .about-photo--experience img {
+        height: min(66vh, 27rem) !important;
+    }
+
+    #about .about-media__caption {
+        max-width: 28rem;
+        margin-inline: auto;
+        padding-left: 0;
+    }
+
+    #about .about-content--achievements h2 {
+        max-width: 13ch;
+        font-size: clamp(2.2rem, 11.5vw, 3.6rem);
+    }
+
+    #about .about-achievement-grid {
+        gap: 0.7rem;
+    }
+
+    #about .about-achievement {
+        min-height: 6.1rem;
+        padding: 0.72rem;
+    }
+
+    #about .about-achievement__ring {
+        width: clamp(3.1rem, 16vw, 4.15rem);
+    }
+
+    #about .about-content--achievements .skill-list {
+        gap: 0.42rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #start .start-step.is-start-focus {
+        transform: none;
+    }
+}
+
+@media (max-width: 899px) {
+    #market-entry .resume-compare__document {
+        grid-template-columns: 1fr;
+    }
+
+    #market-entry .resume-compare__document .resume-sheet--after {
+        border-top: 1px solid rgb(183 255 90 / 0.34);
+        border-left: 0;
+    }
+}
+
+@media (max-width: 899px) {
+    #market-entry .resume-skill-list span {
+        font-size: 0.63rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #market-entry .resume-job {
+        grid-template-columns: 3.6rem minmax(0, 1fr);
+    }
+
+    #market-entry .resume-job strong {
+        font-size: 0.73rem;
+    }
+
+    #market-entry .resume-job p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 899px) {
+    #market-entry .resume-job p.resume-job__text {
+        font-size: 14px;
+        line-height: 1.38;
+    }
+}
+
+@media (max-width: 899px) {
+    #market-entry .resume-job__text {
+        font-size: 15px;
+        line-height: 1.42;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .code-review-section__principles li small {
+        display: none;
+    }
+}
+
+@media (max-width: 899px) {
+    #career .career-offer.is-career-selected,
+    #career .career-offer:hover {
+        transform: none;
+    }
+
+    #career .career-payment-switch__option {
+        font-size: 0.62rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #career .career-access-benefit {
+        margin-top: 1.15rem;
+    }
+}
+
+@media (max-width: 899px) {
+    #code-review .github-review__file {
+        min-height: 4rem;
+        padding: 0.72rem 0.8rem;
+    }
+
+    #code-review .github-review__thread {
+        margin-inline: 0.6rem;
+    }
+
+    #code-review .github-review__thread p {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #platform .platform-showcase__results {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #platform .platform-mode {
+        min-height: 4.35rem;
+        padding: 0.58rem 0.44rem;
+        text-align: center;
+    }
+
+    #platform .platform-mode span {
+        display: none;
+    }
+}
+
+@media (max-width: 899px) {
+    #reviews.reviews-section {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible;
+    }
+
+    #reviews .reviews-section__inner { height: auto; }
+    #reviews .review-cards { grid-template-columns: 1fr; gap: 0.9rem; }
+    #reviews .review-card { min-height: clamp(24rem, 112vw, 34rem); }
+    #reviews .review-card__comment {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+    }
+    #reviews .review-card__photo-hint { display: none; }
+}
+
+@media (max-width: 899px) {
+    #reviews .reviews-section__inner { grid-template-rows: auto; }
+    #reviews .reviews-section__heading { grid-template-columns: 1fr; align-items: start; gap: 1rem; }
+    #reviews .reviews-section__heading h2 { max-width: 11ch; font-size: clamp(2.5rem, 11vw, 4.1rem); }
+    #reviews .reviews-section__heading > p { margin: 0; }
+    #reviews .review-card__comment { position: relative; inset: auto; max-height: none; overflow: visible; }
+}
+
+/* On phones a review is read on demand, so the portrait remains the first view. */
+@media (max-width: 899px) {
+    #reviews .review-card {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #reviews .review-card__comment,
+    #reviews .review-card:hover:not(.is-expanded) .review-card__comment,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__comment {
+        position: absolute;
+        inset: 0.7rem;
+        max-height: none;
+        overflow-y: auto;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(0.7rem);
+    }
+
+    #reviews .review-card::before,
+    #reviews .review-card:hover:not(.is-expanded)::before,
+    #reviews .review-card:focus:not(.is-expanded)::before {
+        opacity: 0;
+    }
+
+    #reviews .review-card:hover:not(.is-expanded) .review-card__photo img,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__photo img {
+        filter: saturate(0.78) contrast(1.02) brightness(0.76);
+        transform: scale(1.02);
+    }
+
+    #reviews .review-card:hover:not(.is-expanded) .review-card__photo-hint,
+    #reviews .review-card:focus:not(.is-expanded) .review-card__photo-hint {
+        opacity: 1;
+        transform: none;
+    }
+
+    #reviews .review-card__photo-hint {
+        display: block;
+        font-size: 0;
+    }
+
+    #reviews .review-card__photo-hint::after {
+        content: 'Нажми, чтобы прочитать';
+        font-size: clamp(0.6rem, 2.5vw, 0.7rem);
+    }
+
+    #reviews .review-card.is-expanded::before,
+    #reviews .review-card.is-expanded .review-card__comment {
+        opacity: 1;
+    }
+
+    #reviews .review-card.is-expanded .review-card__comment {
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo img {
+        filter: saturate(0.92) contrast(1.04) brightness(0.58);
+        transform: scale(1.07);
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint {
+        opacity: 0;
+        transform: translateY(0.25rem);
+    }
+
+    /* An opened long story becomes a normal reading card instead of a fixed overlay. */
+    #reviews .review-card.is-expanded {
+        min-height: 0;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo {
+        position: relative;
+        inset: auto;
+        height: clamp(13.5rem, 63vw, 17.5rem);
+    }
+
+    #reviews .review-card.is-expanded .review-card__comment {
+        position: relative;
+        inset: auto;
+        max-height: none;
+        margin: 0.7rem;
+        overflow: visible;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint {
+        opacity: 1;
+        transform: none;
+    }
+
+    #reviews .review-card.is-expanded .review-card__photo-hint::after {
+        content: 'Нажми, чтобы скрыть';
+    }
+}
+
+/* Do not truncate the owner name on the narrowest phones. */
+@media (max-width: 374px) {
+    .nav-shell {
+        gap: 8px;
+    }
+
+    .nav-brand {
+        gap: 7px;
+        overflow: visible;
+    }
+
+    .nav-brand__mark {
+        min-width: 68px;
+        padding-inline: 9px;
+        font-size: 0.6rem;
+    }
+
+    .nav-brand__text,
+    .nav-brand__text.is-erasing,
+    .nav-brand__text.is-typing {
+        display: inline-block;
+        max-width: none;
+        overflow: visible;
+        font-size: 0.76rem;
+        letter-spacing: -0.04em;
+        text-overflow: clip;
+        white-space: nowrap;
+    }
+}

@@ -378,12 +378,17 @@ function syncPageInteractionState() {
     document.body.style.overflow = hasOpenOverlay ? 'hidden' : '';
 }
 
+let requestedPlan = null;
+
 // ИСПРАВЛЕННАЯ ФУНКЦИЯ openContactForm
-function openContactForm() {
+function openContactForm(plan = null) {
     const overlay = document.getElementById('form-overlay');
     const form = document.getElementById('contact-form');
     
     if (overlay && form) {
+        requestedPlan = plan;
+        const title = form.querySelector('#contact-form-title');
+        if (title) title.textContent = plan ? `Заявка на «${plan}»` : 'Давай обсудим твою цель';
         overlay.classList.remove('hidden');
         form.classList.remove('hidden');
         syncPageInteractionState();
@@ -570,6 +575,10 @@ async function submitForm() {
     }
 
     const formData = new FormData(form);
+    if (requestedPlan) {
+        const message = String(formData.get('message') || '').trim();
+        formData.set('message', `Интересует пакет «${requestedPlan}».${message ? `\n${message}` : ''}`);
+    }
     if (audioBlob) {
         const extension = audioBlob.type.includes('webm') ? 'webm' : 'wav';
         formData.append('voice_message', audioBlob, `voice_recording.${extension}`);
@@ -781,7 +790,7 @@ function showLockedModal(moduleName) {
 
 function initSectionScrollSnap() {
     const shouldUseNativeScroll = window.matchMedia(
-        '(prefers-reduced-motion: reduce), (max-width: 768px), (pointer: coarse)'
+        '(prefers-reduced-motion: reduce), (max-width: 899px), (pointer: coarse)'
     ).matches;
 
     if (shouldUseNativeScroll) {
@@ -1428,7 +1437,7 @@ function initStartStepInteractions() {
 function initProgramAccordion() {
     const modules = Array.from(document.querySelectorAll('.program-module'));
     const detail = document.querySelector('.program-detail');
-    const isDesktopLayout = () => window.matchMedia('(min-width: 900px)').matches;
+    const isDesktopLayout = () => window.matchMedia('(min-width: 1200px)').matches;
 
     if (modules.length === 0) return;
 
@@ -1436,15 +1445,16 @@ function initProgramAccordion() {
         const body = module.querySelector('.program-module__body');
         const paragraphs = body ? Array.from(body.querySelectorAll('p')) : [];
         const resultEl = paragraphs.find((p) => p.classList.contains('program-module__result'));
-        const textEl = paragraphs.find((p) => !p.classList.contains('program-module__result'));
+        const textParagraphs = paragraphs
+            .filter((p) => !p.classList.contains('program-module__result'))
+            .map((p) => p.cloneNode(true));
 
         return {
             number: module.querySelector('.program-module__number')?.textContent.trim() || '',
             title: module.querySelector('.program-module__title')?.textContent.trim() || '',
-            subtitle: module.querySelector('.program-module__subtitle')?.textContent.trim() || '',
             volume: module.querySelector('.program-module__volume')?.textContent.trim() || '',
             tags: Array.from(module.querySelectorAll('.program-module__tags span')).map((t) => t.textContent.trim()),
-            text: textEl ? textEl.textContent.trim() : '',
+            textParagraphs,
             resultHtml: resultEl ? resultEl.innerHTML : '',
         };
     };
@@ -1456,8 +1466,7 @@ function initProgramAccordion() {
         detail.querySelector('.program-detail__number').textContent = data.number;
         detail.querySelector('.program-detail__volume').textContent = data.volume;
         detail.querySelector('.program-detail__title').textContent = data.title;
-        detail.querySelector('.program-detail__subtitle').textContent = data.subtitle;
-        detail.querySelector('.program-detail__text').textContent = data.text;
+        detail.querySelector('.program-detail__text').replaceChildren(...data.textParagraphs);
         detail.querySelector('.program-detail__result').innerHTML = data.resultHtml;
 
         const tagsBox = detail.querySelector('.program-detail__tags');

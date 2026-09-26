@@ -1,0 +1,1153 @@
+@media (min-width: 900px) and (max-height: 900px) {
+    html[data-viewport="desktop"] main > section,
+    html[data-viewport="wide"] main > section,
+    html[data-viewport="tablet"] main > section {
+        padding-top: calc(var(--nav-height) + 1.5rem);
+        padding-bottom: 2rem;
+    }
+
+    html[data-viewport="desktop"] .section > .container,
+    html[data-viewport="wide"] .section > .container,
+    html[data-viewport="tablet"] .section > .container {
+        min-height: calc(var(--viewport-height) - var(--nav-height) - 3.5rem);
+    }
+
+    html[data-viewport="desktop"] .roadmap-section .section-heading h2,
+    html[data-viewport="wide"] .roadmap-section .section-heading h2,
+    html[data-viewport="desktop"] .market-entry-section .section-heading h2,
+    html[data-viewport="wide"] .market-entry-section .section-heading h2 {
+        font-size: 2.15rem;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    #market-entry.section {
+        padding-top: calc(var(--nav-height) + clamp(0.75rem, 1.5vh, 1.3rem)) !important;
+        padding-bottom: clamp(0.75rem, 1.5vh, 1.3rem) !important;
+    }
+
+    #market-entry .market-entry-redesign__shell {
+        max-height: calc(var(--viewport-height) - var(--nav-height) - clamp(1.5rem, 3vh, 2.6rem)) !important;
+        grid-template-columns: minmax(20rem, 0.82fr) minmax(0, 1.18fr);
+        gap: clamp(2.5rem, 4.5vw, 6.5rem);
+    }
+
+    /* Карточки в сумме — ровно высота левого блока (строка сетки = высота интро) */
+    #market-entry .market-entry-redesign__outcomes {
+        align-self: stretch;
+        height: auto;
+    }
+
+    #market-entry .market-entry-outcome-card {
+        overflow: hidden;
+    }
+}
+
+/* Keep the desktop detail panel visually complete at its right edge. */
+@media (min-width: 900px) {
+    #roadmap .program-detail {
+        border-top-right-radius: var(--radius-lg) !important;
+        border-bottom-right-radius: var(--radius-lg) !important;
+        clip-path: inset(0 round var(--radius-lg));
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #pricing .price-card,
+    html[data-viewport="wide"] #pricing .price-card,
+    html[data-viewport="tablet"] #pricing .price-card {
+        min-height: clamp(29rem, 52vh, 34rem) !important;
+    }
+
+    html[data-viewport="desktop"] #pricing .price-card--featured,
+    html[data-viewport="wide"] #pricing .price-card--featured,
+    html[data-viewport="tablet"] #pricing .price-card--featured {
+        transform: translateY(-0.85rem) scale(1.045) !important;
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #hero .hero-panel,
+    html[data-viewport="wide"] #hero .hero-panel,
+    html[data-viewport="tablet"] #hero .hero-panel {
+        display: block;
+        align-self: center;
+    }
+}
+
+@media (min-width: 1440px) {
+    #hero .hero-layout {
+        grid-template-columns: 54% 42%;
+        gap: 4%;
+    }
+
+    #hero .hero-panel {
+        width: min(100%, 42rem);
+    }
+
+    #hero .hero-mentor-window {
+        min-height: clamp(28rem, 46vh, 34rem);
+        padding: clamp(1.65rem, 2.7vmin, 2.35rem);
+        border-radius: clamp(1.9rem, 3vmin, 2.55rem);
+    }
+
+    #hero .hero-mentor-window__topline {
+        font-size: clamp(0.67rem, 0.8vmin, 0.8rem);
+    }
+
+    #hero .hero-mentor-window__identity {
+        gap: 1.35rem;
+        margin-top: clamp(1.25rem, 2.1vmin, 1.75rem);
+    }
+
+    #hero .hero-mentor-window__identity img {
+        width: clamp(8rem, 11vmin, 10rem);
+        height: clamp(8rem, 11vmin, 10rem);
+    }
+
+    #hero .hero-mentor-window__identity span {
+        font-size: clamp(0.86rem, 1vmin, 1.04rem);
+    }
+
+    #hero .hero-mentor-window__identity strong {
+        font-size: clamp(1.25rem, 1.6vmin, 1.6rem);
+    }
+
+    #hero .hero-mentor-window__message {
+        margin-top: clamp(1.55rem, 2.8vmin, 2.25rem);
+    }
+
+    #hero .hero-mentor-window__message > span {
+        font-size: clamp(0.67rem, 0.8vmin, 0.8rem);
+    }
+
+    #hero .hero-mentor-window__message h2 {
+        max-width: 15ch;
+        margin-top: 0.7rem;
+        font-size: clamp(2rem, 3.4vmin, 3.15rem);
+    }
+
+    #hero .hero-mentor-window__note {
+        padding-top: clamp(1.2rem, 2vmin, 1.55rem);
+        font-size: clamp(0.68rem, 0.8vmin, 0.8rem);
+    }
+
+    #hero .hero-proof div {
+        padding: 0.35rem clamp(1.4rem, 2.8vw, 2.7rem) !important;
+    }
+
+    #hero .hero-proof strong {
+        font-size: clamp(2.5rem, 4.1vmin, 4.2rem);
+    }
+
+    #hero .hero-proof span {
+        font-size: clamp(0.84rem, 1vmin, 1.02rem);
+    }
+}
+
+@media (max-height: 760px) and (min-width: 900px) {
+    .career-section {
+        padding-top: calc(var(--nav-height) + 1rem);
+        padding-bottom: 1rem;
+    }
+
+    .career-section__heading {
+        margin-bottom: 1.15rem;
+    }
+
+    .career-section__heading .section-kicker {
+        margin-bottom: 0.45rem;
+    }
+
+    .career-section__heading p {
+        margin-top: 0.5rem;
+    }
+
+    .career-offer {
+        min-height: 24.5rem;
+        padding: 1.15rem;
+    }
+
+    .career-guarantee {
+        padding: 1.25rem;
+    }
+
+    .career-guarantee ul,
+    .career-offer ul {
+        gap: 0.45rem;
+        margin-top: 0.9rem;
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #pricing.pricing-section--plans,
+    html[data-viewport="wide"] #pricing.pricing-section--plans,
+    html[data-viewport="tablet"] #pricing.pricing-section--plans {
+        padding-top: calc(var(--nav-height) + clamp(0.7rem, 1.3vh, 1.15rem)) !important;
+        padding-bottom: clamp(0.7rem, 1.15vh, 1rem) !important;
+    }
+
+    html[data-viewport="desktop"] #pricing.pricing-section--plans .price-option--intensive,
+    html[data-viewport="wide"] #pricing.pricing-section--plans .price-option--intensive,
+    html[data-viewport="tablet"] #pricing.pricing-section--plans .price-option--intensive {
+        transform: translateY(-0.75rem) scale(1.015) !important;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 900px) {
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: 1.1rem;
+        padding: 0.62rem 0;
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #reviews.reviews-section,
+    html[data-viewport="wide"] #reviews.reviews-section,
+    html[data-viewport="tablet"] #reviews.reviews-section {
+        padding-top: calc(var(--nav-height) + clamp(1rem, 2.2vh, 1.8rem)) !important;
+        padding-bottom: clamp(0.85rem, 1.8vh, 1.5rem) !important;
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #reviews.reviews-section,
+    html[data-viewport="wide"] #reviews.reviews-section,
+    html[data-viewport="tablet"] #reviews.reviews-section,
+    html[data-viewport="desktop"] #code-review.code-review-section,
+    html[data-viewport="wide"] #code-review.code-review-section,
+    html[data-viewport="tablet"] #code-review.code-review-section {
+        padding-top: calc(var(--nav-height) + clamp(1rem, 2.2vh, 1.8rem)) !important;
+        padding-bottom: clamp(0.85rem, 1.8vh, 1.5rem) !important;
+    }
+}
+/* Code review rationale: outcome closes the feedback loop. */
+@media (min-width: 900px) {
+    #code-review .code-review-notes {
+        grid-template-rows: auto auto;
+        align-content: center;
+    }
+
+    #code-review .code-review-notes > span {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #code-review .code-review-notes h3 {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    #code-review .code-review-notes ul {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    #code-review .code-review-notes__outcome {
+        grid-column: 2 / 4;
+        grid-row: 2;
+    }
+}
+
+@media (min-width: 900px) {
+    html[data-viewport="desktop"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus,
+    html[data-viewport="wide"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus,
+    html[data-viewport="tablet"] #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus {
+        transform: translateY(-1.05rem) scale(1.025) !important;
+    }
+}
+
+@media (min-width: 900px) {
+    #market-entry.market-entry-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        box-sizing: border-box;
+        padding-top: calc(var(--nav-height) + clamp(0.75rem, 1.55vh, 1.2rem)) !important;
+        padding-bottom: clamp(0.75rem, 1.3vh, 1.1rem) !important;
+    }
+
+    #market-entry .market-entry__shell {
+        height: 100%;
+        min-height: 0;
+    }
+}
+/* Ambient cursor field for hero and about portrait. */
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+    #hero .hero-mentor-window.is-hero-pointer-active {
+        border-color: rgb(183 255 90 / calc(0.14 + (var(--hero-pointer-strength, 0) * 0.28)));
+        box-shadow: 0 1px 0 rgba(255, 250, 240, 0.13) inset, 0 2.4rem 6.2rem rgba(0, 0, 0, 0.48), 0 1rem 2.6rem rgb(183 255 90 / calc(0.025 + (var(--hero-pointer-strength, 0) * 0.1)));
+    }
+
+    #about .about-photo--experience.is-about-photo-pointer-active {
+        border-color: rgb(183 255 90 / calc(0.18 + (var(--about-photo-pointer-strength, 0) * 0.28)));
+        box-shadow: 0 2.1rem 5.6rem rgb(0 0 0 / 0.3), 0 0.8rem 2.4rem rgb(183 255 90 / calc(0.03 + (var(--about-photo-pointer-strength, 0) * 0.1))), inset 0 1px rgb(255 255 255 / 0.18);
+    }
+}/* Process resume: desktop full-screen content fit. */
+@media (min-width: 900px) {
+    #market-entry .market-entry__support {
+        padding-block: 0.9rem;
+    }
+}
+/* Process resume: retain readable type while fitting the denser relevant example. */
+@media (min-width: 900px) {
+    #market-entry .resume-sheet--after .resume-sheet__section {
+        margin-top: 0.32rem;
+    }
+
+    #market-entry .resume-sheet--after .resume-job {
+        padding-block: 0.2rem;
+    }
+
+    #market-entry .resume-sheet--after .resume-job p.resume-job__text {
+        line-height: 1.22;
+    }
+
+    #market-entry .resume-sheet--after .resume-sheet__footer {
+        padding-top: 0.3rem;
+    }
+}
+
+@media (min-width: 900px) {
+    #code-review .code-review-case__body {
+        place-items: center;
+    }
+
+    #code-review .github-review {
+        width: var(--code-review-window-width);
+        height: var(--code-review-window-height);
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+/* Code review: editorial left rail balances the review workspace. */
+@media (min-width: 900px) {
+    #code-review .code-review-section__inner {
+        grid-template-columns: minmax(24rem, 0.72fr) minmax(0, 1.28fr);
+        gap: clamp(2.4rem, 4.4vw, 5.6rem);
+    }
+
+    #code-review .code-review-section__heading {
+        position: relative;
+        align-content: center;
+        gap: clamp(1.1rem, 2.1vh, 1.75rem);
+        padding: clamp(1.2rem, 2.3vw, 2rem) 0 clamp(1.2rem, 2.3vw, 2rem) clamp(1rem, 1.4vw, 1.45rem);
+        border-left: 1px solid rgb(183 255 90 / 0.28);
+    }
+
+    #code-review .code-review-section__heading::before {
+        position: absolute;
+        top: clamp(1.2rem, 2.3vw, 2rem);
+        left: -0.28rem;
+        width: 0.5rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--brand);
+        box-shadow: 0 0 1.2rem rgb(183 255 90 / 0.8);
+        content: '';
+    }
+
+    #code-review .code-review-section__heading > div {
+        max-width: 28rem;
+    }
+
+    #code-review .code-review-section__heading h2 {
+        max-width: 8ch;
+        margin-top: 0.9rem;
+        font-size: clamp(3rem, 4.1vw, 4.8rem);
+        line-height: 0.92;
+    }
+
+    #code-review .code-review-section__heading > p {
+        max-width: 29rem;
+        margin: 0;
+        padding-left: 0.05rem;
+        color: rgb(255 250 240 / 0.76);
+        font-size: clamp(0.9rem, 1vw, 1.05rem);
+        line-height: 1.55;
+    }
+
+    #code-review .code-review-section__principles {
+        align-self: stretch;
+        width: min(100%, 30rem);
+        min-height: 0;
+        margin-top: clamp(0.35rem, 1vh, 0.8rem);
+        padding: clamp(1rem, 1.35vw, 1.35rem);
+    }
+
+    #code-review .code-review-section__principles ul {
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-top: 1px solid rgb(255 250 240 / 0.12);
+    }
+
+    #code-review .code-review-section__principles li {
+        grid-template-columns: clamp(2.4rem, 3vw, 3rem) minmax(0, 1fr);
+        align-items: center;
+        gap: 0.78rem;
+        padding: 0.72rem 0;
+        padding-right: 0;
+        border-right: 0;
+        border-bottom: 1px solid rgb(255 250 240 / 0.12);
+    }
+
+    #code-review .code-review-section__principles li:last-child {
+        border-bottom: 0;
+    }
+
+    #code-review .code-review-section__principles li br {
+        display: none;
+    }
+
+    #code-review .code-review-section__principles li span {
+        font-size: clamp(0.84rem, 0.98vw, 1.02rem);
+        line-height: 1.15;
+    }
+
+    #code-review .code-review-section__principles p {
+        margin-top: 0.2rem;
+        padding-top: 0.85rem;
+        font-size: clamp(0.74rem, 0.84vw, 0.88rem);
+    }
+}
+@media (min-width: 900px) and (max-height: 900px) {
+    #market-entry .resume-sheet {
+        --resume-body-size: 12px;
+        padding: 0.5rem 0.62rem;
+    }
+
+    #market-entry .resume-sheet .resume-sheet__section {
+        margin-top: 0.3rem;
+    }
+
+    #market-entry .resume-sheet .resume-sheet__section p,
+    #market-entry .resume-sheet .resume-job p.resume-job__text {
+        line-height: 1.16;
+    }
+
+    #market-entry .resume-sheet .resume-job {
+        padding-block: 0.12rem;
+    }
+
+    #market-entry .resume-sheet .resume-sheet__footer {
+        padding-top: 0.3rem;
+        font-size: var(--resume-body-size);
+        line-height: 1.16;
+    }
+}
+@media (min-width: 900px) and (max-height: 900px) {
+    #market-entry .resume-sheet .resume-sheet__top {
+        padding-bottom: 0.42rem;
+    }
+
+    #market-entry .resume-sheet .resume-sheet__person {
+        margin-top: 0.45rem;
+    }
+
+    #market-entry .resume-sheet .resume-skill-list {
+        gap: 0.2rem;
+    }
+
+    #market-entry .resume-sheet .resume-skill-list span {
+        padding: 0.2rem 0.32rem;
+        font-size: 0.56rem;
+    }
+}
+/* Reviews: reserve an independent header zone above the full-screen card deck. */
+@media (min-width: 900px) {
+    #reviews .reviews-section__inner {
+        grid-template-rows: minmax(12.5rem, 0.24fr) minmax(0, 0.76fr);
+        gap: clamp(1rem, 1.65vh, 1.4rem);
+    }
+
+    #reviews .reviews-section__heading {
+        min-height: 0;
+        grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+        align-items: end;
+        gap: clamp(2rem, 5vw, 6rem);
+        overflow: hidden;
+    }
+
+    #reviews .reviews-section__title-group {
+        min-width: 0;
+        padding-bottom: clamp(0.1rem, 0.5vh, 0.35rem);
+    }
+
+    #reviews .reviews-section__heading h2 {
+        max-width: 11ch;
+        margin-top: clamp(0.62rem, 1vh, 0.9rem);
+    }
+
+    #reviews .reviews-section__heading > p {
+        align-self: end;
+        max-width: 47rem;
+        margin: 0 0 clamp(0.28rem, 0.7vh, 0.55rem);
+    }
+
+    #reviews .review-cards {
+        min-height: 0;
+        height: 100%;
+    }
+}
+/* Reviews: split the slide into a safe copy area and a photo-card deck. */
+@media (min-width: 900px) {
+    #reviews .reviews-section__inner {
+        grid-template-rows: minmax(12.25rem, 0.25fr) minmax(0, 0.75fr);
+        gap: clamp(0.65rem, 1.1vh, 0.9rem);
+    }
+
+    #reviews .reviews-section__heading {
+        grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+        align-items: stretch;
+        gap: clamp(2rem, 5vw, 6rem);
+        overflow: visible;
+    }
+
+    #reviews .reviews-section__title-group {
+        align-self: start;
+        padding: 0;
+    }
+
+    #reviews .reviews-section__heading h2 {
+        max-width: 15ch;
+        margin-top: clamp(0.75rem, 1.1vh, 1rem);
+        font-size: clamp(2.55rem, 3.4vw, 4.25rem);
+        line-height: 0.95;
+    }
+
+    #reviews .reviews-section__heading > p {
+        align-self: start;
+        max-width: 46rem;
+        margin: clamp(3rem, 5.4vh, 5rem) 0 0;
+    }
+
+    #reviews .review-cards {
+        align-self: stretch;
+        min-height: 0;
+        height: 100%;
+    }
+}
+
+/* Pricing: three distinct paths with a clear flagship tier. */
+@media (min-width: 900px) {
+    #pricing.pricing-section--plans > .container {
+        width: min(100%, 110rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading {
+        margin-bottom: clamp(1rem, 1.9vh, 1.55rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__heading h2 {
+        max-width: 30ch;
+        font-size: clamp(2.25rem, 3.6vmin, 3.7rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.16fr) minmax(0, 0.92fr);
+        gap: clamp(1rem, 1.35vw, 1.5rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(28rem, 57vh, 36.5rem) !important;
+        padding: clamp(1.25rem, 1.65vw, 1.8rem);
+        border-color: rgb(255 250 240 / 0.2);
+        box-shadow: 0 1.45rem 3.7rem rgb(0 0 0 / 0.24), inset 0 1px rgb(255 255 255 / 0.07);
+    }
+
+    #pricing.pricing-section--plans .price-option::before {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 2;
+        display: block !important;
+        height: 0.34rem;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--plan-accent) 0 38%, rgb(var(--plan-accent-rgb) / 0.22) 72%, transparent);
+        content: '';
+        pointer-events: none;
+    }
+
+    #pricing.pricing-section--plans .price-option--single {
+        background:
+            radial-gradient(circle at 4% 4%, rgb(var(--plan-accent-rgb) / 0.2), transparent 31%),
+            linear-gradient(145deg, rgb(30 46 31 / 0.98), rgb(17 27 18 / 0.98)) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--support {
+        background:
+            radial-gradient(circle at 96% 8%, rgb(var(--plan-accent-rgb) / 0.18), transparent 32%),
+            linear-gradient(145deg, rgb(35 47 28 / 0.98), rgb(19 28 17 / 0.98)) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive {
+        border-width: 2px;
+        border-color: rgb(183 255 90 / 0.88);
+        box-shadow: 0 1.8rem 4.8rem rgb(183 255 90 / 0.18), 0 1.5rem 4rem rgb(0 0 0 / 0.26), inset 0 1px rgb(255 255 255 / 0.54);
+        transform: translateY(-0.3rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive::before {
+        height: 0.42rem;
+        background: linear-gradient(90deg, #1c2918 0 19%, var(--brand) 45% 72%, #1c2918 100%);
+    }
+
+    #pricing.pricing-section--plans .price-option__topline {
+        min-height: 2.25rem;
+        align-items: center;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:first-child {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.15rem;
+        padding: 0.42rem 0.72rem;
+        border: 1px solid rgb(var(--plan-accent-rgb) / 0.32);
+        border-radius: 999px;
+        background: rgb(var(--plan-accent-rgb) / 0.1);
+        letter-spacing: 0.055em;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:last-child {
+        display: grid;
+        width: 2.25rem;
+        height: 2.25rem;
+        place-items: center;
+        border: 1px solid rgb(var(--plan-accent-rgb) / 0.3);
+        border-radius: 50%;
+        background: rgb(var(--plan-accent-rgb) / 0.09);
+        color: var(--plan-accent);
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:first-child,
+    #pricing.pricing-section--plans .price-option--intensive .price-option__topline span:last-child {
+        border-color: rgb(20 26 16 / 0.16);
+        background: rgb(20 26 16 / 0.07);
+        color: var(--ink);
+    }
+
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: clamp(1.1rem, 1.85vh, 1.45rem);
+        padding: 0.78rem 0.9rem;
+        border: 1px solid rgb(255 250 240 / 0.11);
+        border-radius: 0.85rem;
+        background: rgb(0 0 0 / 0.13);
+    }
+
+    #pricing.pricing-section--plans .price-option__format strong {
+        color: var(--paper);
+        font-size: clamp(0.88rem, 0.92vw, 1rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-option__format {
+        background: rgb(20 26 16 / 0.055);
+    }
+
+    #pricing.pricing-section--plans .price-option h3 {
+        max-width: 15ch;
+        margin-top: clamp(1.1rem, 1.8vh, 1.45rem);
+        font-size: clamp(1.72rem, 2.1vw, 2.25rem);
+        line-height: 0.96;
+    }
+
+    #pricing.pricing-section--plans .price-option .price-card__price {
+        margin-top: clamp(1rem, 1.75vh, 1.35rem);
+        font-size: clamp(3.2rem, 3.9vw, 4.65rem);
+        letter-spacing: -0.11em;
+        line-height: 0.8;
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
+        font-size: clamp(3.65rem, 4.7vw, 5.65rem);
+    }
+
+    #pricing.pricing-section--plans .price-option__benefit {
+        margin-top: 0.7rem;
+        padding: 0.48rem 0.72rem;
+        box-shadow: 0 0.5rem 1.2rem rgb(var(--plan-accent-rgb) / 0.14);
+    }
+
+    #pricing.pricing-section--plans .price-option__summary {
+        min-height: 2.85em;
+        margin-top: 0.85rem;
+        font-size: clamp(0.84rem, 0.88vw, 0.94rem);
+    }
+
+    #pricing.pricing-section--plans .price-option ul {
+        gap: 0.56rem;
+        margin-top: 1.05rem;
+    }
+
+    #pricing.pricing-section--plans .price-option li {
+        font-size: clamp(0.8rem, 0.84vw, 0.91rem);
+    }
+
+    #pricing.pricing-section--plans .price-option .btn-wide {
+        min-height: 3.4rem;
+        border-width: 1px;
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 900px) {
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(25.75rem, 54vh, 29.5rem) !important;
+        padding: 1.05rem 1.2rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline {
+        min-height: 1.95rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:first-child {
+        min-height: 1.85rem;
+        padding: 0.35rem 0.58rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__topline span:last-child {
+        width: 1.9rem;
+        height: 1.9rem;
+    }
+
+    #pricing.pricing-section--plans .price-option__format {
+        margin-top: 0.85rem;
+        padding: 0.58rem 0.7rem;
+    }
+
+    #pricing.pricing-section--plans .price-option h3 {
+        margin-top: 0.9rem;
+        font-size: clamp(1.42rem, 2vw, 1.9rem);
+    }
+
+    #pricing.pricing-section--plans .price-option .price-card__price {
+        margin-top: 0.82rem;
+        font-size: clamp(2.8rem, 3.7vw, 3.85rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive .price-card__price {
+        font-size: clamp(3.2rem, 4.35vw, 4.45rem);
+    }
+
+    #pricing.pricing-section--plans .price-option__summary {
+        margin-top: 0.62rem;
+        font-size: 0.78rem;
+    }
+
+    #pricing.pricing-section--plans .price-option ul {
+        gap: 0.38rem;
+        margin-top: 0.76rem;
+    }
+
+    #pricing.pricing-section--plans .price-option li {
+        font-size: 0.74rem;
+    }
+
+    #pricing.pricing-section--plans .price-option .btn-wide {
+        min-height: 2.8rem;
+    }
+}
+
+/* Pricing scale pass: larger plans without breaking the full-screen frame. */
+@media (min-width: 900px) {
+    #pricing.pricing-section--plans > .container {
+        width: min(100%, 118rem);
+    }
+
+    #pricing.pricing-section--plans .pricing-showcase__grid {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.28fr) minmax(0, 0.9fr);
+        gap: clamp(1.15rem, 1.55vw, 1.85rem) !important;
+    }
+
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(31rem, 62vh, 40rem) !important;
+        padding: clamp(1.45rem, 1.95vw, 2.15rem);
+    }
+
+    #pricing.pricing-section--plans .price-option--intensive {
+        transform: translateY(-0.38rem) !important;
+    }
+
+    /* The pointer spotlight reads as a vertical stripe on the light flagship card. */
+    #pricing.pricing-section--plans .price-option--intensive::after,
+    #pricing.pricing-section--plans .price-option--intensive.is-pricing-focus::after {
+        display: none !important;
+        opacity: 0 !important;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 900px) {
+    #pricing.pricing-section--plans .price-option {
+        min-height: clamp(27.25rem, 57vh, 32rem) !important;
+        padding: 1.15rem 1.35rem;
+    }
+}
+/* Compact full-screen layout for 1366x768 to 1440x900 laptops. */
+@media (min-width: 1200px) and (max-width: 1440px) and (max-height: 920px) {
+    html[data-viewport="desktop"] #roadmap.program-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.55rem) !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap.program-section > .container {
+        height: 100% !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        min-height: 0;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading {
+        margin-bottom: 0.65rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading .section-kicker {
+        margin-bottom: 0.35rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading h2 {
+        margin-top: 0 !important;
+        font-size: clamp(2rem, 2.5vw, 2.3rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-heading p {
+        max-width: none !important;
+        margin-top: 0.35rem !important;
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-layout {
+        height: 100% !important;
+        min-height: 0 !important;
+        gap: 1.25rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-modules {
+        gap: 0.38rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module,
+    html[data-viewport="desktop"] #roadmap .program-module__head {
+        min-height: 0 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__head {
+        grid-template-columns: 2.75rem minmax(0, 1fr) minmax(8rem, 10vw, 10rem) !important;
+        gap: 0.55rem !important;
+        padding: 0.38rem 0.8rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__title {
+        font-size: 0.93rem !important;
+        line-height: 1.05 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-module__volume {
+        font-size: 0.66rem !important;
+        line-height: 1.1 !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-detail {
+        padding: 1rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-section__cta,
+    html[data-viewport="desktop"] #roadmap .program-section__cta .btn-large {
+        min-height: 2.45rem !important;
+    }
+
+    html[data-viewport="desktop"] #roadmap .program-section__cta .btn-large {
+        padding-block: 0.55rem !important;
+        font-size: 0.78rem !important;
+    }
+
+    html[data-viewport="desktop"] #career.career-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.7rem) !important;
+        padding-bottom: 0.75rem !important;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__inner {
+        height: 100% !important;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        min-height: 0;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading {
+        margin-bottom: 0.75rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading .section-kicker {
+        margin-bottom: 0.3rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading h2 {
+        margin-top: 0;
+        font-size: clamp(2rem, 2.7vw, 2.45rem);
+        line-height: 1.02;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__heading p {
+        margin-top: 0.4rem;
+        font-size: 0.8rem;
+        line-height: 1.35;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__layout,
+    html[data-viewport="desktop"] #career .career-offers {
+        min-height: 0;
+        height: 100%;
+    }
+
+    html[data-viewport="desktop"] #career .career-section__layout {
+        gap: 1rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee,
+    html[data-viewport="desktop"] #career .career-offer {
+        min-height: 0;
+        padding: 0.95rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee h3 {
+        margin-top: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee p,
+    html[data-viewport="desktop"] #career .career-offer__summary {
+        margin-top: 0.65rem;
+        font-size: 0.74rem;
+        line-height: 1.35;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee ul,
+    html[data-viewport="desktop"] #career .career-offer ul {
+        gap: 0.35rem;
+        margin-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee li,
+    html[data-viewport="desktop"] #career .career-offer li {
+        font-size: 0.7rem;
+        line-height: 1.28;
+    }
+
+    html[data-viewport="desktop"] #career .career-access-benefit {
+        margin-top: 0.75rem;
+        padding: 0.55rem 0.65rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-guarantee small {
+        margin-top: 0.72rem;
+        padding-top: 0.65rem;
+        font-size: 0.62rem;
+        line-height: 1.28;
+    }
+
+    html[data-viewport="desktop"] #career .career-payment-switch {
+        margin-top: 0.7rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-payment-switch__option {
+        min-height: 2.05rem;
+        padding: 0.3rem 0.4rem;
+        font-size: 0.58rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offers {
+        gap: 0.85rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer h3 {
+        margin-top: 0.72rem;
+        font-size: 1.45rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__price,
+    html[data-viewport="desktop"] #career .career-offer__split-price {
+        margin-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__price,
+    html[data-viewport="desktop"] #career .career-offer__split-price strong {
+        font-size: clamp(2.55rem, 3.9vw, 3.35rem);
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions {
+        gap: 0.38rem;
+        padding-top: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions .btn-wide {
+        min-height: 2.35rem;
+        font-size: 0.72rem;
+    }
+
+    html[data-viewport="desktop"] #career .career-offer__actions a {
+        font-size: 0.56rem;
+    }
+}
+
+/* Keep the career offer inside a landscape tablet viewport. */
+@media (min-width: 900px) and (max-width: 1199px) and (max-height: 820px) {
+    html[data-viewport="tablet"] #career.career-section {
+        height: var(--viewport-height) !important;
+        min-height: var(--viewport-height) !important;
+        max-height: var(--viewport-height) !important;
+        padding-top: calc(var(--nav-height) + 0.55rem) !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        height: 100%;
+        min-height: 0;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading {
+        margin-bottom: 0.5rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading .section-kicker {
+        margin-bottom: 0.25rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading h2 {
+        margin-top: 0;
+        font-size: clamp(1.85rem, 3.1vw, 2.2rem);
+        line-height: 1.02;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__heading p {
+        margin-top: 0.3rem;
+        font-size: 0.72rem;
+        line-height: 1.3;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__layout,
+    html[data-viewport="tablet"] #career .career-offers {
+        height: 100%;
+        min-height: 0;
+    }
+
+    html[data-viewport="tablet"] #career .career-section__layout {
+        gap: 0.7rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee,
+    html[data-viewport="tablet"] #career .career-offer {
+        min-height: 0;
+        padding: 0.65rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee h3,
+    html[data-viewport="tablet"] #career .career-offer h3 {
+        margin-top: 0.45rem;
+        font-size: 1.18rem;
+        line-height: 1;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee p,
+    html[data-viewport="tablet"] #career .career-offer__summary {
+        margin-top: 0.42rem;
+        font-size: 0.62rem;
+        line-height: 1.25;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee ul,
+    html[data-viewport="tablet"] #career .career-offer ul {
+        gap: 0.27rem;
+        margin-top: 0.48rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee li,
+    html[data-viewport="tablet"] #career .career-offer li {
+        font-size: 0.59rem;
+        line-height: 1.2;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit {
+        gap: 0.4rem;
+        margin-top: 0.48rem;
+        padding: 0.36rem 0.44rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit strong {
+        font-size: 0.84rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-access-benefit span,
+    html[data-viewport="tablet"] #career .career-guarantee small {
+        font-size: 0.54rem;
+        line-height: 1.16;
+    }
+
+    html[data-viewport="tablet"] #career .career-guarantee small {
+        margin-top: 0.45rem;
+        padding-top: 0.42rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-payment-switch {
+        gap: 0.24rem;
+        margin-top: 0.42rem;
+        padding: 0.22rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-payment-switch__option {
+        min-height: 1.72rem;
+        padding: 0.22rem;
+        font-size: 0.5rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offers {
+        gap: 0.55rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__topline,
+    html[data-viewport="tablet"] #career .career-offer__availability {
+        font-size: 0.48rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__price,
+    html[data-viewport="tablet"] #career .career-offer__split-price {
+        margin-top: 0.45rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__price,
+    html[data-viewport="tablet"] #career .career-offer__split-price strong {
+        font-size: clamp(1.8rem, 3.45vw, 2.25rem);
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__split-price span {
+        font-size: 0.56rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions {
+        gap: 0.25rem;
+        padding-top: 0.45rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions .btn-wide {
+        min-height: 1.9rem;
+        font-size: 0.61rem;
+    }
+
+    html[data-viewport="tablet"] #career .career-offer__actions a {
+        font-size: 0.5rem;
+    }
+}
