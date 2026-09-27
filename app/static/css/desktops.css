@@ -50,3 +50,494 @@
         font-size: 0.72rem;
     }
 }
+
+/* Laptop typography scale: keep prose stable and let headings carry hierarchy. */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    html[data-viewport="desktop"],
+    html[data-viewport="wide"] {
+        /* desktops.css scales the root at 1700px; keep rem-based laptop typography stable. */
+        font-size: 16px !important;
+        --type-caption: 0.75rem;
+        --type-small: 0.875rem;
+        --type-body: 1rem;
+        --type-lead: 1.0625rem;
+        --type-h1: 3rem;
+        --type-h2: 2.25rem;
+        --type-h3: 1.75rem;
+        --type-h4: 1.5rem;
+    }
+
+    html[data-viewport="desktop"] #hero .hero-title,
+    html[data-viewport="wide"] #hero .hero-title {
+        font-size: var(--type-h1) !important;
+        line-height: 1.05 !important;
+    }
+
+    html[data-viewport="desktop"] #hero .hero-lead,
+    html[data-viewport="wide"] #hero .hero-lead,
+    html[data-viewport="desktop"] #about .about-intro,
+    html[data-viewport="wide"] #about .about-intro,
+    html[data-viewport="desktop"] #market-entry .market-entry__lead,
+    html[data-viewport="wide"] #market-entry .market-entry__lead,
+    html[data-viewport="desktop"] #reviews .reviews-section__intro,
+    html[data-viewport="wide"] #reviews .reviews-section__intro {
+        font-size: var(--type-lead) !important;
+        line-height: 1.5 !important;
+    }
+
+    html[data-viewport="desktop"] #start .start-step__lead,
+    html[data-viewport="wide"] #start .start-step__lead,
+    html[data-viewport="desktop"] #roadmap .program-detail p,
+    html[data-viewport="wide"] #roadmap .program-detail p {
+        font-size: var(--type-body) !important;
+        line-height: 1.5 !important;
+    }
+
+    html[data-viewport="desktop"] #hero .hero-note,
+    html[data-viewport="wide"] #hero .hero-note,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__review p,
+    html[data-viewport="wide"] #hero .hero-mentor-window__review p,
+    html[data-viewport="desktop"] #start .start-cta__note,
+    html[data-viewport="wide"] #start .start-cta__note,
+    html[data-viewport="desktop"] #about .about-media__caption p,
+    html[data-viewport="wide"] #about .about-media__caption p,
+    html[data-viewport="desktop"] #about .about-experience-note p,
+    html[data-viewport="wide"] #about .about-experience-note p,
+    html[data-viewport="desktop"] #about .about-quote p,
+    html[data-viewport="wide"] #about .about-quote p,
+    html[data-viewport="desktop"] #code-review p,
+    html[data-viewport="wide"] #code-review p,
+    html[data-viewport="desktop"] #platform p:not(.platform-note),
+    html[data-viewport="wide"] #platform p:not(.platform-note),
+    html[data-viewport="desktop"] #market-entry .market-entry-outcome-card p,
+    html[data-viewport="wide"] #market-entry .market-entry-outcome-card p,
+    html[data-viewport="desktop"] #market-entry .resume-sheet p,
+    html[data-viewport="wide"] #market-entry .resume-sheet p,
+    html[data-viewport="desktop"] #market-entry .resume-sheet__footer,
+    html[data-viewport="wide"] #market-entry .resume-sheet__footer,
+    html[data-viewport="desktop"] #reviews .review-card__comment p,
+    html[data-viewport="wide"] #reviews .review-card__comment p,
+    html[data-viewport="desktop"] #pricing .price-option__summary,
+    html[data-viewport="wide"] #pricing .price-option__summary,
+    html[data-viewport="desktop"] #pricing .price-option li,
+    html[data-viewport="wide"] #pricing .price-option li {
+        font-size: var(--type-small) !important;
+        line-height: 1.5 !important;
+    }
+
+    html[data-viewport="desktop"] #platform .platform-lead,
+    html[data-viewport="wide"] #platform .platform-lead,
+    html[data-viewport="desktop"] #reviews .reviews-section__lead,
+    html[data-viewport="wide"] #reviews .reviews-section__lead {
+        font-size: var(--type-body) !important;
+        line-height: 1.5 !important;
+    }
+
+    html[data-viewport="desktop"] #hero .hero-mentor-window__message h2,
+    html[data-viewport="wide"] #hero .hero-mentor-window__message h2,
+    html[data-viewport="desktop"] #start h3,
+    html[data-viewport="wide"] #start h3,
+    html[data-viewport="desktop"] #roadmap .program-detail__title,
+    html[data-viewport="wide"] #roadmap .program-detail__title,
+    html[data-viewport="desktop"] #pricing .price-option h3,
+    html[data-viewport="wide"] #pricing .price-option h3 {
+        font-size: var(--type-h4) !important;
+        line-height: 1.15 !important;
+    }
+
+    html[data-viewport="desktop"] #about h2,
+    html[data-viewport="wide"] #about h2,
+    html[data-viewport="desktop"] #roadmap h2,
+    html[data-viewport="wide"] #roadmap h2,
+    html[data-viewport="desktop"] #platform h2,
+    html[data-viewport="wide"] #platform h2,
+    html[data-viewport="desktop"] #market-entry h2,
+    html[data-viewport="wide"] #market-entry h2,
+    html[data-viewport="desktop"] #pricing h2,
+    html[data-viewport="wide"] #pricing h2 {
+        font-size: var(--type-h2) !important;
+        line-height: 1.1 !important;
+    }
+
+    html[data-viewport="desktop"] #code-review h2,
+    html[data-viewport="wide"] #code-review h2 {
+        font-size: var(--type-h1) !important;
+        line-height: 0.98 !important;
+    }
+
+    html[data-viewport="desktop"] #reviews h2,
+    html[data-viewport="wide"] #reviews h2 {
+        font-size: var(--type-h1) !important;
+        line-height: 1.02 !important;
+    }
+
+    html[data-viewport="desktop"] #reviews h3,
+    html[data-viewport="wide"] #reviews h3 {
+        font-size: var(--type-h3) !important;
+        line-height: 1.12 !important;
+    }
+
+    html[data-viewport="desktop"] .section-kicker,
+    html[data-viewport="wide"] .section-kicker,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__topline,
+    html[data-viewport="wide"] #hero .hero-mentor-window__topline,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__identity span,
+    html[data-viewport="wide"] #hero .hero-mentor-window__identity span,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__message > span,
+    html[data-viewport="wide"] #hero .hero-mentor-window__message > span,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__note,
+    html[data-viewport="wide"] #hero .hero-mentor-window__note,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__review-file,
+    html[data-viewport="wide"] #hero .hero-mentor-window__review-file,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__review-tag,
+    html[data-viewport="wide"] #hero .hero-mentor-window__review-tag,
+    html[data-viewport="desktop"] #hero .hero-mentor-window__status,
+    html[data-viewport="wide"] #hero .hero-mentor-window__status,
+    html[data-viewport="desktop"] #start .start-step__label,
+    html[data-viewport="wide"] #start .start-step__label,
+    html[data-viewport="desktop"] #about .about-media__status,
+    html[data-viewport="wide"] #about .about-media__status,
+    html[data-viewport="desktop"] #about .skill-badge,
+    html[data-viewport="wide"] #about .skill-badge,
+    html[data-viewport="desktop"] #code-review .github-review__hunk,
+    html[data-viewport="wide"] #code-review .github-review__hunk,
+    html[data-viewport="desktop"] #code-review small,
+    html[data-viewport="wide"] #code-review small,
+    html[data-viewport="desktop"] #code-review code,
+    html[data-viewport="wide"] #code-review code,
+    html[data-viewport="desktop"] #market-entry .resume-job__period,
+    html[data-viewport="wide"] #market-entry .resume-job__period,
+    html[data-viewport="desktop"] #market-entry .resume-sheet__index,
+    html[data-viewport="wide"] #market-entry .resume-sheet__index,
+    html[data-viewport="desktop"] #market-entry .resume-sheet__state,
+    html[data-viewport="wide"] #market-entry .resume-sheet__state,
+    html[data-viewport="desktop"] #reviews .review-card__eyebrow,
+    html[data-viewport="wide"] #reviews .review-card__eyebrow,
+    html[data-viewport="desktop"] #reviews .review-card__meta,
+    html[data-viewport="wide"] #reviews .review-card__meta,
+    html[data-viewport="desktop"] #reviews .review-card__person,
+    html[data-viewport="wide"] #reviews .review-card__person,
+    html[data-viewport="desktop"] #reviews .review-card__photo-hint,
+    html[data-viewport="wide"] #reviews .review-card__photo-hint,
+    html[data-viewport="desktop"] #roadmap .program-detail__volume,
+    html[data-viewport="wide"] #roadmap .program-detail__volume,
+    html[data-viewport="desktop"] #roadmap .program-module__volume,
+    html[data-viewport="wide"] #roadmap .program-module__volume,
+    html[data-viewport="desktop"] #platform .platform-window__chip,
+    html[data-viewport="wide"] #platform .platform-window__chip,
+    html[data-viewport="desktop"] #platform .platform-lesson__label,
+    html[data-viewport="wide"] #platform .platform-lesson__label,
+    html[data-viewport="desktop"] #pricing .price-option__term,
+    html[data-viewport="wide"] #pricing .price-option__term,
+    html[data-viewport="desktop"] #pricing .price-option__note,
+    html[data-viewport="wide"] #pricing .price-option__note,
+    html[data-viewport="desktop"] #pricing .price-option__benefit,
+    html[data-viewport="wide"] #pricing .price-option__benefit {
+        font-size: var(--type-caption) !important;
+        line-height: 1.35 !important;
+    }
+}
+
+/* Fit the career comparison into laptop-height viewports without shrinking body text below 14px. */
+@media (min-width: 1200px) and (max-width: 1920px) and (max-height: 900px) {
+    html[data-viewport="desktop"] #market-entry .market-entry__support-note,
+    html[data-viewport="wide"] #market-entry .market-entry__support-note {
+        display: none !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet,
+    html[data-viewport="wide"] #market-entry .resume-sheet {
+        padding: 0.56rem 0.68rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet__top,
+    html[data-viewport="wide"] #market-entry .resume-sheet__top {
+        padding-bottom: 0.3rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet__person,
+    html[data-viewport="wide"] #market-entry .resume-sheet__person {
+        margin-top: 0.3rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__section,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__section {
+        margin-top: 0.24rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-job__text,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-job__text,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__footer,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__footer {
+        font-size: var(--type-small) !important;
+        line-height: 1.22 !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-job-list,
+    html[data-viewport="wide"] #market-entry .resume-job-list {
+        gap: 0.08rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-job,
+    html[data-viewport="wide"] #market-entry .resume-job {
+        padding-block: 0.1rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet__footer,
+    html[data-viewport="wide"] #market-entry .resume-sheet__footer {
+        margin-top: 0.22rem !important;
+        padding-top: 0.22rem !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1920px) and (max-height: 760px) {
+    html[data-viewport="desktop"] #market-entry .market-entry__lead,
+    html[data-viewport="wide"] #market-entry .market-entry__lead {
+        display: none !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps,
+    html[data-viewport="wide"] #market-entry .market-entry__steps {
+        gap: 0.36rem !important;
+        margin-top: 0.58rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps > div,
+    html[data-viewport="wide"] #market-entry .market-entry__steps > div {
+        padding: 0.44rem 0.62rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps p,
+    html[data-viewport="wide"] #market-entry .market-entry__steps p {
+        margin-top: 0.14rem !important;
+        font-size: var(--type-small) !important;
+        line-height: 1.28 !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1370px) {
+    html[data-viewport="desktop"] {
+        --type-small: 0.875rem;
+        --type-body: 0.9375rem;
+        --type-lead: 1rem;
+        --type-h1: 2.5rem;
+        --type-h2: 2rem;
+        --type-h3: 1.5rem;
+        --type-h4: 1.25rem;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1920px) {
+    html[data-viewport="wide"] {
+        --type-h1: 3.25rem;
+        --type-h2: 2.5rem;
+        --type-h3: 2rem;
+        --type-h4: 1.5rem;
+    }
+}
+
+/* Explicit content roles for sections with denser, more specific legacy rules. */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    html[data-viewport="desktop"] #market-entry .market-entry__support h2,
+    html[data-viewport="wide"] #market-entry .market-entry__support h2 {
+        font-size: var(--type-h2) !important;
+        line-height: 1.1 !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps p,
+    html[data-viewport="wide"] #market-entry .market-entry__steps p,
+    html[data-viewport="desktop"] #market-entry .market-entry__support-note,
+    html[data-viewport="wide"] #market-entry .market-entry__support-note,
+    html[data-viewport="desktop"] #reviews .reviews-section__heading > p,
+    html[data-viewport="wide"] #reviews .reviews-section__heading > p,
+    html[data-viewport="desktop"] #platform .platform-note,
+    html[data-viewport="wide"] #platform .platform-note {
+        font-size: var(--type-small) !important;
+        line-height: 1.5 !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-job p.resume-job__text,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-job p.resume-job__text,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__footer,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__footer {
+        font-size: var(--type-small) !important;
+        line-height: 1.4 !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__section > span,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__section > span,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__person span,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__person span,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-job__period,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-job__period,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__index,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__index,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__state,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__state,
+    html[data-viewport="desktop"] #market-entry .market-entry__steps > div > span,
+    html[data-viewport="wide"] #market-entry .market-entry__steps > div > span {
+        font-size: var(--type-caption) !important;
+        line-height: 1.35 !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-job strong,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-job strong {
+        font-size: var(--type-small) !important;
+        line-height: 1.25 !important;
+    }
+
+    html[data-viewport="desktop"] #start .start-step__detail,
+    html[data-viewport="wide"] #start .start-step__detail,
+    html[data-viewport="desktop"] #pricing .price-option__note,
+    html[data-viewport="wide"] #pricing .price-option__note,
+    html[data-viewport="desktop"] #pricing .price-option__benefit,
+    html[data-viewport="wide"] #pricing .price-option__benefit {
+        font-size: var(--type-small) !important;
+        line-height: 1.45 !important;
+    }
+}
+
+/* Show more resume evidence as the viewport gains vertical room. */
+#market-entry .resume-copy__medium,
+#market-entry .resume-copy__large,
+#market-entry .resume-copy__full {
+    display: none;
+}
+
+@media (min-width: 1200px) and (min-height: 720px) {
+    #market-entry .resume-copy__medium {
+        display: inline;
+    }
+}
+
+@media (min-width: 1200px) and (min-height: 840px) {
+    #market-entry .resume-copy__large {
+        display: inline;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1920px) and (min-height: 840px),
+       (min-width: 1921px) and (min-height: 1000px) {
+    #market-entry .resume-copy__responsive {
+        display: none;
+    }
+
+    #market-entry .resume-copy__full {
+        display: inline;
+    }
+}
+
+/* Keep both resume columns proportional to the laptop viewport. */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    html[data-viewport="desktop"] #market-entry.market-entry-section,
+    html[data-viewport="wide"] #market-entry.market-entry-section {
+        height: auto !important;
+        min-height: var(--viewport-height) !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html[data-viewport="desktop"] #pricing.section,
+    html[data-viewport="wide"] #pricing.section {
+        height: auto !important;
+        min-height: var(--viewport-height) !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__shell,
+    html[data-viewport="wide"] #market-entry .market-entry__shell {
+        --comparison-gap: clamp(0.8rem, 1.2vw, 1.25rem);
+        --support-width: clamp(17rem, 20vw, 21rem);
+        height: 80vh !important;
+        height: 80dvh !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        max-width: 92rem !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, min(70vw, calc(100% - var(--support-width) - var(--comparison-gap)))) !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        gap: var(--comparison-gap) !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__compare,
+    html[data-viewport="wide"] #market-entry .market-entry__compare,
+    html[data-viewport="desktop"] #market-entry .resume-compare__document,
+    html[data-viewport="wide"] #market-entry .resume-compare__document {
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-compare__document,
+    html[data-viewport="wide"] #market-entry .resume-compare__document {
+        overflow: hidden !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .resume-compare__document .resume-sheet,
+    html[data-viewport="wide"] #market-entry .resume-compare__document .resume-sheet {
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        justify-content: space-between !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__support-note,
+    html[data-viewport="wide"] #market-entry .market-entry__support-note {
+        display: none !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps,
+    html[data-viewport="wide"] #market-entry .market-entry__steps {
+        margin-top: min(2vh, 1rem) !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__support,
+    html[data-viewport="wide"] #market-entry .market-entry__support,
+    html[data-viewport="desktop"] #market-entry .market-entry__compare,
+    html[data-viewport="wide"] #market-entry .market-entry__compare,
+    html[data-viewport="desktop"] #market-entry .resume-compare__document,
+    html[data-viewport="wide"] #market-entry .resume-compare__document {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Keep compact laptop text readable without cutting off the resume examples. */
+@media (min-width: 1200px) and (max-width: 1920px) and (max-height: 900px) {
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__section p,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-job p.resume-job__text,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-job p.resume-job__text,
+    html[data-viewport="desktop"] #market-entry .resume-sheet .resume-sheet__footer,
+    html[data-viewport="wide"] #market-entry .resume-sheet .resume-sheet__footer {
+        line-height: 1.22 !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1920px) and (max-height: 800px) {
+    html[data-viewport="desktop"] #market-entry .market-entry__lead,
+    html[data-viewport="wide"] #market-entry .market-entry__lead {
+        display: none !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps,
+    html[data-viewport="wide"] #market-entry .market-entry__steps {
+        gap: 0.36rem !important;
+        margin-top: 0.58rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps > div,
+    html[data-viewport="wide"] #market-entry .market-entry__steps > div {
+        padding: 0.44rem 0.62rem !important;
+    }
+
+    html[data-viewport="desktop"] #market-entry .market-entry__steps p,
+    html[data-viewport="wide"] #market-entry .market-entry__steps p {
+        margin-top: 0.14rem !important;
+        line-height: 1.28 !important;
+    }
+}
