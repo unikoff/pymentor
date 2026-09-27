@@ -3944,8 +3944,7 @@ html[data-viewport="tablet"] #start .start-journey {
 }
 
 #start .start-step__detail,
-#start .start-step__platform-link,
-#start .start-step__offer-link {
+#start .start-step__platform-link {
     align-self: end;
     width: fit-content;
     margin: clamp(0.9rem, 1.35vmin, 1.3rem) 0 0;
@@ -3973,8 +3972,7 @@ html[data-viewport="tablet"] #start .start-journey {
     box-shadow: 0 0 12px rgba(183, 255, 90, 0.5);
 }
 
-#start .start-step__platform-link,
-#start .start-step__offer-link {
+#start .start-step__platform-link {
     padding: 0 0 0.34rem;
     border-bottom: 1px solid rgba(183, 255, 90, 0.66);
     color: rgba(255, 250, 240, 0.92);
@@ -3982,8 +3980,7 @@ html[data-viewport="tablet"] #start .start-journey {
     letter-spacing: 0.01em;
 }
 
-#start .start-step__platform-link:hover,
-#start .start-step__offer-link:hover {
+#start .start-step__platform-link:hover {
     border-color: var(--brand);
     color: var(--brand);
 }
@@ -4092,14 +4089,12 @@ html[data-viewport="tablet"] #start .start-journey {
     }
 
     #start .start-step__detail,
-    #start .start-step__platform-link,
-    #start .start-step__offer-link {
+    #start .start-step__platform-link {
         margin-top: 0.56rem;
         font-size: 15px;
     }
 
-    #start .start-step__platform-link,
-    #start .start-step__offer-link {
+    #start .start-step__platform-link {
         padding-bottom: 0.22rem;
     }
 
@@ -5002,8 +4997,7 @@ html[data-viewport="tablet"] #about .about-photo img {
     }
 
     #start .start-step__detail,
-    #start .start-step__platform-link,
-    #start .start-step__offer-link {
+    #start .start-step__platform-link {
         width: fit-content;
         margin-top: 1rem;
         font-size: 0.8rem;
@@ -12288,40 +12282,6 @@ html[data-viewport="tablet"] #pricing .price-card__price {
     font-size: 0.75rem;
     line-height: 1.35;
     text-align: center;
-}
-
-#pricing.pricing-section--plans .pricing-start-terms {
-    max-width: 80rem;
-    margin: 0.75rem auto 0;
-    color: rgba(255, 250, 240, 0.78);
-    font-size: 0.8rem;
-    line-height: 1.5;
-}
-
-#pricing.pricing-section--plans .pricing-start-terms summary {
-    width: fit-content;
-    margin: 0 auto;
-    color: var(--paper);
-    cursor: pointer;
-}
-
-#pricing.pricing-section--plans .pricing-start-terms summary:focus-visible {
-    outline: 2px solid var(--brand);
-    outline-offset: 3px;
-}
-
-#pricing.pricing-section--plans .pricing-start-terms__body {
-    display: grid;
-    gap: 0.45rem;
-    margin-top: 0.65rem;
-    padding: 0.9rem 1.1rem;
-    border: 1px solid rgba(255, 250, 240, 0.14);
-    border-radius: 0.85rem;
-    background: rgba(10, 20, 12, 0.92);
-}
-
-#pricing.pricing-section--plans .pricing-start-terms__body p {
-    margin: 0;
 }
 
 @media (min-width: 900px) {
