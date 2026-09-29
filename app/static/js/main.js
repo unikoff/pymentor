@@ -809,7 +809,7 @@ function initSectionScrollSnap() {
     }
 
     const snapTargets = Array.from(
-        document.querySelectorAll('main > section, main > .section, body > footer.site-footer')
+        document.querySelectorAll('main > section, main > .section, main > .mobile-section-run > section, body > footer.site-footer')
     ).filter((node) => node instanceof HTMLElement);
 
     if (snapTargets.length === 0) return;
@@ -1193,7 +1193,7 @@ function initActiveNavigation() {
     });
 
     const sections = Array.from(
-        document.querySelectorAll('main > section[id], body > footer')
+        document.querySelectorAll('main > section[id], main > .mobile-section-run > section[id], body > footer')
     ).filter((section) => section instanceof HTMLElement);
 
     if (sections.length === 0) return;
@@ -1529,8 +1529,9 @@ function initProgramAccordion() {
         });
     });
 
-    // По умолчанию показываем первый модуль в панели деталей.
-    selectModule(modules[0]);
+    // На мобильных первый шаг сразу раскрыт; на широком экране модуль
+    // только выбран в панели деталей.
+    selectModule(modules[0], { openBody: window.matchMedia('(max-width: 768px)').matches });
 }
 
 // Pricing Carousel for Mobile
@@ -2044,8 +2045,35 @@ function initReviewCardInteractions() {
     const mobileQuery = window.matchMedia('(max-width: 899px)');
 
     const setExpanded = (card, expanded) => {
+        const currentHeight = card.getBoundingClientRect().height;
+
+        card.style.transition = 'none';
+        card.style.removeProperty('height');
         card.classList.toggle('is-expanded', expanded);
         card.setAttribute('aria-expanded', String(expanded));
+
+        const targetHeight = card.getBoundingClientRect().height;
+        card.style.height = `${currentHeight}px`;
+        void card.offsetHeight;
+        card.style.removeProperty('transition');
+
+        const animationId = (Number(card.dataset.heightAnimationId) || 0) + 1;
+        card.dataset.heightAnimationId = String(animationId);
+        const finishAnimation = () => {
+            if (card.dataset.heightAnimationId !== String(animationId)) return;
+            card.style.height = expanded ? 'auto' : '';
+        };
+        const onHeightTransitionEnd = (event) => {
+            if (event.propertyName !== 'height') return;
+            card.removeEventListener('transitionend', onHeightTransitionEnd);
+            finishAnimation();
+        };
+        card.addEventListener('transitionend', onHeightTransitionEnd);
+        card.style.height = `${targetHeight}px`;
+        window.setTimeout(() => {
+            card.removeEventListener('transitionend', onHeightTransitionEnd);
+            finishAnimation();
+        }, 420);
     };
 
     cards.forEach((card) => {
@@ -2065,7 +2093,15 @@ function initReviewCardInteractions() {
     });
 
     mobileQuery.addEventListener('change', ({ matches }) => {
-        if (!matches) cards.forEach((card) => setExpanded(card, false));
+        if (!matches) {
+            cards.forEach((card) => {
+                card.dataset.heightAnimationId = String((Number(card.dataset.heightAnimationId) || 0) + 1);
+                card.classList.remove('is-expanded');
+                card.setAttribute('aria-expanded', 'false');
+                card.style.removeProperty('height');
+                card.style.removeProperty('transition');
+            });
+        }
     });
 }
 

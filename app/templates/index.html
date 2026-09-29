@@ -13,9 +13,11 @@
     {% include 'sections/about.html' %}
     {% include 'sections/roadmap.html' %}
     {% include 'sections/code_review.html' %}
-    {% include 'sections/platform.html' %}
-    {% include 'sections/market_entry.html' %}
-    {% include 'sections/reviews.html' %}
-    {% include 'sections/pricing.html' %}
+    <div class="mobile-section-run">
+        {% include 'sections/platform.html' %}
+        {% include 'sections/market_entry.html' %}
+        {% include 'sections/reviews.html' %}
+        {% include 'sections/pricing.html' %}
+    </div>
     <!-- {% include 'sections/career.html' %} -->
 {% endblock %}

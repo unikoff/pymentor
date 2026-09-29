@@ -399,6 +399,7 @@
         
         main > section,
         main > .section,
+        main > .mobile-section-run > section,
         footer {
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -2515,12 +2516,14 @@ html[data-viewport="mobile"] {
 
 main > section,
 main > .section,
+main > .mobile-section-run > section,
 footer {
     scroll-margin-top: 0;
 }
 
 html[data-viewport="mobile"] main > section,
 html[data-viewport="mobile"] main > .section,
+html[data-viewport="mobile"] main > .mobile-section-run > section,
 html[data-viewport="mobile"] footer {
     scroll-margin-top: var(--nav-height);
 }
@@ -3073,7 +3076,10 @@ body {
 
 html[data-viewport="desktop"] main > section,
 html[data-viewport="wide"] main > section,
-html[data-viewport="tablet"] main > section {
+html[data-viewport="tablet"] main > section,
+html[data-viewport="desktop"] main > .mobile-section-run > section,
+html[data-viewport="wide"] main > .mobile-section-run > section,
+html[data-viewport="tablet"] main > .mobile-section-run > section {
     min-height: var(--viewport-height);
     padding-top: calc(var(--nav-height) + clamp(28px, 3.8vmin, 66px));
     padding-bottom: clamp(44px, 5vmin, 92px);
@@ -3082,7 +3088,13 @@ html[data-viewport="tablet"] main > section {
 
 html[data-viewport="desktop"] main > section + section,
 html[data-viewport="wide"] main > section + section,
-html[data-viewport="tablet"] main > section + section {
+html[data-viewport="tablet"] main > section + section,
+html[data-viewport="desktop"] main > .mobile-section-run > section + section,
+html[data-viewport="wide"] main > .mobile-section-run > section + section,
+html[data-viewport="tablet"] main > .mobile-section-run > section + section,
+html[data-viewport="desktop"] main > section + .mobile-section-run > section:first-child,
+html[data-viewport="wide"] main > section + .mobile-section-run > section:first-child,
+html[data-viewport="tablet"] main > section + .mobile-section-run > section:first-child {
     margin-top: clamp(118px, 13vh, 240px);
 }
 
@@ -3600,14 +3612,20 @@ html[data-viewport="tablet"] #market-entry.market-entry-redesign {
 /* Snap sections must not visually drift after the scroll lands. */
 html[data-viewport="desktop"] main > section.fade-in,
 html[data-viewport="wide"] main > section.fade-in,
-html[data-viewport="tablet"] main > section.fade-in {
+html[data-viewport="tablet"] main > section.fade-in,
+html[data-viewport="desktop"] main > .mobile-section-run > section.fade-in,
+html[data-viewport="wide"] main > .mobile-section-run > section.fade-in,
+html[data-viewport="tablet"] main > .mobile-section-run > section.fade-in {
     transform: none !important;
     transition: opacity 0.45s ease !important;
 }
 
 html[data-viewport="desktop"] main > section.fade-in.visible,
 html[data-viewport="wide"] main > section.fade-in.visible,
-html[data-viewport="tablet"] main > section.fade-in.visible {
+html[data-viewport="tablet"] main > section.fade-in.visible,
+html[data-viewport="desktop"] main > .mobile-section-run > section.fade-in.visible,
+html[data-viewport="wide"] main > .mobile-section-run > section.fade-in.visible,
+html[data-viewport="tablet"] main > .mobile-section-run > section.fade-in.visible {
     transform: none !important;
 }
 
